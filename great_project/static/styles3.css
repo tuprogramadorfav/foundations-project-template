@@ -1,0 +1,90 @@
+*{
+    margin: 0;
+    padding: 0;
+    user-select: none;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    list-style: none;
+    text-decoration: none;
+  }
+
+
+#logo{ 
+    width: 180px;
+    margin: 7px 0px 7px 15px;
+  }
+
+.container{
+    display: flex;
+    background-color: black;
+    color: white;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+}
+
+.container ul{
+    display: flex;
+    margin: 0 15px;
+}
+
+.container .titles{
+    margin-top: 10px;
+}
+
+.container ul li{
+    z-index: 5;
+}
+
+.container ul li a{
+    color: white;
+    padding: 20px;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.container ul li .cool-hover::after{
+    content: '';
+    display: block;
+    width: 0;
+    height: 3px;
+    border-radius: 5px;
+    background: rgb(187,186,185);
+    transition: width .3s;
+}
+
+.container ul li .cool-hover:hover::after{
+   width: 102%;
+   transition: width .3s;
+}
+
+.container ul li a:hover{ 
+    color: rgb(187,186,185);
+}
+
+.container ul .dropdown-menu{
+    position: absolute;
+    margin-left: 140px;
+    top: 70px;
+    flex-direction: column;
+    background-color: black;
+    visibility: hidden;
+    transition: 0.3s;
+}
+
+.container .titles li a:hover .dropdown-menu{
+    visibility: visible;
+}
+
+.container .header-social-icons{
+    margin-right: 15px;
+    display: flex;
+    justify-content: space-evenly;
+    font-size: 25px;
+    width: 150px;
+
+}
+
+.container .header-social-icons .user-menu{
+    display: none;
+}

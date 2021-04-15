@@ -1,0 +1,51 @@
+<html>
+
+<head>
+    <title> CEBJJ</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="../static/styles2.css"/>
+    <script type="text/javascript" src="{{ url_for('static', filename='script.js') }}"></script>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <script src="https://use.fontawesome.com/dbcdee21c8.js"></script>
+</head>
+<body>
+    <nav class=container>
+        
+       <div class="logo">
+            <a href="{{ url_for('index') }}"><img src="https://www.circuitoecuatorianobjj.com/wp-content/uploads/2020/09/CEBJJ-LOGO.png" alt="CEBJJ" id="logo" data-height-percentage="65" data-actual-width="976" data-actual-height="312.047"></a>
+       </div>
+       
+       <label for="btn" class="icon">
+       <span class="fa fa-bars"></span>
+       
+       </label>
+       <input type="checkbox" id="btn">
+       <ul>
+          <li><a href="#">Calendario</a></li>
+          <li>
+             <a href="#">Resultados</a>
+             <input type="checkbox" id="btn-1">
+          </li>
+          <li>
+             <label for="btn-2" class="show">Ranking +</label>
+             <a href="#">Ranking</a>
+             <input type="checkbox" id="btn-2">
+             <ul>
+                <li><a href="#">Atletas</a></li>
+                <li><a href="#">Academias</a></li>
+
+                </li>
+             </ul>
+          </li>
+          <li><a href="#">Registrarse</a></li>
+       </ul>
+       <div class="header-social-icons">
+        <ul>
+          <li><a href="{{ url_for('login') }}"><i class="fa fa-user"></i></a></li>
+          <li><a href="#" target="blank"><i class="fa fa-facebook"></i></a></li>
+          <li><a href="#" target="blank"><i class="fa fa-instagram"></i></a></li>
+        </ul>
+      </div>
+    </nav>
+ </body>
+</html>

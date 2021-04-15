@@ -1,0 +1,43 @@
+<html>
+
+<head>
+    <title> CEBJJ</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='script.js') }}"></script>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <script src="https://use.fontawesome.com/dbcdee21c8.js"></script>
+</head>
+  <body>
+    <section>
+        <div class="imgBx">
+        <img src="{{ url_for('static', filename='login2.jpg') }}">
+        </div>
+        <div class="contentBx">
+            <div class="formBx">
+                <h2>Iniciar Sesion</h2>
+                <form>
+                    <div class="inputBx">
+                        <span>Nombre de Usuario</span>
+                        <input type="text" name="">
+                    </div>
+                    <div class="inputBx">
+                        <span>Contrasena</span>
+                        <input type="password" name="">
+                    </div>
+                    <div class="remember">
+                        <label><input type="checkbox" name="">Recuerdame</label>
+                    </div>
+                    <div class="inputBx">
+                        <input type="submit" value="Iniciar Sesion" name="">
+                    </div>
+                    <div class="inputBx">
+                        <p>Miembro Nuevo? <br><a href="#">Empieza aqui</a></p>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </section>
+  </body>
+</html>

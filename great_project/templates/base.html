@@ -1,24 +1,61 @@
 <html>
 
 <head>
-    <title> {{ page_title }}</title>
+    <title> CEBJJ</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <script type="text/javascript" src="{{ url_for('static', filename='script.js') }}"></script>
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <script src="https://use.fontawesome.com/dbcdee21c8.js"></script>
 </head>
+<header>
+    <div class="container">
+      <a href="{{ url_for('index') }}"><img src="https://www.circuitoecuatorianobjj.com/wp-content/uploads/2020/09/CEBJJ-LOGO.png" alt="CEBJJ" id="logo" data-height-percentage="65" data-actual-width="976" data-actual-height="312.047"></a>
+      </div>
+      <nav>
+        <ul class="nav_links">
+          <li><a href="{{ url_for('calendario') }}">Calendario</a></li>
+          <li><a href="#">Resultados</a></li>
+          <li><a href="{{ url_for('rankingaca') }}">Ranking</a>
+          </li>
+          <li><a href="{{ url_for('registrarse') }}">Registrarse</a></li>
+        </ul>
+      </nav>
+      <div class="header-social-icons">
+        <ul>
+          <li><a href="{{ url_for('login') }}"><i class="fa fa-user"></i></a></li>
+          <li><a href="https://www.facebook.com/circuitoecuatorianobjj/" target="blank"><i class="fa fa-facebook"></i></a></li>
+          <li><a href="https://www.instagram.com/circuitoecuatorianobjj/?hl=en" target="blank"><i class="fa fa-instagram"></i></a></li>
+        </ul>
+      </div>
 
+  </header> 
 <body>
-
-    <header>
-        <div class="banner">
-            <h1> My Great Project</h1>
-        </div>
-    </header>
-    <main>
-        {% block content%} {% endblock %}
-    </main>
-    <footer>
-        <h3> <em> By Your Name Here </em></h3>
-    </footer>
+    {% block content%} {% endblock %}
 </body>
+<footer>
+    <div class="footer-logo">
+      <img src="https://cdn.glitch.com/9c567fb4-d585-45c3-a06c-32a0528cf2e3%2F16729262_1379420325411872_8602478582999078293_n.jpg?v=1616912388380">
+    </div>
+    <hr>
+    <div class="footer-social-icons">
+      <ul>
+        <li><a href="https://www.facebook.com/circuitoecuatorianobjj/" target="blank"><i class="fa fa-facebook"></i></a></li>
+        <li><a href="https://www.instagram.com/circuitoecuatorianobjj/?hl=en" target="blank"><i class="fa fa-instagram"></i></a></li>
+      </ul>
+    </div>
+    <hr>
+    <div class="footer-menu-one">
+      <ul>
+        <li><a href="#">Eventos</a></li>
+        <li><a href="#">Ranking</a></li>
+        <li><a href="#">Ranking por Equipos</a></li>
+      </ul>
+    </div>
+    <div class="footer-bottom">
+      <p>
+        Design by: <a href="#">Juan Antonio Romero</a>
+      </p>
+    </div>
+  </footer>
+</html>
