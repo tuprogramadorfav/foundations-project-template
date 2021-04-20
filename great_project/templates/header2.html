@@ -1,40 +1,75 @@
+<!DOCTYPE html>
 <html>
 
 <head>
     <title> CEBJJ</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" type="text/css" href="../static/styles3.css"/>
-    <script type="text/javascript" src="{{ url_for('static', filename='script.js') }}"></script>
-    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <script src="https://use.fontawesome.com/dbcdee21c8.js"></script>
 </head>
 <body>
    <nav class=container>
+      <input type="checkbox" id="click" onclick="myFunction()" >
+      <label for="click" class="menu-btn" id="user">
+         <i class="fa fa-user"></i>
+      </label>
+      
       <div class="logo">
-         <a href="{{ url_for('index') }}"><img src="https://www.circuitoecuatorianobjj.com/wp-content/uploads/2020/09/CEBJJ-LOGO.png" alt="CEBJJ" id="logo" data-height-percentage="65" data-actual-width="976" data-actual-height="312.047"></a>
+         <a href="#"><img src="https://www.circuitoecuatorianobjj.com/wp-content/uploads/2020/09/CEBJJ-LOGO.png" alt="CEBJJ" id="logo" data-height-percentage="65" data-actual-width="976" data-actual-height="312.047"></a>
       </div>
-      <ul class="titles">
+      <input type="checkbox" id="click1" onclick="myFunction1()" >
+      <label for="click1" class="menu-btn" id="burguer">
+         <i class="fa fa-bars"></i>
+      </label>
+      <div class="dropdown">
+         <button class="dropbtn">Calendario</button>
+         <button class="dropbtn">Resultados</button>
+         <button class="dropbtn" for="click3">Ranking <i class="fa fa-caret-down" id="down-arrow"></i></button>
+            <div class="dropdown-content">
+               <a href="#">Atletas</a>
+               <a href="#">Academias</a>
+            </div>
+         <button class="dropbtn">Registrarse</button>
+       </div>
+       <div class="dropdown-content3">
+         <a href="#">Iniciar Sesion</a>
+         <a href="#">Membresia</a>
+      </div>
+      <!-- <ul class="titles">
          <li><a href="#" class="cool-hover">Calendario</a></li>
          <li><a href="#" class="cool-hover">Resultados</a></li>
-         <li><a href="#" class="cool-hover" id="ranking-title">Ranking</a></li>
-            <ul class="dropdown-menu">
+         <li><a href="#" class="cool-hover" id="ranking-title">Ranking</a></li> -->
+            <!-- <ul class="dropdown-menu">
                <li><a href="#" class="cool-hover">Atletas</a></li>
                <li><a href="#" class="cool-hover">Academias</a></li> 
-            </ul>
-         </li>
+            </ul> -->
+         <!-- </li>
          <li><a href="#" class="cool-hover">Registrarse</a></li>
-      </ul>
+      </ul> -->
       <div class="header-social-icons">
-         <ul>
-            <li><a href="{{ url_for('login') }}"><i class="fa fa-user"></i></a></li>
-               <ul class="user-menu">
-                  <li>Iniciar Sesion</li>
-                  <li>Membresia</li>
-               </ul>
-            <li><a href="#" target="blank"><i class="fa fa-facebook"></i></a></li>
-            <li><a href="#" target="blank"><i class="fa fa-instagram"></i></a></li>
+         <a href="{{ url_for('login') }}" class="dropicon"><i class="fa fa-user"></i><i class="fa fa-caret-down" id="down-arrow1"></i></a>
+            <div class="dropdown-content2">
+               <a href="#">Iniciar Sesion</a>
+               <a href="#">Membresia</a>
+            </div>
+            <a href="#" target="blank"><i class="fa fa-facebook"></i></a>
+            <a href="#" target="blank"><i class="fa fa-instagram"></i></a>
          </ul>
       </div>
     </nav>
+    <script>
+      var userLabel = document.getElementById('click')
+      var burguerLabel = document.getElementById('click1')
+      function myFunction(){
+         if (userLabel.checked){
+            burguerLabel.checked = false;
+         }
+      }
+      function myFunction1(){
+         if (burguerLabel.checked){
+            userLabel.checked = false;
+         }
+      }
+    </script>
  </body>
 </html>

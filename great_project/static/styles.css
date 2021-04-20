@@ -1,125 +1,269 @@
 *{
-    font-family: 'Poppins', sans-serif;
-    margin: 0;
-    padding: 0;
-    user-select: none;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+  list-style: none;
+  text-decoration: none;
 }
 
-header{
-  background: black;
+.main-div{
+  margin:auto;
+  padding: 0;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 80%;
+}
+/* navigation bar */
+#logo{ 
+  width: 180px;
+  margin: 7px 0px 7px 15px;
+}
+
+.container{
   display: flex;
+  background-color: black;
+  color: white;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 3% 10px 0;
-  content: none;
-  width: 125%;
-  height: 91px;
-  box-sizing: border-box;
+  font-size: 18px;
 }
 
-body{
-    margin:auto;
-    padding: 0;
-    display:flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    width: 80%;
-  }
-  
-  a{
-    text-decoration:none;
-    outline:none;
-  }
+
+.dropbtn:after, .dropbtn1:after, .dropdown-content a:after, .dropdown-content3 a:after{
+  content: '';
+  display: block;
+  width: 0;
+  height: 2px;
+  border-radius: 5px;
+  background: rgb(187,186,185);
+  transition: width .3s;
+}
+
+.dropbtn:hover::after, .dropbtn1:hover::after, .dropdown-content a:hover::after, .dropdown-content3 a:hover::after{
+ width: 101%;
+ transition: width .3s;
+}
+.dropbtn a{ 
+  color:white;
+}
+.container .header-social-icons a:hover{ 
+  color: rgb(187,186,185);
+}
+
+.dropbtn:hover, .dropbtn1:hover, .dropdown-content a:hover, .dropdown-content3 a:hover, .dropbtn a:hover{ 
+  color: rgb(187,186,185);
+}
 
 
-  
-  #logo{ 
-    width: 135.063px;
-    height: 43.188px;
-    margin-left: 15px
+.dropbtn, .dropbtn1 {
+  background-color: black;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+}
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+.dropdown-content {
+  display: none;
+  width: 120px;
+  position: absolute;
+  background-color: black;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  border-radius: 4px;
+  top: 3rem;
+  left: 240px;
+}
+.dropdown-content a {
+  color: white;
+  padding: 12px 14px;
+  text-decoration: none;
+  border-bottom: 0.5px solid #ddd;
+  font-size: 16px;
+  display: block;
+  font-weight: bold;
+}
+
+.dropbtn:hover + .dropdown-content {display: block;}
+.dropdown-content:hover{
+    display: block;
+}
+
+.container .header-social-icons{
+  margin-right: 15px;
+  display: inline-block;
+  justify-content: space-evenly;
+  font-size: 25px;
+  width: 160px;
+  position: relative;
+}
+#down-arrow{
+  font-size: 13px;
+  padding-top: 2.5px;
+}
+
+#down-arrow1{
+  font-size: 13px;
+  padding-left: 3.5px;
+  padding-top: 2px;
+}
+
+.container .header-social-icons a{
+  background-color: black;
+  color: white;
+  padding: 12px;
+  font-size: 25px;
+  font-weight: bold;
+  border: none;
+}
+
+.header-social-icons .dropdown-content2 {
+  display: none;
+  width: 115px;
+  position: absolute;
+  background-color: black;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  border-radius: 8px !important;
+  top: 2.5rem;
+  right: 35px;
+}
+
+.header-social-icons .dropdown-content2 a {
+  color: white;
+  padding: 12px 14px;
+  text-decoration: none;
+  border-bottom: 0.5px solid #ddd;
+  font-size: 13px;
+  display: block;
+  font-weight: bold;
+}
+
+.dropicon:hover + .dropdown-content2 {display: block;}
+.dropdown-content2:hover{
+    display: block;
+}
+
+.menu-btn{
+    display: none;
+}
+#click1{
+    display: none;
+}
+
+#click{
+    display: none;
+}
+.dropdown-content3{
+    display: none;
+}
+
+#click3{
+  display: none;
+}
+@media all and (max-width: 900px){
+
+  .container{
+      flex-wrap: wrap;
+      justify-content: space-between;
   }
-  
-  .logo{
-    cursor: pointer;
-    
+
+  #click1:checked ~ #burguer i:before{
+      content: "\f00d";
   }
-  
-  nav{
-    list-style:none;
+
+  #click:checked ~ #user i:before{
+      content: "\f00d";
   }
-  
-  
-  nav ul li{
-    display: inline-block;
-    margin-left: 40px;
-    padding-top: 35px;
-    padding-bottom: 15px;
-    
-    position: relative;
-  }
-  
-  nav ul li a{
-    color: white;
-    text-decoration: none;
-    text-transform: uppercase;
-    font-size: 14px;
-    transition: all 0.3s ease 0s;    
-  }
-  
-  nav a:hover {
-      color: #D3D3D3;
+  .dropdown{
+        width: 100%;
+        background-color: black;
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        height: 92.3vh;
     }
-    
-  nav a::before{
-      content: "";
-      display: block;
-      height: 5px;
+  .dropdown-content3{
       width: 100%;
-      background-color: #444;
-      position: absolute;
-      top: 0;
-      width: 0%;
-      transition: all ease-in-out 225ms;
+      display: none;
+      background-color: black;
+      align-items: center;
+      flex-direction: column;
+      height: 92.8vh;
+      left: 100%;
+      transition: all 0.3s ease;  
+  }
+
+  .dropdown-content3 a{
+      background-color: black;
+      color: white;
+      padding: 16px;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
     }
+  #click1:checked ~ .dropdown{
+      display: flex;
+  }
+
+  #click:checked ~ .dropdown-content3{
+      display: flex;
+  }
+  .dropbtn{
+      margin-top: 20px;
+      width: 130px;
+  }
+
+  .header-social-icons{
+        display: none !important;
+    }
+
+  .menu-btn{
+      display: block;
+  }
+  .menu-btn i{
+      font-size: 23px;
+      display: block;
+      margin: 0 30px;
+      cursor: pointer;
+  }
     
-  nav a:hover::before{
-      width: 100%
+    #logo{ 
+      width: 170px;
+      margin: 7px 0px 7px 0px;
+  }
+  .dropdown-content{
+      position: static;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      align-content: center;
+
+  }
+  .dropdown-content a{
+      margin-left: 50px;
+      width: 120px;
+      border: none;
+
     }
-
-.header-social-icons{
-    height: auto;
- }
-      
-.header-social-icons ul{
-    margin: 0px;
-    padding:0px;
-    text-align: center;
-}
-      
-.header-social-icons ul li{
-    display: inline-block;
-    width: 40px;
-    height:40px;
-    margin:0px 10px;
+  .dropbtn:hover + .dropdown-content {display: flex;}
+  .dropdown-content:hover{
+    display: flex;
 }
 
-.header-social-icons ul li .fa fa-facebook{
-    margin: 0;
 }
-      
-.header-social-icons ul li a{
-    color: white;
-    font-size: 25px;
-    }
-      
-.header-social-icons ul li a i{
-    line-height: 50px;
-    }
-  
 
-
+/* index page */
 #slider{
   overflow: hidden;
   margin-top: 127px;
@@ -213,7 +357,6 @@ float: left;
   justify-content: space-between;
   align-content: space-around;
   width: 100%;
-  padding: 0 10%;
   margin-bottom: 90px;
 }
 
@@ -291,10 +434,11 @@ float: left;
     }
   }
   
+/* footer  */
   footer{
+    position: absolute;
     margin-top: 50px;
-    width:125%;
-    height: auto;
+    width:100%;
     background-color: black;
     padding: 10px 0px 0px;
   }
@@ -387,7 +531,7 @@ float: left;
     margin: 0;
     padding:0;
   }
-
+/* Each event */
   .evento{
       width:125%;
       height:91%;
@@ -782,4 +926,233 @@ float: left;
         min-width: 200px;
       }
 
+    }
+
+    /* registrarse */
+    .box{
+      border-radius: 6px;
+      box-shadow: 0 0.5em 1em -0.125em rgb(0 0 0 / 10%), 0 0 0 1px rgb(0 0 0 / 2%);
+      width: 100%;
+      display: block;
+      flex-direction: column;
+      padding: 20px;
+      margin: 30px 0;
+    }
+    .registrarse{
+      margin: 0 50px;
+    }
+    
+    .registrarse h3{
+      width: 100%;
+      display: block;
+      float: left;
+      border-bottom: 2px solid black;
+    }
+    .submit-btn{
+      margin: 0px 0 30px 0px;
+      width: 100%;
+      display:flex;
+      justify-content: center;
+    }
+    
+    #reg-form{
+      height: 45px;
+      width: 110px;
+      font-weight: bold;
+      color: white;
+      background: black;
+      border: 1px solid black;
+      border-radius: 10px;
+      text-align: center;
+      margin: auto;
+      float:center;
+    }
+    #reg-form:hover{
+      background: #323232;
+      cursor: pointer;
+    }
+        
+    
+    .fieldset{
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      padding: 20px 0;
+    }
+    .date-group{
+      display: flex;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+    .form-group {
+      display: flex;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+    
+    .term-group{
+      display: flex;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+    
+    .term-group span{
+      max-width: 100%;
+      font-weight: bold;
+      font-size: 15px;
+      width: 25%;
+      float: left;
+      position: relative;
+      text-align: right;
+      margin-right: 20px;
+      margin-top: 5px;
+    }
+      
+    .term-group input{
+      display:block;
+      margin-left: 20px;
+      height: 34px;
+    }
+    
+    .term-group label{
+      margin-top: 8px;
+      margin-left: 2px;
+    }
+    
+    .form-group span{
+      max-width: 100%;
+      font-weight: bold;
+      font-size: 15px;
+      width: 25%;
+      float: left;
+      position: relative;
+      text-align: right;
+      margin-right: 20px;
+      margin-top: 5px;
+      
+    }
+    
+    .date-group span{
+      max-width: 100%;
+      font-weight: bold;
+      font-size: 15px;
+      display: block;
+      width: 25%;
+      float: left;
+      position: relative;
+      text-align: right;
+      margin-right: 20px;
+      margin-top: 5px;
+      
+    }
+    
+    .form-group input{
+      display:block;
+      max-width: 100%;
+      margin-left: 20px;
+      flex-grow:1;
+      height: 34px;
+      border: 1px solid grey;
+      border-radius: 4px;
+      
+    }
+    
+    .form-group select{
+      display:block;
+      max-width: 100%;
+      margin-left: 20px;
+      border: 1px solid grey;
+      flex-grow:1;
+      height: 34px;
+      border-radius: 4px;
+      background-color: white;
+    }
+    
+    .date-selects select{ 
+      width: 100px;
+      max-width: 200px;
+      flex-grow: 1;
+      margin-left: 20px;
+      height: 34px;
+      background: white;
+      border: 1px solid grey;
+      border-radius: 4px;
+    }
+    
+    .date-selects {
+      width:72%;
+      display: flex;
+    }
+    
+    .term-input{
+      display:flex;
+    }
+    
+    
+    .form-group input:focus{
+      -webkit-appearance: none;
+      -webkit-outline: none;
+    }
+    
+    
+    
+    @media all and (max-width: 1010px){
+      .form-group{
+        flex-direction: column;
+      }
+      
+      .date-group{
+        flex-direction: column;
+      }
+      
+      .term-group{
+        flex-direction: column;
+      }
+      
+      .term-group span{
+        width: 100%;
+        text-align: left;
+      }
+      .term-input{
+        display: flex;
+      }
+      
+      .term-group input{
+        margin: 0;
+      }
+      
+      
+      .form-group span{
+        width: 100%;
+        text-align: left;
+      }
+      .form-group input{
+        margin: 0;
+      }
+      .form-group select{
+        margin: 0;
+     }
+      .date-group span{
+        width: 100%;
+        text-align: left;
+      }
+      
+      .date-group select{
+        margin-left: 0;
+        min-width: 50px;
+        max-width: 150px;
+      }
+      
+      .date-selects {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        
+      }
+      .registrarse{
+        margin: 0 15px;
+      }
+      .box{
+        padding: 10px;
+      }
     }
