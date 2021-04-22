@@ -1,11 +1,6 @@
-from flask import Flask
-from flask import render_template, request
+from flask import render_template, request, url_for, flash, redirect
 
-app = Flask(__name__)
-
-# configure Flask using environment variables
-app.config.from_pyfile("config.py")
-
+from great_project import app
 
 @app.route('/')
 @app.route('/index')
@@ -30,7 +25,7 @@ def rankingaca():
 
 @app.route('/registrarse')
 def registrarse():
+    
     return render_template('registrarse.html', page_title="Calendario")
 
-if __name__ == "__main__":
-    app.run(host="localhost", port=8080, debug=True)
+
