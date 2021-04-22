@@ -5,125 +5,316 @@
 <div class="box">
     <div class="registrarse">
         <form method="POST" action="">
+          {{form.hidden_tag()}}
             <h3>Información Personal</h3>
             <div class="fieldset">
+              <div class="form-group">
+                <span>{{form.nombre.label}}</span>
+                <div class="input-error">
+                  {% if form.nombre.errors %}
+                
+                  {{ form.nombre(class="form-control form-control-lg is-invalid") }}
+                  <div class="invalid-feedback">
+                    {% for error in form.nombre.errors%}
+                      <span class="error">{{ error }}</span>
+                    {% endfor %}
+                  </div>
+                {% else %}
+                  {{form.nombre(class="form-control form-control-lg")}}
+                {% endif %}
+                </div>
+
+
+                </div>
+                <div class="form-group">
+                  <span>{{form.apellido.label}}</span>
+                  <div class="input-error">
+                  {% if form.apellido.errors %}
+                  {{ form.apellido(class="form-control form-control-lg is-invalid")  }}
+                    <div class="invalid-feedback">
+                      {% for error in form.apellido.errors%}
+                      <span class="error">{{ error }}</span>
+                    {% endfor %}
+                    </div>
+                  {% else %}
+                    {{form.apellido(class="form-control form-control-lg")}}
+                  {% endif %}
+                </div>
+                </div>
                 <div class="date-group">
-                <span>Fecha de Nacimiento</span>
+                  <span>{{form.month.label}}</span>
                 <div class="date-selects">
-                    <select name="month" id="month">
-                    <option disabled selected>Mes</option>
-                    <option value="0">Enero</option>
-                    <option value="1">Febrero</option>
-                    <option value="2">Marzo</option>
-                    <option value="3">Abril</option>
-                    <option value="4">Mayo</option>
-                    <option value="5">Junio</option>
-                    <option value="6">Julio</option>
-                    <option value="7">Agosto</option>
-                    <option value="8">Septiembre</option>
-                    <option value="9">Octubre</option>
-                    <option value="10">Noviembre</option>
-                    <option value="11">Diciembre</option>
-                    </select>
-                    <select name="day" id="day" disabled>
-                    <option disabled selected>Dia</option>
-                    </select>
-                    <select name="year" id="year" >
-                    <option disabled selected>Año</option>
-                    </select>
+                 <div class="input-error">
+                {% if form.month.errors %}
+                  {{ form.month(class="form-control form-control-lg is-invalid", id="month") }}
+                  <div class="invalid-feedback">
+                    {% for error in form.month.errors%}
+                      <span class="error">{{ error }}</span>
+                    {% endfor %}
+                  </div>
+                {% else %}
+                  {{form.month(class="form-control form-control-lg", id="month")}}
+                {% endif %}
+                </div>
+                <div class="input-error">
+                {% if form.day.errors %}
+                  {{ form.day(class="form-control form-control-lg is-invalid", id="day") }}
+                  <div class="invalid-feedback">
+                    {% for error in form.day.errors%}
+                      <span class="error">{{ error }}</span>
+                    {% endfor %}
+                  </div>
+                {% else %}
+                  {{form.day(class="form-control form-control-lg", id="day")}}
+                {% endif %}
+                </div>
+                <div class="input-error">
+                {% if form.year.errors %}
+                  {{ form.year(class="form-control form-control-lg is-invalid", id="year") }}
+                  <div class="invalid-feedback">
+                    {% for error in form.year.errors%}
+                    <span class="error">{{ error }}</span>
+                    {% endfor %}
+                  </div>
+                {% else %}
+                  {{form.year(class="form-control form-control-lg", id="year")}}
+                {% endif %}
+                </div>
                 </div>
                 
+              </div>
+              <div class="form-group">
+                <span>{{form.genero.label}}</span>
+                <div class="input-error">
+                {% if form.genero.errors %}
+                {{ form.genero(class="form-control form-control-lg is-invalid", id="genero") }}
+                <div class="invalid-feedback">
+                  {% for error in form.genero.errors%}
+                    <span class="error">{{ error }}</span>
+                  {% endfor %}
+                </div>
+                {% else %}
+                  {{form.genero(class="form-control form-control-lg", id="genero")}}
+                {% endif %}
+                </div>
+              </div>
+
+                <div class="form-group">
+                  <span>{{form.email.label}} </span>
+                  <div class="input-error">
+                  {% if form.email.errors %}
+                  {{ form.email(class="form-control form-control-lg is-invalid") }}
+                  <div class="invalid-feedback">
+                    {% for error in form.email.errors%}
+                      <span class="error">{{ error }}</span>
+                    {% endfor %}
+                  </div>
+                  {% else %}
+                    {{form.email(class="form-control form-control-lg")}}
+                  {% endif %}
+                </div>
                 </div>
                 <div class="form-group">
-                <span>Genero</span>
-                <select name="genero" id="genero">
-                    <option value="m">Masculino</option>
-                    <option value="f">Femenino</option>
-                </select>
+                <span>{{form.confirm_email.label}}</span>
+                <div class="input-error">
+                {% if form.confirm_email.errors %}
+                {{ form.confirm_email(class="form-control form-control-lg is-invalid")  }}
+                <div class="invalid-feedback">
+                  {% for error in form.confirm_email.errors%}
+                    <span class="error">{{ error }}</span>
+                  {% endfor %}
+                </div>
+                {% else %}
+                  {{form.confirm_email(class="form-control form-control-lg")}}
+                {% endif %}
+                </div>
                 </div>
 
                 <div class="form-group">
-
-                <span>Correo Electronico</span>
-                <input type="email" name="" />
+                <span>{{form.nacionalidad.label}}</span>
+                <div class="input-error">
+                {% if form.nacionalidad.errors %}
+                {{ form.nacionalidad(class="form-control form-control-lg is-invalid")  }}
+                <div class="invalid-feedback">
+                  {% for error in form.nacionalidad.errors%}
+                    <span class="error">{{ error }}</span>
+                  {% endfor %}
                 </div>
-                <div class="form-group">
-                <span>Confirmar Correo Electronico</span>
-                <input type="email" name="" />
+                {% else %}
+                  {{form.nacionalidad(class="form-control form-control-lg")}}
+                {% endif %}
                 </div>
-                <div class="form-group">
-                <span>Nacionalidad</span>
-                <input type="text" name="Nacionalidad" id="Nacionalidad" />
                 </div>
             </div>
 
             <h3>Direccion</h3>
             <div class="fieldset">
                 <div class="form-group">
-                <span>Direccion</span>
-                <input type="text" name="" />
+                <span>{{form.direccion.label}}</span>
+                <div class="input-error">
+                {% if form.direccion.errors %}
+                {{ form.direccion(class="form-control form-control-lg is-invalid")  }}
+                <div class="invalid-feedback">
+                  {% for error in form.direccion.errors%}
+                    <span class="error">{{ error }}</span>
+                  {% endfor %}
+                </div>
+                {% else %}
+                  {{form.direccion(class="form-control form-control-lg")}}
+                {% endif %}
+                </div>
                 </div>
                 <div class="form-group">
-                <span>Provincia</span>
-                <input type="text" name="" />
+                <span>{{form.provincia.label}}</span>
+                <div class="input-error">
+                {% if form.provincia.errors %}
+                {{ form.provincia(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                  {% for error in form.provincia.errors%}
+                    <span class="error">{{ error }}</span>
+                  {% endfor %}
+                </div>
+                {% else %}
+                  {{form.provincia(class="form-control form-control-lg")}}
+                {% endif %}
+                </div>
                 </div>
                 <div class="form-group">
-                <span>Pais</span>
-                <input type="text" name="" />
+                <span>{{form.pais.label}}</span>
+                <div class="input-error">
+                {% if form.pais.errors %}
+                {{ form.pais(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                  {% for error in form.pais.errors%}
+                    <span class="error">{{ error }}</span>
+                  {% endfor %}
+                </div>
+                {% else %}
+                  {{form.pais(class="form-control form-control-lg")}}
+                {% endif %}
+                </div>
                 </div>
             </div>
             <h3>Telefono</h3>
             <div class="fieldset">
                 <div class="form-group">
-                <span>Numero de Telefono</span>
-                <input type="tel" name="" />
+                <span>{{form.telefono.label}}</span>
+                <div class="input-error">
+                {% if form.telefono.errors %}
+                {{ form.telefono(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                  {% for error in form.telefono.errors%}
+                    <span class="error">{{ error }}</span>
+                  {% endfor %}
+                </div>
+                {% else %}
+                  {{form.telefono(class="form-control form-control-lg")}}
+                {% endif %}
+                </div>
                 </div>
             </div>
             <h3>Información del Atleta</h3>
             <div class="fieldset">
                 <div class="form-group">
-                <span>Cinturon</span>
-                <select name="belt" id="belt" disabled>
-                <option selected disabled>Cinturon</option>
-                </select>
+                <span>{{form.belt.label}}</span>
+                <div class="input-error">
+                {% if form.belt.errors %}
+                {{ form.belt(class="form-control form-control-lg is-invalid", id="belt") }}
+                <div class="invalid-feedback">
+                  {% for error in form.belt.errors%}
+                    <span class="error">{{ error }}</span>
+                  {% endfor %}
                 </div>
+                {% else %}
+                  {{form.belt(class="form-control form-control-lg", id="belt")}}
+                {% endif %}
+                </div>
+                </div>
+
                 <div class="form-group">
-                <span>Academia</span>
-                <select name="academia" id="academia"></select>
+                <span>{{form.academia.label}}</span>
+                <div class="input-error">
+                {% if form.academia.errors %}
+                {{ form.academia(class="form-control form-control-lg is-invalid", id="academia") }}
+                <div class="invalid-feedback">
+                  {% for error in form.academia.errors%}
+                    <span class="error">{{ error }}</span>
+                  {% endfor %}
+                </div>
+                {% else %}
+                  {{form.academia(class="form-control form-control-lg", id="academia")}}
+                {% endif %}
+                <!-- <select name="academia" id="academia"></select> -->
+                </div>
                 </div>
             </div>
             <h3>Contrasena</h3>
             <div class="fieldset">
                 <div class="form-group">
-                <span>Contrasena</span>
-                <input type="password" name="" />
+                <span>{{form.password.label}}</span>
+                <div class="input-error">
+                {% if form.password.errors %}
+                {{ form.password(class="form-control form-control-lg is-invalid")  }}
+                <div class="invalid-feedback">
+                  {% for error in form.password.errors%}
+                    <span class="error">{{ error }}</span>
+                  {% endfor %}
+                </div>
+                {% else %}
+                  {{form.password(class="form-control form-control-lg")}}
+                {% endif %}
+                </div>
                 </div>
                 <div class="form-group">
-                <span>Confirmar Contrasena</span>
-                <input type="password" name="" />
+                <span>{{form.confirm_password.label}}</span>
+                <div class="input-error">
+                {% if form.confirm_password.errors %}
+                {{ form.confirm_password(class="form-control form-control-lg is-invalid")  }}
+                <div class="invalid-feedback">
+                  {% for error in form.confirm_password.errors%}
+                    <span class="error">{{ error }}</span>
+                  {% endfor %}
                 </div>
-            </div>
+                {% else %}
+                  {{form.confirm_password(class="form-control form-control-lg")}}
+                {% endif %}
+                </div>
+                </div>
+              </div>
+            
 
             <h3>Terminos y Condiciones de uso</h3>
             <div class="fieldset">
                 <div class="term-group">
                 <span>Terminos y Condiciones de uso</span>
                 <div class="term-input">
-                    <input type="checkbox" name="term" value="1">
+
+                  {% if form.terms.errors %}
+                  {{ form.terms(class="form-control form-control-lg is-invalid")  }}
+                  <div class="invalid-feedback">
+                    {% for error in form.terms.errors%}
+                      <span class="error">{{ error }}</span>
+                    {% endfor %}
+                  </div>
+                  {% else %}
+                    {{form.terms(class="form-control form-control-lg")}}
+                  {% endif %}
                     <label>Acepto los <a>Terminos y condiciones de uso</a></label>
                 </div>
-
                 </div>
             </div>
+          
             <div class="submit-btn">
-                <input type="submit" id="reg-form" value="Registrarse">
+                {{form.submit(id="reg-form")}}
+                <!-- <input type="submit" id="reg-form" value="Registrarse"> -->
             </div>
         </form>
+    </div>
       
       
 
     </div>
-  </div>
+
   
   <script>
 
@@ -179,6 +370,7 @@
     var daySelect = document.getElementById("day");
     var yearSelect = document.getElementById("year");
     var beltSelect = document.getElementById("belt");
+    var generoSelect = document.getElementById("genero");
     var date = new Date();
     var year =  parseInt(date.getFullYear());
     
@@ -187,6 +379,21 @@
         select.remove(1);
       }
     }
+
+    daySelect.setAttribute("disabled", true)
+    beltSelect.setAttribute("disabled", true)
+
+    monthSelect.options[0].setAttribute("disabled", true);
+    monthSelect.options[0].setAttribute("selected", true);
+
+    generoSelect.options[0].setAttribute("disabled", true);
+    generoSelect.options[0].setAttribute("selected", true);
+
+    daySelect.options[0].setAttribute("disabled", true);
+    daySelect.options[0].setAttribute("selected", true);
+
+    yearSelect.options[0].setAttribute("disabled", true);
+    yearSelect.options[0].setAttribute("selected", true);
   
     monthSelect.addEventListener("change", function() {
       var selectedOption = month[this.value];

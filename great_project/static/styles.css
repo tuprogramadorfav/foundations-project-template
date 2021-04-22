@@ -8,6 +8,10 @@
   text-decoration: none;
 }
 
+h3{
+  font-size: 1.6rem !important;
+}
+
 .main-div{
   margin:auto;
   padding: 0;
@@ -23,13 +27,17 @@
   margin: 7px 0px 7px 15px;
 }
 
-.container{
+.container1{
   display: flex;
   background-color: black;
   color: white;
   justify-content: space-between;
   align-items: center;
   font-size: 18px;
+}
+
+.container1 a:hover{
+  text-decoration: none !important;
 }
 
 
@@ -50,7 +58,7 @@
 .dropbtn a{ 
   color:white;
 }
-.container .header-social-icons a:hover{ 
+.container1 .header-social-icons a:hover{ 
   color: rgb(187,186,185);
 }
 
@@ -97,7 +105,7 @@
     display: block;
 }
 
-.container .header-social-icons{
+.container1 .header-social-icons{
   margin-right: 15px;
   display: inline-block;
   justify-content: space-evenly;
@@ -116,7 +124,7 @@
   padding-top: 2px;
 }
 
-.container .header-social-icons a{
+.container1 .header-social-icons a{
   background-color: black;
   color: white;
   padding: 12px;
@@ -171,7 +179,7 @@
 }
 @media all and (max-width: 900px){
 
-  .container{
+  .container1{
       flex-wrap: wrap;
       justify-content: space-between;
   }
@@ -1013,9 +1021,23 @@ float: left;
       margin-left: 20px;
       height: 34px;
     }
-    
+    .form-control-lg{
+      font-size: 14px !important;
+    }
+    .input-error{
+      display: flex;
+      flex-direction: column;
+      width: 72%;
+    }
+    .error{
+      width: 100% !important;
+      font-size: 12px !important;
+      font-weight: 425 !important;
+      margin-left: 20px;
+      text-align: left !important;
+    }
     .term-group label{
-      margin-top: 8px;
+      margin-top: 5px;
       margin-left: 2px;
     }
     
@@ -1036,7 +1058,6 @@ float: left;
       max-width: 100%;
       font-weight: bold;
       font-size: 15px;
-      display: block;
       width: 25%;
       float: left;
       position: relative;
@@ -1046,6 +1067,9 @@ float: left;
       
     }
     
+    .form-control{
+      width: 100% !important
+    }
     .form-group input{
       display:block;
       max-width: 100%;
@@ -1086,8 +1110,13 @@ float: left;
     
     .term-input{
       display:flex;
+      width: 370.45px !important;
     }
     
+    #terms{
+      width: 16px !important;
+      height: 34px  !important;
+    }
     
     .form-group input:focus{
       -webkit-appearance: none;
@@ -1097,7 +1126,7 @@ float: left;
     
     
     
-    @media all and (max-width: 1010px){
+    @media all and (max-width: 1110px){
       .form-group{
         flex-direction: column;
       }
@@ -1121,8 +1150,15 @@ float: left;
       .term-group input{
         margin: 0;
       }
+
+      .error{
+        margin: 0 !important;
+      }
       
-      
+      .form-control{
+        width: 100% !important;
+      }
+
       .form-group span{
         width: 100%;
         text-align: left;
@@ -1155,5 +1191,8 @@ float: left;
       }
       .box{
         padding: 10px;
+      }
+      .input-error{
+        width: 100%;
       }
     }

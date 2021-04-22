@@ -1,5 +1,5 @@
-from flask import render_template, request, url_for, flash, redirect
-
+from flask import render_template, request, url_for, flash, redirect, flash
+from great_project.forms import  RegistrationForm, LoginForm
 from great_project import app
 
 @app.route('/')
@@ -23,9 +23,12 @@ def evento1():
 def rankingaca():
     return render_template('rankingaca.html', page_title="Calendario")
 
-@app.route('/registrarse')
+@app.route('/registrarse', methods=['GET', 'POST'])
 def registrarse():
-    
-    return render_template('registrarse.html', page_title="Calendario")
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        flash(f'Cuenta creada para{form.nombre.data} {form.apellido.data}!', 'success')
+        return redirect(url_for('index'))
+    return render_template('registrarse.html', page_title="Calendario", form=form)
 
 
