@@ -787,20 +787,21 @@ float: left;
     }
 
 /*Login page*/
-    section{
+
+    .login{
       position: relative;
       width: 100%;
       height: 100vh;
-      display: flex;
+      display: flex !important;
     }
 
-    section .imgBx{
+    .login .imgBx{
       position: relative;
       width: 50%;
       height: 100%;
     }
 
-    section .imgBx:before{
+    .login .imgBx:before{
       content: '';
       position: absolute;
       top: 0;
@@ -811,7 +812,7 @@ float: left;
       z-index: 1;
       mix-blend-mode: screen;
     }
-    section .imgBx img{
+    .login .imgBx img{
       position: absolute;
       top: 0;
       left: 0;
@@ -822,7 +823,7 @@ float: left;
       filter: grayscale(85%);
     }
 
-    section .contentBx{
+    .login .contentBx{
       display: flex;
       width: 50%;
       height: 100%;
@@ -830,11 +831,11 @@ float: left;
       justify-content: center;
     }
 
-    section .contentBx .formBx{
+    .login .contentBx .formBx{
       width: 50%;
     }
 
-    section .contentBx .formBx h2{
+    .login .contentBx .formBx h2{
       color: black;
       font-weight: 600;
       font-size: 1.5em;
@@ -845,11 +846,11 @@ float: left;
       letter-spacing: 1px;
     }
 
-    section .contentBx .formBx .inputBx{
+    .login .contentBx .formBx .inputBx{
       margin-bottom: 20px;
     }
 
-    section .contentBx .formBx .inputBx span{
+    .login .contentBx .formBx .inputBx span{
       font-size: 16px;
       margin-bottom: 5px;
       display: inline-block;
@@ -859,7 +860,7 @@ float: left;
       letter-spacing: 1px;
     }
 
-    section .contentBx .formBx .inputBx input{
+    .login .contentBx .formBx .inputBx input{
       width: 100%;
       padding: 8px 20px;
       outline: none;
@@ -872,7 +873,7 @@ float: left;
       border-radius: 15px;
     }
 
-    section .contentBx .formBx .inputBx input[type="submit"]{
+    .login .contentBx .formBx .inputBx input[type="submit"]{
       background: black;
       color: white;
       outline: none;
@@ -881,39 +882,52 @@ float: left;
       cursor: pointer;
     }
 
-    section .contentBx .formBx .inputBx input[type="submit"]:hover{
+    .login .contentBx .formBx .inputBx input[type="submit"]:hover{
       background: 	#383838;
     }
 
-    section .contentBx .formBx .remember{
+    .login .contentBx .formBx .remember{
       margin-bottom: 10px;
       color: black;
       font-weight: 400;
       font-size: 14px;
     } 
 
-    section .contentBx .formBx .inputBx p{
+    .login .contentBx .formBx .inputBx p{
       color: black;
     }
 
-    section .contentBx .formBx .inputBx p a{
+    .login .contentBx .formBx .inputBx p a{
       color: black;
       text-decoration: underline;
     }
 
-    section .contentBx .formBx .inputBx p a:hover{
+    .login .contentBx .formBx .inputBx a{
+      color: black;
+      text-decoration: underline;
+    }
+
+    .login .contentBx .formBx .inputBx p a:hover{
       color: 	 #0000e6;
+    }
+
+    .form-check-label{
+      margin-top: 2.5px;
+      margin-left: 18px;
+    }
+    .form-check-input{
+      margin-left: 0 !important;
     }
     
     @media (max-width: 768px){
-      section .imgBx{
+      .login .imgBx{
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
       }
-      section .contentBx{
+      .login .contentBx{
         display: flex;
         justify-content: center;
         align-items: center;
@@ -922,14 +936,14 @@ float: left;
         z-index: 1;
       }
 
-      section .contentBx .formBx{
+      .login .contentBx .formBx{
         width: 100%;
         padding: 40px;
         background: rgb(255 255 255 / 0.7);
         margin: 50px;
       }
 
-      section .contentBx .formBx .inputBx input{
+      .login .contentBx .formBx .inputBx input{
         width: 90%;
         min-width: 200px;
       }

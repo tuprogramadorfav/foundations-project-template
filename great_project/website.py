@@ -1,6 +1,7 @@
 from flask import render_template, request, url_for, flash, redirect, flash
-from great_project.forms import  RegistrationForm, LoginForm
 from great_project import app
+from great_project.forms import  RegistrationForm, LoginForm
+from flaskblog.models import Atleta, Academia, Belt, Gender, Event, Order, Weight, Category
 
 @app.route('/')
 @app.route('/index')
@@ -11,9 +12,16 @@ def index():
 def calendario():
     return render_template('calendario.html', page_title="Calendario")
 
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def login():
-    return render_template('login.html', page_title="Calendario")
+    form = LoginForm()
+    if form.validate_on_submit():
+        if form.email.data == 'admin@blog.com' and form.password.data == 'password':
+            flash('Has iniciado sesion!', 'success')
+            return redirect(url_for('index'))
+        else:
+            flash('Inicio de sesion invalido. Porfavor revisa tu correo electronico y contraseña')
+    return render_template('login.html', page_title="Calendario", form=form)
 
 @app.route('/evento1')
 def evento1():
