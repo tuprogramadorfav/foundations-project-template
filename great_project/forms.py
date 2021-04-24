@@ -1,14 +1,15 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, DateField, SelectField
-from wtforms.validators import DataRequired, Length, Email, EqualTo
+from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
+from great_project.models import Atleta
 
 class RegistrationForm(FlaskForm):
-    nombre = StringField('Nombres', validators=[DataRequired(), Length(min=2, max=50)])
+    name = StringField('Nombres', validators=[DataRequired(), Length(min=2, max=50)])
     apellido = StringField('Apellidos', validators=[DataRequired(), Length(min=2, max=50)])
     month = SelectField('Fecha de Nacimiento', validators=[DataRequired()], choices=[('', 'Mes'), ('0', 'Enero'), ('1', 'Febrero'), ('2', 'Marzo'), ('3', 'Abril'), ('4', 'Mayo'), ('5', 'Junio'), ('6', 'Julio'), ('7', 'Agosto'), ('8', 'Septiembre'), ('9', 'Octubre'), ('10', 'Noviembre'), ('11', 'Diciembre')], validate_choice=False)
     day = SelectField('Fecha de Nacimiento', validators=[DataRequired()], choices=[('', 'Dia')], validate_choice=False)
     year = SelectField('Fecha de Nacimiento', validators=[DataRequired()], choices=[('', 'Año')], validate_choice=False)
-    genero = SelectField('Genero', validators=[DataRequired()], choices=[('', 'Genero'), ('m', 'Masculino'), ('f', 'Femenino')])
+    gender = SelectField('Genero', validators=[DataRequired()], choices=[('', 'Genero'), ('Masculino', 'Masculino'), ('Femenino', 'Femenino')])
     email = StringField('Correo Electronico', validators=[DataRequired(), Email()])
     confirm_email = StringField('Confirmar Correo Electronico', validators=[DataRequired(), EqualTo('email')])
     nacionalidad = StringField('Nacionalidad', validators=[DataRequired(), Length(min=2, max=25)])
@@ -22,6 +23,11 @@ class RegistrationForm(FlaskForm):
     confirm_password = PasswordField('Confirmar Contraseña', validators=[DataRequired(), EqualTo('password')])
     terms = BooleanField('Terms', validators=[DataRequired()])
     submit = SubmitField('Registrarse')
+
+    def validate_email(self, email):
+        user = Atleta.query.filter_by(email=email.data).first()
+        if user:
+            raise ValidationError('Esta direccion de correo electronico ya esta registrada. Porfavor usa una direccion de correo electronico diferente')
 
 class LoginForm(FlaskForm):
 

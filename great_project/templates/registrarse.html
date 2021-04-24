@@ -9,18 +9,18 @@
             <h3>Información Personal</h3>
             <div class="fieldset">
               <div class="form-group">
-                <span>{{form.nombre.label}}</span>
+                <span>{{form.name.label}}</span>
                 <div class="input-error">
-                  {% if form.nombre.errors %}
+                  {% if form.name.errors %}
                 
-                  {{ form.nombre(class="form-control form-control-lg is-invalid") }}
+                  {{ form.name(class="form-control form-control-lg is-invalid") }}
                   <div class="invalid-feedback">
-                    {% for error in form.nombre.errors%}
+                    {% for error in form.name.errors%}
                       <span class="error">{{ error }}</span>
                     {% endfor %}
                   </div>
                 {% else %}
-                  {{form.nombre(class="form-control form-control-lg")}}
+                  {{form.name(class="form-control form-control-lg")}}
                 {% endif %}
                 </div>
 
@@ -84,17 +84,17 @@
                 
               </div>
               <div class="form-group">
-                <span>{{form.genero.label}}</span>
+                <span>{{form.gender.label}}</span>
                 <div class="input-error">
-                {% if form.genero.errors %}
-                {{ form.genero(class="form-control form-control-lg is-invalid", id="genero") }}
+                {% if form.gender.errors %}
+                {{ form.gender(class="form-control form-control-lg is-invalid", id="genero") }}
                 <div class="invalid-feedback">
-                  {% for error in form.genero.errors%}
+                  {% for error in form.gender.errors%}
                     <span class="error">{{ error }}</span>
                   {% endfor %}
                 </div>
                 {% else %}
-                  {{form.genero(class="form-control form-control-lg", id="genero")}}
+                  {{form.gender(class="form-control form-control-lg", id="genero")}}
                 {% endif %}
                 </div>
               </div>
