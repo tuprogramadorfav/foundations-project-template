@@ -20,10 +20,13 @@ class Atleta(db.Model, UserMixin):
     direccion = db.Column(db.String(100), nullable=False)
     provincia = db.Column(db.String(50), nullable=False)
     pais = db.Column(db.String(50), nullable=False)
+    ciudad = db.Column(db.String(60), nullable=False)
     telefono = db.Column(db.String(50), nullable=False)
     belt_id = db.Column(db.Integer, db.ForeignKey('belt.id'), nullable=False)
     academia_id = db.Column(db.Integer, db.ForeignKey('academia.id'), nullable=False)
     password = db.Column(db.String(60), nullable=False)
+    atleta_conf = db.Column(db.Boolean)
+    profesor_conf = db.Column(db.Boolean)
     points = db.Column(db.Integer, nullable=False, default=0)
     orders = db.relationship('Order', backref = 'atleta', lazy=True)
 

@@ -2,6 +2,8 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
+from flask_script import Manager
+from flask_migrate import Migrate, MigrateCommand
 import os
 
 # configure Flask using environment variables
@@ -14,6 +16,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql://{db_user}:{db_password}@1
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
+migrate = Migrate(app, db)
+manager = Manager(app)
 
 
 from great_project import website

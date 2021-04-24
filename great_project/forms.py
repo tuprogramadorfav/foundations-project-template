@@ -21,8 +21,18 @@ class RegistrationForm(FlaskForm):
     academia = SelectField('Academia', validators=[DataRequired()], choices=[('', 'Academia'), ('1', 'Alliance') ])
     password = PasswordField('Contraseña', validators=[DataRequired()])
     confirm_password = PasswordField('Confirmar Contraseña', validators=[DataRequired(), EqualTo('password')])
+    atleta_conf = BooleanField('Atleta', validators=[DataRequired()])
+    profesor_conf = BooleanField('Profesor', validators=[DataRequired()])
     terms = BooleanField('Terms', validators=[DataRequired()])
     submit = SubmitField('Registrarse')
+
+    def validate(self):
+        if not self.atleta_conf.data and not self.profesor_conf.data:
+            msg = 'Almenos una de las dos opciones debe ser seleccionada'
+            self.atleta_conf.errors.append(msg)
+            self.profesor_conf.errors.append(msg)
+            return False
+        return True
 
     def validate_email(self, email):
         user = Atleta.query.filter_by(email=email.data).first()
@@ -35,3 +45,14 @@ class LoginForm(FlaskForm):
     password = PasswordField('Contraseña', validators=[DataRequired()])
     remember = BooleanField('Recordarme')
     submit = SubmitField('Iniciar Sesion')
+
+class EventRegistration(FlaskForm):
+    weight = SelectField('Peso', validators=[DataRequired()], choices=[], validate_choice=False)
+    age_division = SelectField('Division de Edad', validators=[DataRequired()], choices=[], validate_choice=False)
+    submit = SubmitField('Registrarse')
+
+class AcademyRegistration(FlaskForm):
+    name = StringField('Nombres', validators=[DataRequired(), Length(min=2, max=50)])
+    pais = StringField('Pais', validators=[DataRequired(), Length(min=2, max=20)])
+    provincia = StringField('Provincia', validators=[DataRequired(), Length(min=2, max=20)])
+    ciudad = StringField('Ciudad', validators=[DataRequired(), Length(min=2, max=20)])
