@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h2>{{event_name}}</h2>
+    <div class="box">
+        <div class="registrarse">
+            <form method="POST" action="">
+                {{form.hidden_tag()}}
+                <h3>Registrarse para {{event_name}}</h3>
+                <div class="fieldset">
+                    <div class="form-group">
+                        <span>Academia</span>
+                        <span>{{current_user.academia}}</span>  
+                    </div>
+                    <div class="form-group">
+                        <span>Cinturon</span>
+                        <span>{{current_user.belt}}</span>
+                    </div>
+                    <div class="form-group">
+                        <span>{{form.age_division.label}}/span>
+                        {{form.age_division(class="form-control form-control-lg")}}
+                    </div>
+                    <div class="form-group">
+                        <span>{{form.weight.label}}</span>
+                        {{form.weight(class="form-control form-control-lg")}}
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock content %}

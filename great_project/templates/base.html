@@ -26,6 +26,7 @@
           <i class="fa fa-bars"></i>
        </label>
        <div class="dropdown">
+          <button class="dropbtn"><a href="{{url_for('index')}}">Inicio</a></button>
           <button class="dropbtn"><a href="{{url_for('calendario')}}">Calendario</a></button>
           <button class="dropbtn"><a href="#"></a>Resultados</button>
           <button class="dropbtn" for="click3">Ranking <i class="fa fa-caret-down" id="down-arrow"></i></button>
@@ -33,10 +34,10 @@
                 <a href="#">Atletas</a>
                 <a href="{{url_for('rankingaca')}}">Academias</a>
              </div>
-          <button class="dropbtn"><a href="{{url_for('registrarse')}}">Registrarse</a></button>
         </div>
         <div class="dropdown-content3">
          {% if current_user.is_authenticated %}
+            <a href="{{url_for('account')}}">Cuenta</a>
             <a href="{{url_for('logout')}}">Cerrrar Sesion</a>
          {% else %}
             <a href="{{url_for('login')}}">Iniciar Sesion</a>
@@ -47,6 +48,7 @@
           <a  class="dropicon"><i class="fa fa-user"></i><i class="fa fa-caret-down" id="down-arrow1"></i></a>
              <div class="dropdown-content2">
                {% if current_user.is_authenticated %}
+                  <a href="{{url_for('account')}}">Cuenta</a>
                   <a href="{{url_for('logout')}}">Cerrar Sesion</a>
                {% else %}
                   <a href="{{url_for('login')}}">Iniciar Sesion</a>

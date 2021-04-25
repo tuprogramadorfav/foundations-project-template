@@ -1,8 +1,8 @@
-from flask import render_template, request, url_for, flash, redirect, flash
+from flask import render_template, request, url_for, flash, redirect, flash, request
 from great_project import app, db, bcrypt
-from great_project.forms import  RegistrationForm, LoginForm, EventRegistration, AcademyRegistration
+from great_project.forms import  RegistrationForm, LoginForm, EventRegistration, AcademyRegistration, UpdateAccount
 from great_project.models import Atleta, Academia, Belt, Gender, Event, Order, Weight, Category
-from flask_login import login_user, current_user, logout_user
+from flask_login import login_user, current_user, logout_user, login_required
 
 @app.route('/')
 @app.route('/index')
@@ -13,6 +13,31 @@ def index():
 def calendario():
     return render_template('calendario.html', page_title="Calendario")
 
+@login_required
+@app.route('/account', methods=['GET', 'POST'])
+def account():
+    form = UpdateAccount()
+    if form.validate_on_submit():
+        current_user.email = form.email.data.upper()
+        current_user.direccion = form.direccion.data.upper()
+        current_user.provincia = form.provincia.data.upper()
+        current_user.pais = form.pais.data.upper()
+        current_user.telefono = form.telefono.data.upper()
+        current_user.belt = form.belt.data.upper()
+        current_user.academia = form.academia.data.upper()
+        db.session.commit()
+        flash('Tu cuenta ha sido actualizada!', 'success')
+        return redirect(url_for('account'))
+    elif request.method == 'GET':
+        form.email.data = current_user.email
+        form.direccion.data = current_user.direccion
+        form.provincia.data = current_user.provincia
+        form.pais.data = current_user.pais
+        form.telefono.data = current_user.telefono
+        form.belt.data= current_user.belt
+        form.academia.data = current_user.academia
+    return render_template('account.html', page_title="Calendario", form=form)
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
@@ -22,7 +47,8 @@ def login():
         user = Atleta.query.filter_by(email=form.email.data.upper()).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember.data)
-            return redirect(url_for('index'))
+            next_page = request.args.get('next')
+            return redirect(next_page) if next_page else redirect(url_for('index'))
         else:
             flash('Inicio de sesion invalido. Porfavor revisa tu correo electronico y contraseña')
     return render_template('login.html', page_title="Calendario", form=form)
@@ -30,6 +56,12 @@ def login():
 @app.route('/evento1')
 def evento1():
     return render_template('evento1.html', page_title="Calendario")
+
+@login_required
+@app.route('/event_reg1')
+def event_reg1():
+    form = EventRegistration()
+    return render_template('event_reg.html', page_title="Calendario")
 
 @app.route('/rankingaca')
 def rankingaca():
@@ -44,14 +76,8 @@ def registrarse():
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         gender_choice = Gender.query.filter_by(name=form.gender.data.upper()).first()
-        print(form.gender.data.upper())
-        print(gender_choice)
         belt_choice = Belt.query.filter_by(name=form.belt.data.upper()).first()
-        print(form.belt.data.upper())
-        print(belt_choice)
         academia_choice = Academia.query.filter_by(name=form.academia.data).first()
-        print(form.academia.data.upper())
-        print(academia_choice)
         user = Atleta(name = form.name.data.upper(), apellido = form.apellido.data.upper(), year=int(form.year.data), month = form.year.data, 
                     day = int(form.day.data), gender = gender_choice, email = form.email.data.upper(), nacionalidad = form.nacionalidad.data.upper(), 
                     direccion = form.direccion.data.upper(), provincia = form.provincia.data.upper(), pais = form.pais.data.upper(), 

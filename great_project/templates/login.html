@@ -16,6 +16,15 @@
         <img src="{{ url_for('static', filename='login2.jpg') }}">
         </div>
         <div class="contentBx">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{category}} ">
+                            {{message}}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
             <div class="formBx">
                 <h2>Iniciar Sesion</h2>
                 <form method="POST" action="">

@@ -24,7 +24,6 @@
                 {% endif %}
                 </div>
 
-
                 </div>
                 <div class="form-group">
                   <span>{{form.apellido.label}}</span>
@@ -41,6 +40,23 @@
                   {% endif %}
                 </div>
                 </div>
+
+                <div class="form-group">
+                  <span>{{form.cedula.label}}</span>
+                  <div class="input-error">
+                  {% if form.cedula.errors %}
+                  {{ form.cedula(class="form-control form-control-lg is-invalid")  }}
+                    <div class="invalid-feedback">
+                      {% for error in form.cedula.errors%}
+                      <span class="error">{{ error }}</span>
+                    {% endfor %}
+                    </div>
+                  {% else %}
+                    {{form.cedula(class="form-control form-control-lg")}}
+                  {% endif %}
+                </div>
+                </div>
+
                 <div class="date-group">
                   <span>{{form.month.label}}</span>
                 <div class="date-selects">
@@ -143,6 +159,38 @@
                 {% else %}
                   {{form.nacionalidad(class="form-control form-control-lg")}}
                 {% endif %}
+                </div>
+                </div>
+
+                <div class="term-group conf-group">
+                  <span>{{form.atleta_conf.label}}</span>
+                  <div class="term-input">
+                  {% if form.atleta_conf.errors %}
+                  {{ form.atleta_conf(class="form-control-lg is-invalid conf")  }}
+                    <div class="invalid-feedback">
+                      {% for error in form.atleta_conf.errors%}
+                      <span class="error">{{ error }}</span>
+                    {% endfor %}
+                    </div>
+                  {% else %}
+                    {{form.atleta_conf(class="form-control-lg conf")}}
+                  {% endif %}
+                </div>
+                </div>
+
+                <div class="term-group conf-group">
+                  <span>{{form.profesor_conf.label}}</span>
+                  <div class="term-input">
+                  {% if form.profesor_conf.errors %}
+                  {{ form.profesor_conf(class="form-control-lg is-invalid conf")  }}
+                    <div class="invalid-feedback">
+                      {% for error in form.profesor_conf.errors%}
+                      <span class="error">{{ error }}</span>
+                    {% endfor %}
+                    </div>
+                  {% else %}
+                    {{form.profesor_conf(class="form-control-lg conf")}}
+                  {% endif %}
                 </div>
                 </div>
             </div>

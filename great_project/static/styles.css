@@ -8,6 +8,15 @@
   text-decoration: none;
 }
 
+hr {
+  border: 0;
+  clear:both;
+  display:block;
+  width: 100%;               
+  background-color:rgb(187,186,185);
+  height: 1px;
+}
+
 h3{
   font-size: 1.6rem !important;
 }
@@ -88,7 +97,7 @@ h3{
   z-index: 1;
   border-radius: 4px;
   top: 3rem;
-  left: 240px;
+  left: 325px;
 }
 .dropdown-content a {
   color: white;
@@ -960,6 +969,10 @@ float: left;
       padding: 20px;
       margin: 30px 0;
     }
+
+    .conf{
+      margin: 4px;
+    }
     .registrarse{
       margin: 0 50px;
     }
@@ -988,6 +1001,7 @@ float: left;
       text-align: center;
       margin: auto;
       float:center;
+      margin-top: 20px;
     }
     #reg-form:hover{
       background: #323232;
@@ -1015,7 +1029,6 @@ float: left;
     .term-group{
       display: flex;
       width: 100%;
-      margin-bottom: 20px;
     }
     
     .term-group span{
@@ -1152,10 +1165,18 @@ float: left;
       .term-group{
         flex-direction: column;
       }
-      
+
+      .conf-group{
+        flex-direction: row;
+      }
+
       .term-group span{
         width: 100%;
         text-align: left;
+      }
+
+      .conf-group span{
+        width: 75px;
       }
       .term-input{
         display: flex;
@@ -1163,6 +1184,10 @@ float: left;
       
       .term-group input{
         margin: 0;
+      }
+
+      .conf-group input{
+        margin-top: 4px;
       }
 
       .error{
