@@ -97,7 +97,7 @@ h3{
   z-index: 1;
   border-radius: 4px;
   top: 3rem;
-  left: 325px;
+  left: 360px;
 }
 .dropdown-content a {
   color: white;
@@ -144,14 +144,14 @@ h3{
 
 .header-social-icons .dropdown-content2 {
   display: none;
-  width: 115px;
+  width: 130px;
   position: absolute;
   background-color: black;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
   border-radius: 8px !important;
   top: 2.5rem;
-  right: 35px;
+  right: 40px;
 }
 
 .header-social-icons .dropdown-content2 a {
@@ -385,7 +385,7 @@ float: left;
 }
 
 .rank h3{
-  text-align: center;
+  text-align: left;
 }
 
 
@@ -554,6 +554,12 @@ float: left;
       height:91%;
   }
 
+  .date-h2{
+    margin-top: 30px;
+    margin-bottom: 0px;
+    width: 100%;
+    text-align: left;
+  }
   .evento img{
       width:100%;
       height: 100%;
@@ -607,8 +613,23 @@ float: left;
       z-index: 1;
   }
 
+  .reg-btn{
+    margin-bottom: 50px;
+  }
+
+  #conf{
+    width: 16px !important;
+  }
+
+  .event-h2{
+    width: 100%;
+    margin-bottom: 30px;
+  }
+
   .info-btn:hover{
     cursor:pointer;
+    color:black;
+    text-decoration: none;
   }
 
   .info-btn:before{
@@ -1063,6 +1084,14 @@ float: left;
       margin-left: 20px;
       text-align: left !important;
     }
+
+    #error{
+      width: 100% !important;
+      font-size: 12px !important;
+      font-weight: 425 !important;
+      margin-left: 20px;
+      text-align: left !important;
+    }
     .term-group label{
       margin-top: 5px;
       margin-left: 2px;
@@ -1137,7 +1166,7 @@ float: left;
     
     .term-input{
       display:flex;
-      width: 370.45px !important;
+      width: 400px !important;
     }
     
     #terms{
@@ -1193,6 +1222,10 @@ float: left;
       .error{
         margin: 0 !important;
       }
+
+      #error{
+        margin: 8px 20px 0 20px !important;
+      }
       
       .form-control{
         width: 100% !important;
@@ -1234,4 +1267,25 @@ float: left;
       .input-error{
         width: 100%;
       }
+    }
+    /* Account */
+    .account-email{
+      margin-bottom: 0px;
+    }
+
+    .account-reg{
+      margin: 0px;
+      margin-top: 20px;
+    }
+    
+    .media{
+      padding-top: 30px;
+    }
+
+    /* event_reg */
+    .event_reg{
+      width:100%;
+      margin-left: 20px;
+      margin-top: 4px;
+      margin-bottom: 0px !important;
     }

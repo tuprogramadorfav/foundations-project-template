@@ -10,15 +10,15 @@
                 <h3>Registrarse para {{event_name}}</h3>
                 <div class="fieldset">
                     <div class="form-group">
-                        <span>Academia</span>
-                        <span>{{current_user.academia}}</span>  
+                        <span><label>Academia</label></span>
+                        <label class="event_reg">{{academia}}</label>  
                     </div>
                     <div class="form-group">
-                        <span>Cinturon</span>
-                        <span>{{current_user.belt}}</span>
+                        <span><label>Cinturon</label></span>
+                        <label class="event_reg">{{belt}}</label>
                     </div>
                     <div class="form-group">
-                        <span>{{form.age_division.label}}/span>
+                        <span>{{form.age_division.label}}</span>
                         {{form.age_division(class="form-control form-control-lg")}}
                     </div>
                     <div class="form-group">

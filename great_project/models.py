@@ -5,6 +5,7 @@ from flask_login import UserMixin
 def load_user(atleta_id):
     return Atleta.query.get(int(atleta_id))
 
+
 class Atleta(db.Model, UserMixin):
     __tablename__ = 'atleta'
 
@@ -29,10 +30,11 @@ class Atleta(db.Model, UserMixin):
     atleta_conf = db.Column(db.Boolean)
     profesor_conf = db.Column(db.Boolean)
     points = db.Column(db.Integer, nullable=False, default=0)
+    is_admin = db.Column(db.Boolean, default=False)
     orders = db.relationship('Order', backref = 'atleta', lazy=True)
 
     def __repr__(self):
-        return f"Atleta('{self.name}' '{self.apellido}', '{self.email}', '{self.year}', '{self.gender}', '{self.belt_id.name}', '{self.academia_id.name}', '{self.points}')"
+        return f"Atleta('{self.name}' '{self.apellido}', '{self.email}', '{self.year}', '{self.gender}', '{self.belt_id}', '{self.academia_id}', '{self.points}')"
 
 class Gender(db.Model):
     __tablename__ = 'gender'
@@ -76,6 +78,7 @@ class Weight(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(20), nullable=False)
     weight = db.Column(db.Integer, nullable=False)
+    kimono = db.Column(db.Boolean, nullable=False)
     gender_id = db.Column(db.Integer, db.ForeignKey('gender.id'), nullable=False)
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=False)
     orders = db.relationship('Order', backref = 'weight', lazy=True)
@@ -109,6 +112,7 @@ class Event(db.Model):
     price = db.Column(db.Integer, nullable=False, default=40)
     reg_limit = db.Column(db.DateTime, nullable=False)
     date = db.Column(db.DateTime, nullable=False)
+    kimono = db.Column(db.Boolean, nullable=False)
     orders = db.relationship('Order', backref='event', lazy=True)
 
     def __repr__(self):

@@ -34,6 +34,10 @@
                 <a href="#">Atletas</a>
                 <a href="{{url_for('rankingaca')}}">Academias</a>
              </div>
+         {% if current_user.is_authenticated and current_user.is_admin %}
+             <button class="dropbtn"><a href="{{url_for('admin.index')}}">Admin</a></button>
+         {% endif %}
+
         </div>
         <div class="dropdown-content3">
          {% if current_user.is_authenticated %}
