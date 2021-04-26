@@ -14,6 +14,13 @@ def index():
 def calendario():
     return render_template('calendario.html', page_title="Calendario")
 
+@app.route('/admin')
+@login_required
+def admin():
+    if current_user.is_admin:
+        return render_template('admin.html', page_title="Calendario")
+    else:
+        return render_template('index.html', page_title="My great website")
 
 @app.route('/account', methods=['GET', 'POST'])
 @login_required
