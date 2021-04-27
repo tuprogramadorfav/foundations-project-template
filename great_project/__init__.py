@@ -7,16 +7,14 @@ from flask_admin import Admin, AdminIndexView, expose, BaseView
 from flask_admin.contrib.sqla import ModelView
 from flask_login import current_user
 
-
-
-
 # configure Flask using environment variables
 app = Flask(__name__)
-engine = create_engine('postgresql:/1@127.0.0.1/CEBJJ')
-connection = engine.connect()
+# engine = create_engine('postgresql://programanding:Isaaceinstein21@127.0.0.1/CEBJJ')
+# connection = engine.connect()
 app.config.from_pyfile("config.py")
-app.config['SECRET_KEY'] = '802023d0df4b9ee3a0341a80847a7e0b'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:/1@127.0.0.1/CEBJJ'
+# app.config['SECRET_KEY'] = '802023d0df4b9ee3a0341a80847a7e0b'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://programanding:Isaaceinstein21@127.0.0.1/CEBJJ'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
@@ -47,7 +45,9 @@ class Llaves(BaseView):
         return redirect(url_for('login'))
     @expose('/')
     def index(self):
-        return self.render(admin/llaves.html)
+        all_belts = Belt.query.all()
+        all_ageDivision = Category.query.all()
+        return self.render('llaves.html')
 
 
 from great_project.models import Atleta, Academia, Event, Order
@@ -61,3 +61,6 @@ admin.add_view(Llaves(name='Llaves', endpoint='llaves'))
 
 
 from great_project import website
+
+
+

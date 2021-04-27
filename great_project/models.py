@@ -1,11 +1,41 @@
 from great_project import db, login_manager
 from flask_login import UserMixin
+from flask_admin import Admin, AdminIndexView, expose, BaseView
+from flask_admin.contrib.sqla import ModelView
 
 @login_manager.user_loader
 def load_user(atleta_id):
     return Atleta.query.get(int(atleta_id))
 
+category_belt = db.Table('category_belt',
+    db.Column('belt_id', db.Integer, db.ForeignKey('belt.id')),
+    db.Column('category_id', db.Integer, db.ForeignKey('category.id'))
+    )
 
+category_weight = db.Table('category_weight',
+    db.Column('weight_id', db.Integer, db.ForeignKey('weight.id')),
+    db.Column('category_id', db.Integer, db.ForeignKey('category.id'))
+    )
+
+# category_belt = db.Table('category_belt',
+#     db.Column(belt_id, db.Integer, db.ForeignKey('belt.id')),
+#     db.Column(category_id, db.Integer, db.ForeignKey('category.id'))
+#     )
+
+class Category(db.Model):
+    __tablename__ = 'category'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(20), nullable=False, unique=True)
+    initial_age = db.Column(db.Integer, nullable=False)
+    top_age = db.Column(db.Integer, nullable=False)
+    belts = db.relationship('Belt', secondary=category_belt, backref=db.backref('category', lazy = 'dynamic'))
+    weights = db.relationship('Weight', secondary=category_weight, backref=db.backref('category', lazy = 'dynamic'))
+    orders = db.relationship('Order', backref = 'category', lazy=True)
+
+    def __repr__(self):
+        return f"{self.name}', '{self.inital_age}', '{self.top_age}'"    
+        
 class Atleta(db.Model, UserMixin):
     __tablename__ = 'atleta'
 
@@ -59,7 +89,7 @@ class Academia(db.Model):
     atletas = db.relationship('Atleta', backref = 'academia', lazy=True)
 
     def __repr__(self):
-        return f"Academia('{self.name}')"
+        return {self.name}
 
 class Belt(db.Model):
     __tablename__ = 'belt'
@@ -69,7 +99,7 @@ class Belt(db.Model):
     atletas = db.relationship('Atleta', backref = 'belt', lazy=True)
 
     def __repr__(self):
-        return f"Belt('{self.name}')"
+        return {self.name}
 
 
 class Weight(db.Model):
@@ -80,23 +110,10 @@ class Weight(db.Model):
     weight = db.Column(db.Integer, nullable=False)
     kimono = db.Column(db.Boolean, nullable=False)
     gender_id = db.Column(db.Integer, db.ForeignKey('gender.id'), nullable=False)
-    category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=False)
     orders = db.relationship('Order', backref = 'weight', lazy=True)
 
     def __repr__(self):
-        return f"Weight('{self.name}', '{self.weight}', '{self.gender_id.name}', '{self.category_id.name}')"
-
-class Category(db.Model):
-    __tablename__ = 'category'
-
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(20), nullable=False, unique=True)
-    initial_age = db.Column(db.Integer, nullable=False)
-    top_age = db.Column(db.Integer, nullable=False)
-    weights = db.relationship('Weight', backref = 'category', lazy=True)
-
-    def __repr__(self):
-        return f"Category('{self.name}', '{self.inital_age}', '{self.top_age}')"    
+        return f"{self.name}, {self.weight}, {self.gender_id.name}, {self.category_id.name}"
 
 
 class Event(db.Model):
@@ -125,8 +142,9 @@ class Order(db.Model):
     weight_id = db.Column(db.Integer, db.ForeignKey('weight.id'), nullable=False)
     atleta_id = db.Column(db.Integer, db.ForeignKey('atleta.id'), nullable=False)
     event_id = db.Column(db.Integer, db.ForeignKey('event.id'), nullable=False)
+    category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=False)
     __table_args__ = (db.UniqueConstraint('atleta_id', 'event_id', name='unique_constraint_atleta_event'), )
 
     def __repr__(self):
-        return f"Order('{self.weight_id.name}', '{self.atleta_id.name}', '{self.event_id.name}')"    
+        return f"{self.weight_id.name}, {self.atleta_id.name}, {self.event_id.name}"    
 
