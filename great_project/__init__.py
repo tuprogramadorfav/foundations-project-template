@@ -6,14 +6,14 @@ from flask_login import LoginManager
 from flask_admin import Admin, AdminIndexView, expose, BaseView
 from flask_admin.contrib.sqla import ModelView
 from flask_login import current_user
+from os import environ
 
 # configure Flask using environment variables
 app = Flask(__name__)
-# engine = create_engine('postgresql://programanding:Isaaceinstein21@127.0.0.1/CEBJJ')
-# connection = engine.connect()
+
 app.config.from_pyfile("config.py")
-# app.config['SECRET_KEY'] = '802023d0df4b9ee3a0341a80847a7e0b'
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://programanding:Isaaceinstein21@127.0.0.1/CEBJJ'
+app.config['SECRET_KEY'] = environ.get('DBPASSWORD')
+
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
@@ -50,11 +50,11 @@ class Llaves(BaseView):
         return self.render('llaves.html')
 
 
-from great_project.models import Atleta, Academia, Event, Order
+from great_project.models import Atleta, Academia, Event, Registration
 admin.add_view(MyModelView(Atleta, db.session))
 admin.add_view(MyModelView(Academia, db.session))
 admin.add_view(MyModelView(Event, db.session))
-admin.add_view(MyModelView(Order, db.session))
+admin.add_view(MyModelView(Registration, db.session))
 admin.add_view(Llaves(name='Llaves', endpoint='llaves'))
 
 

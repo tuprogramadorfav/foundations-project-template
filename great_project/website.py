@@ -1,7 +1,7 @@
 from flask import render_template, request, url_for, flash, redirect, flash, request
 from great_project import app, db, bcrypt
 from great_project.forms import  RegistrationForm, LoginForm, EventRegistration, AcademyRegistration, UpdateAccount
-from great_project.models import Atleta, Academia, Belt, Gender, Event, Order, Weight, Category
+from great_project.models import Atleta, Academia, Belt, Gender, Event, Registration, Weight, Age_division
 from flask_login import login_user, current_user, logout_user, login_required
 
 
