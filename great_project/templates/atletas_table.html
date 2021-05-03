@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<table>
+    {% for belt in belts %}
+        <h3>{{ belt.name }}</h3>
+        {% for age_division in age_divisions %}
+            {% for gender in genders %}
+                {% for weight in weights %}
+                    <h4>{{age_division.name}}/{{gender.name}}/{{weight.name}}</h4>
+                    {% for header in headers %}
+                        <tr>
+                            <th>{{ header }}</th>
+                        </tr>
+                        {% for atleta in atletas %}
+                            <tr>
+                                <td>atleta.name</td>
+                                <td>atleta.academy</td>
+                            </tr>
+
+                        {% endfor %}
+                {% endfor %}
+            {% endfor %}
+        {% endfor %}
+    {% endfor %}
+</table>
+{% endblock %} 

@@ -109,6 +109,17 @@ def weight(age_division):
 
     return jsonify({'weights': weightArray})
 
+@app.route('/atletas_table')
+def atletas_table():
+    headers = ['Nombre', 'Equipo']
+    event_id = db.session.query(Event).filter_by(id=1).first()
+    belts = db.session.query(Belt).all
+    age_divisions = db.session.query(Age_division).all
+    genders = db.session.query(Gender).all
+    weights = db.session.query(Weight).all
+    atletas = db.session.query(Atleta).join(Belt).join(Age_division).join(Event).join(Registration).join(Gender).join(Weight).filter(event_id == event_id.id, gender_id == gender.id, weight_id == weight.id, age_division_id == age_division.id, belt_id == belt.id).all()
+    return render_template('atletas_table.html', page_title="Calendario", belts=belts, age_divisions=age_divisions, gender=genders, weights=weights, atletas=atletas, headers=headers)
+
 @app.route('/rankingaca')
 def rankingaca():
     return render_template('rankingaca.html', page_title="Calendario")

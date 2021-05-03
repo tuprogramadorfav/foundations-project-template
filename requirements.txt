@@ -16,7 +16,7 @@ pyparsing==2.4.7
 pytest==6.2.3
 toml==0.10.2
 Werkzeug==1.0.1
-wheel
+flask-sqlalchemy
 Flask-wtf
 wtforms
 psycopg2-binary
@@ -27,6 +27,8 @@ Flask-Admin
 Pycountry
 intervals
 SQLAlchemy-utils
-Fake
+faker
 Pillow
+babel
+email-validator
 
