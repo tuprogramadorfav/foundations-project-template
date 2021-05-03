@@ -35,9 +35,9 @@ def account():
     if form.validate_on_submit():
         current_user.email = form.email.data.lower()
         current_user.address = form.address.data.upper()
-        current_user.provincia = form.provincia.data.upper()
-        current_user.pais = form.pais.data.upper()
-        current_user.telefono = form.telefono.data.upper()
+        current_user.province = form.province.data.upper()
+        current_user.country = form.country.data.upper()
+        current_user.phone = form.phone.data.upper()
         current_user.belt = form.belt.data.upper()
         current_user.academy = form.academy.data.upper()
         db.session.commit()
@@ -46,9 +46,9 @@ def account():
     elif request.method == 'GET':
         form.email.data = current_user.email
         form.address.data = current_user.address
-        form.provincia.data = current_user.provincia
-        form.pais.data = current_user.pais
-        form.telefono.data = current_user.telefono
+        form.province.data = current_user.province
+        form.country.data = current_user.country
+        form.phone.data = current_user.phone
         form.belt.data= current_user.belt
         form.academy.data = current_user.academy
     return render_template('account.html', page_title="Calendario", form=form)
