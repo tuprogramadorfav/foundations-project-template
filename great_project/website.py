@@ -158,4 +158,6 @@ def logout():
     return redirect(url_for('index'))
 
 
-
+@app.route('/hello_world')
+def hello_world():
+    return 'Hello World!'
