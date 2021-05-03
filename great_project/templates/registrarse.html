@@ -26,17 +26,17 @@
 
                 </div>
                 <div class="form-group">
-                  <span>{{form.apellido.label}}</span>
+                  <span>{{form.last_name.label}}</span>
                   <div class="input-error">
-                  {% if form.apellido.errors %}
-                  {{ form.apellido(class="form-control form-control-lg is-invalid")  }}
+                  {% if form.last_name.errors %}
+                  {{ form.last_name(class="form-control form-control-lg is-invalid")  }}
                     <div class="invalid-feedback">
-                      {% for error in form.apellido.errors%}
+                      {% for error in form.last_name.errors%}
                       <span class="error">{{ error }}</span>
                     {% endfor %}
                     </div>
                   {% else %}
-                    {{form.apellido(class="form-control form-control-lg")}}
+                    {{form.last_name(class="form-control form-control-lg")}}
                   {% endif %}
                 </div>
                 </div>
@@ -147,17 +147,17 @@
                 </div>
 
                 <div class="form-group">
-                <span>{{form.nacionalidad.label}}</span>
+                <span>{{form.nacionality.label}}</span>
                 <div class="input-error">
-                {% if form.nacionalidad.errors %}
-                {{ form.nacionalidad(class="form-control form-control-lg is-invalid")  }}
+                {% if form.nacionality.errors %}
+                {{ form.nacionality(class="form-control form-control-lg is-invalid")  }}
                 <div class="invalid-feedback">
-                  {% for error in form.nacionalidad.errors%}
+                  {% for error in form.nacionality.errors%}
                     <span class="error">{{ error }}</span>
                   {% endfor %}
                 </div>
                 {% else %}
-                  {{form.nacionalidad(class="form-control form-control-lg")}}
+                  {{form.nacionality(class="form-control form-control-lg")}}
                 {% endif %}
                 </div>
                 </div>
@@ -198,62 +198,62 @@
             <h3>Direccion</h3>
             <div class="fieldset">
                 <div class="form-group">
-                <span>{{form.direccion.label}}</span>
+                <span>{{form.address.label}}</span>
                 <div class="input-error">
-                {% if form.direccion.errors %}
-                {{ form.direccion(class="form-control form-control-lg is-invalid")  }}
+                {% if form.address.errors %}
+                {{ form.address(class="form-control form-control-lg is-invalid")  }}
                 <div class="invalid-feedback">
-                  {% for error in form.direccion.errors%}
+                  {% for error in form.address.errors%}
                     <span class="error">{{ error }}</span>
                   {% endfor %}
                 </div>
                 {% else %}
-                  {{form.direccion(class="form-control form-control-lg")}}
+                  {{form.address(class="form-control form-control-lg")}}
                 {% endif %}
                 </div>
                 </div>
                 <div class="form-group">
-                <span>{{form.provincia.label}}</span>
+                <span>{{form.province.label}}</span>
                 <div class="input-error">
-                {% if form.provincia.errors %}
-                {{ form.provincia(class="form-control form-control-lg is-invalid") }}
+                {% if form.province.errors %}
+                {{ form.province(class="form-control form-control-lg is-invalid") }}
                 <div class="invalid-feedback">
-                  {% for error in form.provincia.errors%}
+                  {% for error in form.province.errors%}
                     <span class="error">{{ error }}</span>
                   {% endfor %}
                 </div>
                 {% else %}
-                  {{form.provincia(class="form-control form-control-lg")}}
+                  {{form.province(class="form-control form-control-lg")}}
                 {% endif %}
                 </div>
                 </div>
                 <div class="form-group">
-                <span>{{form.pais.label}}</span>
+                <span>{{form.country.label}}</span>
                 <div class="input-error">
-                {% if form.pais.errors %}
-                {{ form.pais(class="form-control form-control-lg is-invalid") }}
+                {% if form.country.errors %}
+                {{ form.country(class="form-control form-control-lg is-invalid") }}
                 <div class="invalid-feedback">
-                  {% for error in form.pais.errors%}
+                  {% for error in form.country.errors%}
                     <span class="error">{{ error }}</span>
                   {% endfor %}
                 </div>
                 {% else %}
-                  {{form.pais(class="form-control form-control-lg")}}
+                  {{form.country(class="form-control form-control-lg")}}
                 {% endif %}
                 </div>
                 </div>
                 <div class="form-group">
-                  <span>{{form.ciudad.label}}</span>
+                  <span>{{form.city.label}}</span>
                   <div class="input-error">
-                  {% if form.ciudad.errors %}
-                  {{ form.ciudad(class="form-control form-control-lg is-invalid") }}
+                  {% if form.city.errors %}
+                  {{ form.city(class="form-control form-control-lg is-invalid") }}
                   <div class="invalid-feedback">
-                    {% for error in form.ciudad.errors%}
+                    {% for error in form.city.errors%}
                       <span class="error">{{ error }}</span>
                     {% endfor %}
                   </div>
                   {% else %}
-                    {{form.ciudad(class="form-control form-control-lg")}}
+                    {{form.city(class="form-control form-control-lg")}}
                   {% endif %}
                   </div>
                   </div>
@@ -261,17 +261,17 @@
             <h3>Telefono</h3>
             <div class="fieldset">
                 <div class="form-group">
-                <span>{{form.telefono.label}}</span>
+                <span>{{form.phone.label}}</span>
                 <div class="input-error">
-                {% if form.telefono.errors %}
-                {{ form.telefono(class="form-control form-control-lg is-invalid") }}
+                {% if form.phone.errors %}
+                {{ form.phone(class="form-control form-control-lg is-invalid") }}
                 <div class="invalid-feedback">
-                  {% for error in form.telefono.errors%}
+                  {% for error in form.phone.errors%}
                     <span class="error">{{ error }}</span>
                   {% endfor %}
                 </div>
                 {% else %}
-                  {{form.telefono(class="form-control form-control-lg")}}
+                  {{form.phone(class="form-control form-control-lg")}}
                 {% endif %}
                 </div>
                 </div>
@@ -295,17 +295,17 @@
                 </div>
 
                 <div class="form-group">
-                <span>{{form.academia.label}}</span>
+                <span>{{form.academy.label}}</span>
                 <div class="input-error">
-                {% if form.academia.errors %}
-                {{ form.academia(class="form-control form-control-lg is-invalid", id="academia") }}
+                {% if form.academy.errors %}
+                {{ form.academy(class="form-control form-control-lg is-invalid", id="academia") }}
                 <div class="invalid-feedback">
-                  {% for error in form.academia.errors%}
+                  {% for error in form.academy.errors%}
                     <span class="error">{{ error }}</span>
                   {% endfor %}
                 </div>
                 {% else %}
-                  {{form.academia(class="form-control form-control-lg", id="academia")}}
+                  {{form.academy(class="form-control form-control-lg", id="academia")}}
                 {% endif %}
                 <!-- <select name="academia" id="academia"></select> -->
                 </div>
@@ -396,13 +396,13 @@
     var first = new Array(31);
     var second = new Array(30);
     var third = new Array(29);
-    var sixyo = ["blanco", "gris"];
-    var nineyo = ["blanco", "gris", "amarillo"];
-    var twelveyo = ["blanco", "gris", "amarillo", "naranja"];
-    var fifteenyo = ["blanco", "gris", "amarillo", "naranja", "verde"];
-    var seventeenyo = ["blanco", "azul", "violeta"];
-    var eighteenyo = ["blanco", "azul", "violeta", "marron"];
-    var all = ["blanco", "azul", "violeta", "marron", "negro"];
+    var sixyo = ["Blanco", "Gris"];
+    var nineyo = ["Blanco", "Gris", "Amarillo"];
+    var twelveyo = ["Blanco", "Gris", "Amarillo", "Naranja"];
+    var fifteenyo = ["Blanco", "Gris", "Amarillo", "Naranja", "Verde"];
+    var seventeenyo = ["Blanco", "Azul", "Violeta"];
+    var eighteenyo = ["Blanco", "Azul", "Violeta", "Marron"];
+    var all = ["Blanco", "Azul", "Violeta", "Marron", "Negro"];
 
     for (i = 1; i < 32; i++) {
       first[i - 1] = i;

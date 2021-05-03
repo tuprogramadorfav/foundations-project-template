@@ -1,21 +1,29 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import create_engine
+# from sqlalchemy import create_engine
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_admin import Admin, AdminIndexView, expose, BaseView
 from flask_admin.contrib.sqla import ModelView
 from flask_login import current_user
+from sqlalchemy import select
+import sys, os
 from os import environ
 
-# configure Flask using environment variables
-app = Flask(__name__)
+        
 
+# configure Flask using environment variables
+# server_username = environ.get('SERVERUSER')
+# server_password = environ.get('SERVERPASSWORD')
+app = Flask(__name__)
 app.config.from_pyfile("config.py")
-app.config['SECRET_KEY'] = environ.get('DBPASSWORD')
+# app.config['SECRET_KEY'] = environ.get('DBPASSWORD')
+app.config['SECRET_KEY'] = '802023d0df4b9ee3a0341a80847a7e0b'
+# app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql://{server_username}:{server_password}@127.0.0.1/CEBJJ"
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
+connection = db.engine.connect()
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 login_manager.login_message = 'Por favor inicie sesion para ver esta pagina!'
@@ -48,10 +56,18 @@ class Llaves(BaseView):
         all_ageDivision = Category.query.all()
         return self.render('llaves.html')
 
+# atleta = db.Table('atleta', db.metadata, autoload=True, autoload_with=db.engine)
+# gender = db.Table('gender', db.metadata, autoload=True, autoload_with=db.engine)
+# belt = db.Table('belt', db.metadata, autoload=True, autoload_with=db.engine)
+# age_division = db.Table('age_division', db.metadata, autoload=True, autoload_with=db.engine)
+# weight = db.Table('weight', db.metadata, autoload=True, autoload_with=db.engine)
+# academy = db.Table('academy', db.metadata, autoload=True, autoload_with=db.engine)
+# registration = db.Table('registration', db.metadata, autoload=True, autoload_with=db.engine)
+# event = db.Table('event', db.metadata, autoload=True, autoload_with=db.engine)
 
-from great_project.models import Atleta, Academia, Event, Registration
+from great_project.models import Atleta, Academy, Event, Registration
 admin.add_view(MyModelView(Atleta, db.session))
-admin.add_view(MyModelView(Academia, db.session))
+admin.add_view(MyModelView(Academy, db.session))
 admin.add_view(MyModelView(Event, db.session))
 admin.add_view(MyModelView(Registration, db.session))
 admin.add_view(Llaves(name='Llaves', endpoint='llaves'))

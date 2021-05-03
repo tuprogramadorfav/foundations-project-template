@@ -26,7 +26,33 @@
                         {{form.weight(class="form-control form-control-lg")}}
                     </div>
                 </div>
+                <div class="submit-btn">
+                    {{form.submit(id="reg-form")}}
+                    <!-- <input type="submit" id="reg-form" value="Registrarse"> -->
+                </div>
             </form>
         </div>
     </div>
+    <script>
+        age_divisionSelect = document.getElementById('age_division');
+        weightSelect = document.getElementById('weight');
+
+        age_divisionSelect.options[0].setAttribute("disabled", true);
+        age_divisionSelect.options[0].setAttribute("selected", true);
+
+        age_divisionSelect.onchange = function(){
+            age_division = age_divisionSelect.value;
+            fetch('/weight/' + age_division).then(function(response){
+                response.json().then(function(data){
+                    let optionHTML = '';
+                    for (let weight of data.weights){
+                        optionHTML += '<option value="' + weight.id + '">' + weight.name + '</option>';
+                    }
+                    weightSelect.innerHTML = optionHTML;
+                });
+            });
+            
+        }
+        
+    </script>
 {% endblock content %}

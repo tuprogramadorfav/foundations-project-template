@@ -16,3 +16,17 @@ pyparsing==2.4.7
 pytest==6.2.3
 toml==0.10.2
 Werkzeug==1.0.1
+wheel
+Flask-wtf
+wtforms
+psycopg2-binary
+flask-bcrypt
+Flask-Login
+Flask-Script
+Flask-Admin
+Pycountry
+intervals
+SQLAlchemy-utils
+Fake
+Pillow
+
