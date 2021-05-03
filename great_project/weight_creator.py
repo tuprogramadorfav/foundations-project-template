@@ -7,7 +7,7 @@ import datetime
 fake = Faker()
 
 def add_atletas():
-    for _ in range(400):
+    for _ in range(500):
         start_date = datetime.date(1970, 1, 1)
         end_date = datetime.date(2017, 2, 1)
         time_between_dates = end_date - start_date
@@ -31,8 +31,8 @@ def add_registration():
     atletas = Atleta.query.all()
     weights = Weight.query.all()
     age_divisions = Age_division.query.all()
-    x = 0
-    for _ in range (400):
+    x = 1
+    for _ in range (1000):
         weight_choice = random.choice(weights)
         age_division_choice = random.choice(age_divisions)
         atleta = atletas[x]
@@ -98,3 +98,11 @@ for age_division in age_divisions:
                 all = db.session.query(Atleta.name).join(Registration.atleta).join(Registration.category).join(Atleta.belt).join(Registration.weight).join(Atleta.gender).filter(Age_division.name == age_division[0], Belt.name == belt[0], Weight.name == weight[0], Weight.weight == weight[1], Gender.name == gender[0]).all()
                 if all != []:
                     print(f"[{age_division}, {belt}, {weight}, {gender}]: {all}")
+
+
+for belt in belts:
+    for age_division in age_divisions:
+        for gender in genders:
+            for weight in weights:
+                atletas = db.session.query(Atleta.name).join(Registration.event).join(Registration.atleta).join(Registration.age_division).join(Atleta.belt).join(Registration.weight).join(Atleta.gender).filter(event_id == event_id.id, Gender.id == gender, Weight.id == weight.id, Age_division.id == age_division, Belt.id == belt).all()
+                tables.append(atletas

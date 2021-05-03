@@ -6,6 +6,7 @@ from flask_login import login_user, current_user, logout_user, login_required
 import datetime
 from datetime import date
 
+
 @login_manager.user_loader
 def load_user(atleta_id):
     return Atleta.query.get(int(atleta_id))
@@ -113,13 +114,16 @@ def weight(age_division):
 def atletas_table():
     headers = ['Nombre', 'Equipo']
     event_id = db.session.query(Event).filter_by(id=1).first()
-    belts = db.session.query(Belt).all
-    age_divisions = db.session.query(Age_division).all
-    genders = db.session.query(Gender).all
-    weights = db.session.query(Weight).all
-    atletas = db.session.query(Atleta).join(Belt).join(Age_division).join(Event).join(Registration).join(Gender).join(Weight).filter(event_id == event_id.id, gender_id == gender.id, weight_id == weight.id, age_division_id == age_division.id, belt_id == belt.id).all()
-    return render_template('atletas_table.html', page_title="Calendario", belts=belts, age_divisions=age_divisions, gender=genders, weights=weights, atletas=atletas, headers=headers)
+    belts = db.session.query(Belt.id).all()
+    age_divisions = db.session.query(Age_division.id).all()
+    genders = db.session.query(Gender.id).all()
+    weights = db.session.query(Weight.id).all()
+    tables = []
+    atletas = db.session.query(Atleta.name, Atleta.academy).join(Registration.event).join(Registration.atleta).join(Registration.age_division).join(Atleta.belt).join(Registration.weight).join(Atleta.gender).filter(event_id == event_id.id, Gender.id == gender.id, Weight.id == weight.id, Age_division.id == age_division.id, Belt.id == belt.id).all()
 
+    return render_template('atletas_table.html', page_title="Calendario", tables=tables, headers=headers)
+
+# belts=belts, age_divisions=age_divisions, gender=genders, weights=weights, atletas=atletas, headers=headers
 @app.route('/rankingaca')
 def rankingaca():
     return render_template('rankingaca.html', page_title="Calendario")
