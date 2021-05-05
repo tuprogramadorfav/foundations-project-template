@@ -13,13 +13,10 @@ from os import environ
         
 
 # configure Flask using environment variables
-# server_username = environ.get('SERVERUSER')
-# server_password = environ.get('SERVERPASSWORD')
 app = Flask(__name__)
 app.config.from_pyfile("config.py")
-# app.config['SECRET_KEY'] = environ.get('DBPASSWORD')
 app.config['SECRET_KEY'] = '802023d0df4b9ee3a0341a80847a7e0b'
-# app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql://{server_username}:{server_password}@127.0.0.1/CEBJJ"
+# app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DB_URL')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)

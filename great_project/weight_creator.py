@@ -30,11 +30,12 @@ def add_atletas():
 def add_registration():
     atletas = Atleta.query.all()
     weights = Weight.query.all()
-    age_divisions = Age_division.query.all()
     x = 1
+    current_year = date.today().year
     for _ in range (1000):
-        weight_choice = random.choice(weights)
-        age_division_choice = random.choice(age_divisions)
+        age = current_year - atletas[x].birth_date.year
+        age_division_choice = random.choice(Age_division.query.filter(Age_division.initial_age <= age, Age_division.top_age >= age).all())
+        weight_choice = random.choice( db.session.query(Weight).join(Weight_age_division_gender).join(Age_division).join(Gender).filter(Age_division.id == age_division_choice.id, Gender.id == atletas[x].gender_id).all())
         atleta = atletas[x]
         registration = Registration(weight_id=weight_choice.id, atleta_id=atleta.id, event_id=1, age_division_id=age_division_choice.id)
         db.session.add(registration)
@@ -95,7 +96,7 @@ for age_division in age_divisions:
     for belt in belts:
         for weight in weights:
             for gender in genders:
-                all = db.session.query(Atleta.name).join(Registration.atleta).join(Registration.category).join(Atleta.belt).join(Registration.weight).join(Atleta.gender).filter(Age_division.name == age_division[0], Belt.name == belt[0], Weight.name == weight[0], Weight.weight == weight[1], Gender.name == gender[0]).all()
+                all = db.session.query(Atleta.name, Atleta.academy).join(Registration.atleta).join(Registration.age_division).join(Atleta.belt).join(Registration.weight).join(Atleta.gender).filter(Age_division.name == age_division[0], Belt.name == belt[0], Weight.name == weight[0], Gender.name == gender[0], Registration.event_id == 1).all()
                 if all != []:
                     print(f"[{age_division}, {belt}, {weight}, {gender}]: {all}")
 
@@ -104,5 +105,13 @@ for belt in belts:
     for age_division in age_divisions:
         for gender in genders:
             for weight in weights:
-                atletas = db.session.query(Atleta.name).join(Registration.event).join(Registration.atleta).join(Registration.age_division).join(Atleta.belt).join(Registration.weight).join(Atleta.gender).filter(event_id == event_id.id, Gender.id == gender, Weight.id == weight.id, Age_division.id == age_division, Belt.id == belt).all()
+                atletas = db.session.query(Atleta.name).join(Registration.event).join(Registration.atleta).join(Registration.weight).join(Registration.age_division).join(Atleta.belt).join(Atleta.gender).filter(event_id == event_id.id, Gender.id == gender, Weight.id == weight.id, Age_division.id == age_division, Belt.id == belt).all()
                 tables.append(atletas
+
+for age_division in age_divisions:
+    for belt in belts:
+        for weight in weights:
+            for gender in genders:
+                all = db.session.query(Atleta.name).join(Registration.atleta).join(Registration.age_division).join(Atleta.belt).join(Registration.weight).join(Registration.event).join(Atleta.gender).filter(Age_division.id == age_division[0], Belt.id == belt[0], Weight.id == weight[0], Gender.id == gender[0], (Registration.event_id == 1)).all()
+                if all != []:
+                    print(f"[{age_division}, {belt}, {weight}, {gender}]: {all}") 

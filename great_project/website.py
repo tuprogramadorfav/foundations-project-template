@@ -114,14 +114,21 @@ def weight(age_division):
 def atletas_table():
     headers = ['Nombre', 'Equipo']
     event_id = db.session.query(Event).filter_by(id=1).first()
-    belts = db.session.query(Belt.id).all()
-    age_divisions = db.session.query(Age_division.id).all()
-    genders = db.session.query(Gender.id).all()
-    weights = db.session.query(Weight.id).all()
+    belts = db.session.query(Belt.name).all()
+    age_divisions = db.session.query(Age_division.name).all()
+    genders = db.session.query(Gender.name).all()
+    weights = db.session.query(Weight.id, Weight.name).all()
+    x = 0
     tables = []
-    atletas = db.session.query(Atleta.name, Atleta.academy).join(Registration.event).join(Registration.atleta).join(Registration.age_division).join(Atleta.belt).join(Registration.weight).join(Atleta.gender).filter(event_id == event_id.id, Gender.id == gender.id, Weight.id == weight.id, Age_division.id == age_division.id, Belt.id == belt.id).all()
+    for belt in belts:
+        for age_division in age_divisions:
+            for gender in genders:
+                for weight in weights:
+                    all = db.session.query(Atleta.name, Academy.name).join(Registration.atleta).join(Registration.age_division).join(Atleta.belt).join(Registration.weight).join(Registration.event).join(Atleta.gender).filter(Age_division.name == age_division[0], Belt.name == belt[0], Weight.id == weight[0], Gender.name == gender[0], (Registration.event_id == 1)).all()
+                    tables.append(all)
+    print(tables)
 
-    return render_template('atletas_table.html', page_title="Calendario", tables=tables, headers=headers)
+    return render_template('atletas_table.html', page_title="Calendario", tables=tables, headers=headers, belts=belts, age_divisions=age_divisions, genders=genders, weights=weights, x=x)
 
 # belts=belts, age_divisions=age_divisions, gender=genders, weights=weights, atletas=atletas, headers=headers
 @app.route('/rankingaca')
