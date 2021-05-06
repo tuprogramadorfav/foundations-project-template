@@ -1,7 +1,7 @@
 from flask import render_template, request, url_for, flash, redirect, flash, request, jsonify, json
 from great_project import app, db, bcrypt, login_manager
 from great_project.forms import  RegistrationForm, LoginForm, EventRegistration, AcademyRegistration, UpdateAccount
-from great_project.models import Atleta, Academy, Belt, Gender, Event, Registration, Weight, Age_division, Weight_age_division_gender
+from great_project.models import Atleta, Academy, Belt, Gender, Event, Registration, Weight, Age_division, Weight_age_division_gender, Age_division_belt
 from flask_login import login_user, current_user, logout_user, login_required
 import datetime
 from datetime import date
@@ -115,18 +115,17 @@ def atletas_table():
     headers = ['Nombre', 'Equipo']
     event_id = db.session.query(Event).filter_by(id=1).first()
     belts = db.session.query(Belt.name).all()
-    age_divisions = db.session.query(Age_division.name).all()
-    genders = db.session.query(Gender.name).all()
     weights = db.session.query(Weight.id, Weight.name).all()
+    age_divisions = db.session.query(Age_division.id, Age_division.name).all()
+    genders = db.session.query(Gender.id, Gender.name).all()
     x = 0
     tables = []
-    for belt in belts:
-        for age_division in age_divisions:
+    for age_division in age_divisions:
+        for belt in db.session.query(Belt.id, Belt.name).join(Age_division_belt).filter(Age_division_belt.age_division_id == age_division[0]).all():
             for gender in genders:
-                for weight in weights:
-                    all = db.session.query(Atleta.name, Academy.name).join(Registration.atleta).join(Registration.age_division).join(Atleta.belt).join(Registration.weight).join(Registration.event).join(Atleta.gender).filter(Age_division.name == age_division[0], Belt.name == belt[0], Weight.id == weight[0], Gender.name == gender[0], (Registration.event_id == 1)).all()
-                    tables.append(all)
-    print(tables)
+                for weight in db.session.query(Weight.id, Weight.name).join(Weight_age_division_gender).filter(Weight_age_division_gender.age_division_id == age_division[0], Weight_age_division_gender.gender_id == gender[0]).all():
+                    atletas = db.session.query(Atleta.name, Academy.name).join(Registration.atleta).join(Atleta.academy).filter(Atleta.gender_id == gender[0], Atleta.belt_id == belt[0], Registration.age_division_id == age_division[0], Atleta.gender_id == gender[0], Registration.weight_id == weight[0], Atleta.id == Registration.atleta_id).all()
+                    tables.append(atletas) 
 
     return render_template('atletas_table.html', page_title="Calendario", tables=tables, headers=headers, belts=belts, age_divisions=age_divisions, genders=genders, weights=weights, x=x)
 

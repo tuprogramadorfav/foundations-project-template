@@ -7,22 +7,49 @@ import datetime
 fake = Faker()
 
 def add_atletas():
-    for _ in range(500):
+    current_year = date.today().year
+    for _ in range(800):
         start_date = datetime.date(1970, 1, 1)
         end_date = datetime.date(2017, 2, 1)
         time_between_dates = end_date - start_date
         days_between_dates = time_between_dates.days
         random_number_of_days = random.randrange(days_between_dates)
         random_date = start_date + datetime.timedelta(days=random_number_of_days)
+        age = current_year - random_date.year
         genders = Gender.query.all()
         gender_choice = random.choice(genders)
-        belts = Belt.query.all()
-        belt_choice = random.choice(belts)
+        if age >= 4 and age <= 5:
+            belts_id = db.session.query(Age_division_belt.belt_id).filter(Age_division_belt.age_division_id == 1).all()
+            belt_choice = random.choice(belts_id)
+        elif age >= 6 and age <= 7:
+            belts_id = db.session.query(Age_division_belt.belt_id).filter(Age_division_belt.age_division_id == 2).all()
+            belt_choice = random.choice(belts_id)
+        elif age >= 8 and age <= 9:
+            belts_id = db.session.query(Age_division_belt.belt_id).filter(Age_division_belt.age_division_id == 3).all()
+            belt_choice = random.choice(belts_id)
+        elif age >= 10 and age <= 11:
+            belts_id = db.session.query(Age_division_belt.belt_id).filter(Age_division_belt.age_division_id == 4).all()
+            belt_choice = random.choice(belts_id)
+        elif age >= 12 and age <= 13:
+            belts_id = db.session.query(Age_division_belt.belt_id).filter(Age_division_belt.age_division_id == 5).all()
+            belt_choice = random.choice(belts_id)
+        elif age >= 14 and age <= 15:
+            belts_id = db.session.query(Age_division_belt.belt_id).filter(Age_division_belt.age_division_id == 6).all()
+            belt_choice = random.choice(belts_id)
+        elif age >= 16 and age <= 17:
+            belts_id = db.session.query(Age_division_belt.belt_id).filter(Age_division_belt.age_division_id == 7).all()
+            belt_choice = random.choice(belts_id)
+        elif age >= 18 and age <= 29:
+            belts_id = db.session.query(Age_division_belt.belt_id).filter(Age_division_belt.age_division_id == 8).all()
+            belt_choice = random.choice(belts_id)
+        elif age >= 30:
+            belts_id = db.session.query(Age_division_belt.belt_id).filter(Age_division_belt.age_division_id == 9).all()
+            belt_choice = random.choice(belts_id)
         academies = Academy.query.all()
         academy_choice = random.choice(academies)
         atleta = Atleta(name=fake.name(), last_name=fake.last_name(), cedula='0000000', birth_date=random_date, gender_id=gender_choice.id, 
                  address='aasdfghhlkj', email=fake.email(), nacionality=fake.country(), province='Guayas',
-                 country='EC', city='Guayaquil', phone='00000000', belt_id=belt_choice.id, academy_id=academy_choice.id, password=fake.password(), 
+                 country='EC', city='Guayaquil', phone='00000000', belt_id=belt_choice[0], academy_id=academy_choice.id, password=fake.password(), 
                  atleta_conf=True, profesor_conf=False)
         db.session.add(atleta)
     db.session.commit()
@@ -30,9 +57,9 @@ def add_atletas():
 def add_registration():
     atletas = Atleta.query.all()
     weights = Weight.query.all()
-    x = 1
+    x = 0
     current_year = date.today().year
-    for _ in range (1000):
+    for _ in range(800):
         age = current_year - atletas[x].birth_date.year
         age_division_choice = random.choice(Age_division.query.filter(Age_division.initial_age <= age, Age_division.top_age >= age).all())
         weight_choice = random.choice( db.session.query(Weight).join(Weight_age_division_gender).join(Age_division).join(Gender).filter(Age_division.id == age_division_choice.id, Gender.id == atletas[x].gender_id).all())
@@ -52,6 +79,38 @@ pesos = [{'Pluma':14.99, 'Pena':17.99, 'Leve':20.99, 'Medio':23.99, 'Medio-Pesad
         {'Gallo':54.99, 'Pluma':60.99, 'Pena':66.99, 'Leve':72.99, 'Medio':78.99, 'Medio-Pesado':84.99, 'Pesado':90.99, 'Super Pesado':96.99, 'Pessadissimo':97, 'Absoluto':1000},
         {'Gallo':45.99, 'Pluma':50.99, 'Pena':55.99, 'Leve':60.99, 'Medio':65.99, 'Medio-Pesado':70.99, 'Pesado':75.99, 'Super Pesado':80.99, 'Pessadissimo':81, 'Absoluto':1000},
         ]
+x=0
+for peso in pesos:
+    if age_division[x].name != 'Adulto' and age_division[x].name != 'Master':
+        for key, value in peso.items():
+            row = Weight(name=key, weight=value, kimono=False)
+            db.session.add(row)
+            for gender in genders:
+                row_1 = Weight_age_division_gender(weight=row, gender=gender, age_division=age_division[x])
+                db.session.add(row_1)
+                db.session.commit()
+        x += 1
+    elif age_division[x].name == 'Adulto':
+        for key, value in peso.items():
+            row = Weight(name=key, weight=value, kimono=False)
+            db.session.add(row)
+            row_1 = Weight_age_division_gender(weight=row, gender=genders[0], age_division=age_division[x])
+            row_2 = Weight_age_division_gender(weight=row, gender=genders[0], age_division=age_division[x+1])
+            db.session.add(row_1)
+            db.session.add(row_2)
+            db.session.commit()
+        x += 1 
+    elif age_division[x].name == 'Master':
+        for key, value in peso.items():
+            row = Weight(name=key, weight=value, kimono=False)
+            db.session.add(row)
+            row_1 = Weight_age_division_gender(weight=row, gender=genders[1], age_division=age_division[x-1])
+            row_2 = Weight_age_division_gender(weight=row, gender=genders[1], age_division=age_division[x])
+            db.session.add(row_1)
+            db.session.add(row_2)
+            db.session.commit()
+
+
 
 # infanto1 = {'Pluma':14.99, 'Pena':17.99, 'Leve':20.99, 'Medio':23.99, 'Medio-Pesado':26.99, 'Pesado':29.99, 'Super Pesado':32.99, 'Pessadissimo':33}
 # infanto2 = {'Pluma':18.99, 'Pena':21.99, 'Leve':24.99, 'Medio':27.99, 'Medio-Pesado':30.99, 'Pesado':33.99, 'Super Pesado':36.99, 'Pessadissimo':37}
@@ -69,7 +128,40 @@ categories = [['Infanto 1', 4, 5], ['Infanto 2', 6, 7], ['Infanto 3', 8, 9], ['I
 for category in categories:
     category_1 = Age_division(name = category[0], initial_age = category[1], top_age = category[2])
     db.session.add(category_1)
+    age_division_belt = Age_division_belt(belt=belts[0], age_division=category_1)
+    db.session.add(age_division_belt)
     db.session.commit()
+    if category[0] == 'Infanto 1':
+        for belt in belts[1:2]:
+            age_division_belt = Age_division_belt(belt=belt, age_division=category_1)
+            db.session.add(age_division_belt)
+            db.session.commit()
+    elif category[0] == 'Infanto 2' or category[0] == 'Infanto 3':
+        for belt in belts[1:3]:
+            age_division_belt = Age_division_belt(belt=belt, age_division=category_1)
+            db.session.add(age_division_belt)
+            db.session.commit()
+    elif category[0] == 'Infanto 4':
+        for belt in belts[1:4]:
+            age_division_belt = Age_division_belt(belt=belt, age_division=category_1)
+            db.session.add(age_division_belt)
+            db.session.commit()
+    elif category[0] == 'Infanto Juvenil 1' or category[0] == 'Infanto Juvenil 2':
+        for belt in belts[1:5]:
+            age_division_belt = Age_division_belt(belt=belt, age_division=category_1)
+            db.session.add(age_division_belt)
+            db.session.commit()
+    elif category[0] == 'Juvenil':
+        for belt in belts[5:7]:
+            age_division_belt = Age_division_belt(belt=belt, age_division=category_1)
+            db.session.add(age_division_belt)
+            db.session.commit()
+    elif category[0] == 'Adulto' or category[0] == 'Master':
+        for belt in belts[5:9]:
+            age_division_belt = Age_division_belt(belt=belt, age_division=category_1)
+            db.session.add(age_division_belt)
+            db.session.commit()
+
 
 belts = ['Blanco', 'Gris', 'Amarillo', 'Naranja', 'Verde', 'Azul', 'Violeta', 'Marron', 'Negro']
 
@@ -82,36 +174,45 @@ x = 0
 age_divisions = db.session.query(Age_division).order_by(Age_division.id).all()
 
 
-academia = Academy(name='Alliance LDE', province='Guayas', city='Guayaquil', country='EC')
-db.session.add(academia)
+academia1 = Academy(name='Team Alfa', province='Guayas', city='Guayaquil', country='EC')
+academia2 = Academy(name='Alliance LDE', province='Guayas', city='Guayaquil', country='EC')
+academia3 = Academy(name='Dojo Leo Iturralde', province='Guayas', city='Guayaquil', country='EC')
+academia4 = Academy(name='Team Cascagrossa', province='Guayas', city='Guayaquil', country='EC')
+academia5 = Academy(name='Mantra', province='Guayas', city='Guayaquil', country='EC')
+db.session.add(academia1)
+db.session.add(academia2)
+db.session.add(academia3)
+db.session.add(academia4)
+db.session.add(academia5)
 db.session.commit()
 
 genders = ['Masculino', 'Femenino']
 for gender in genders:
     genero = Gender(name=gender)
     db.session.add(genero)
-    db.session.commit(
+    db.session.commit()
+
+age_divisions = db.session.query(Age_division.id, Age_division.name).all()
+genders = db.session.query(Gender.id, Gender.name).all()
 
 for age_division in age_divisions:
-    for belt in belts:
-        for weight in weights:
-            for gender in genders:
-                all = db.session.query(Atleta.name, Atleta.academy).join(Registration.atleta).join(Registration.age_division).join(Atleta.belt).join(Registration.weight).join(Atleta.gender).filter(Age_division.name == age_division[0], Belt.name == belt[0], Weight.name == weight[0], Gender.name == gender[0], Registration.event_id == 1).all()
-                if all != []:
-                    print(f"[{age_division}, {belt}, {weight}, {gender}]: {all}")
+    for belt in db.session.query(Belt.id, Belt.name).join(Age_division_belt).filter(Age_division_belt.age_division_id == age_division[0]).all():
+        for gender in genders:
+            for weight in db.session.query(Weight.id, Weight.name).join(Weight_age_division_gender).filter(Weight_age_division_gender.age_division_id == age_division[0], Weight_age_division_gender.gender_id == gender[0]).all():
+                atletas = db.session.query(Atleta.name, Academy.name).join(Registration.atleta).join(Atleta.academy).filter(Atleta.gender_id == gender[0], Atleta.belt_id == belt[0], Registration.age_division_id == age_division[0], Atleta.gender_id == gender[0], Registration.weight_id == weight[0], Atleta.id == Registration.atleta_id).all()
+                if atletas == []:
+                    print(f"[{age_division}, {belt}, {weight}, {gender}]: {atletas}") 
+
+    weights = db.session.query(Weight).join(Weight_age_division_gender).join(Age_division).join(Gender).filter(Age_division.id == age_division, Gender.id == current_user.gender_id).all()
+                    atletas = db.session.query(Atleta.name, Academy.name).join(Registration.atleta).join(Atleta.academy).filter(Atleta.gender_id == 2, Atleta.belt_id == 9, Registration.age_division_id == 9, Atleta.gender_id == 2, Registration.weight_id == 80, Atleta.id == Registration.atleta_id).all()                if all != 0:
+                    print(f"[{age_division}, {belt}, {weight}, {gender}]: {all}") 
 
 
 for belt in belts:
     for age_division in age_divisions:
         for gender in genders:
             for weight in weights:
-                atletas = db.session.query(Atleta.name).join(Registration.event).join(Registration.atleta).join(Registration.weight).join(Registration.age_division).join(Atleta.belt).join(Atleta.gender).filter(event_id == event_id.id, Gender.id == gender, Weight.id == weight.id, Age_division.id == age_division, Belt.id == belt).all()
-                tables.append(atletas
+                all = db.session.query(Atleta.name, Academy.name).join(Registration.atleta).join(Registration.age_division).join(Atleta.belt).join(Registration.weight).join(Registration.event).join(Atleta.gender).filter(Age_division.name == age_division[0], Belt.name == belt[0], Weight.id == weight[0], Gender.name == gender[0], (Registration.event_id == 1)).all()
+                print(f"[{age_division}, {belt}, {weight}, {gender}]: {all}") 
 
-for age_division in age_divisions:
-    for belt in belts:
-        for weight in weights:
-            for gender in genders:
-                all = db.session.query(Atleta.name).join(Registration.atleta).join(Registration.age_division).join(Atleta.belt).join(Registration.weight).join(Registration.event).join(Atleta.gender).filter(Age_division.id == age_division[0], Belt.id == belt[0], Weight.id == weight[0], Gender.id == gender[0], (Registration.event_id == 1)).all()
-                if all != []:
-                    print(f"[{age_division}, {belt}, {weight}, {gender}]: {all}") 
+atletas = db.session.query(Atleta.name, Academy.name).join(Registration.atleta).join(Atleta.academy).filter(Atleta.gender_id == 2, Atleta.belt_id == 9, Registration.age_division_id == 9, Atleta.gender_id == 2, Registration.weight_id == 80, Atleta.id == Registration.atleta_id).all()

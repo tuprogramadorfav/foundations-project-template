@@ -42,13 +42,12 @@ force_auto_coercion()
 #     )
 
 
-# class Age_division_belt(db.Model):
-#     __tablename__ = 'age_division_belt'
-#     id = db.Column(db.Integer, primary_key=True)
-#     age_division_id = db.Column(db.Integer, db.ForeignKey('age_division.id'))
-#     belt_id = db.Column(db.Integer, db.ForeignKey('belt.id'))
-    # age_division = db.relationship('Age_division', back_populates='Age_division_belt')
-    # belt = db.relationship('Belt', back_populates='Age_division_belt')
+class Age_division_belt(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    age_division_id = db.Column(db.Integer, db.ForeignKey('age_division.id'))
+    belt_id = db.Column(db.Integer, db.ForeignKey('belt.id'))
+    age_division = db.relationship('Age_division', back_populates='age_division_belt')
+    belt = db.relationship('Belt', back_populates='age_division_belt')
 
 class Weight_age_division_gender(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -80,7 +79,7 @@ class Age_division(db.Model):
     top_age = db.Column(db.Integer, nullable=False)
     registration = db.relationship('Registration', backref = 'age_division', lazy=True)
     weight_agedivision_genders = db.relationship('Weight_age_division_gender', back_populates='age_division')
-    # age_division_belt = db.relationship('Age_division_belt', back_populates='age_division', nullable=True)
+    age_division_belt = db.relationship('Age_division_belt', back_populates='age_division')
     def __repr__(self):
         return f"{self.name}', '{self.initial_age}', '{self.top_age}'"    
 
@@ -105,7 +104,7 @@ class Belt(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(60), nullable=False)
     atletas = db.relationship('Atleta', backref = 'belt', lazy=True)
-    # age_division_belt = db.relationship('Age_division_belt', back_populates='belt', nullable=True)
+    age_division_belt = db.relationship('Age_division_belt', back_populates='belt')
 
     def __repr__(self):
         return self.name

@@ -2,7 +2,22 @@
 
 {% block content %}
 <table>
-    {% for belt in belts %}
+    {% for table in tables %}
+        <tr>
+            {% for header in headers %}
+                <th>{{ header }}</th>       
+            {% endfor %}
+        </tr>
+        </tr>
+        {% for atleta in table %}
+            <tr>
+                <td>{{atleta[0]}}</td>
+                <td>{{atleta[1]}}</td>
+            </tr>
+        {% endfor %}
+    {% endfor %}
+
+    <!-- {% for belt in belts %}
         <h3>{{ belt[0] }}</h3>
         {% for age_division in age_divisions %}
             {% for gender in genders %}
@@ -23,6 +38,6 @@
                 {% endfor %}
             {% endfor %}
         {% endfor %}
-    {% endfor %}
+    {% endfor %} -->
 </table>
 {% endblock %} 
