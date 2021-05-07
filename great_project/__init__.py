@@ -51,19 +51,10 @@ class Llaves(BaseView):
     @expose('/')
     def index(self):
         all_belts = Belt.query.all()
-        all_ageDivision = Category.query.all()
+        all_ageDivision = Age_division.query.all()
         return self.render('llaves.html')
 
-# atleta = db.Table('atleta', db.metadata, autoload=True, autoload_with=db.engine)
-# gender = db.Table('gender', db.metadata, autoload=True, autoload_with=db.engine)
-# belt = db.Table('belt', db.metadata, autoload=True, autoload_with=db.engine)
-# age_division = db.Table('age_division', db.metadata, autoload=True, autoload_with=db.engine)
-# weight = db.Table('weight', db.metadata, autoload=True, autoload_with=db.engine)
-# academy = db.Table('academy', db.metadata, autoload=True, autoload_with=db.engine)
-# registration = db.Table('registration', db.metadata, autoload=True, autoload_with=db.engine)
-# event = db.Table('event', db.metadata, autoload=True, autoload_with=db.engine)
-
-from great_project.models import Atleta, Academy, Event, Registration
+from great_project.models import Atleta, Academy, Event, Registration, Belt, Age_division
 admin.add_view(MyModelView(Atleta, db.session))
 admin.add_view(MyModelView(Academy, db.session))
 admin.add_view(MyModelView(Event, db.session))

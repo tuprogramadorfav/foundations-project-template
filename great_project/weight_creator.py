@@ -225,6 +225,10 @@ dicts = {}
 belt_dicts = {}
 gender_dicts = {}
 weight_dicts = {}
+belts = db.session.query(Belt.name).all()
+weights = db.session.query(Weight.id, Weight.name).all()
+age_divisions = db.session.query(Age_division.id, Age_division.name).order_by(Age_division.id).all()
+genders = db.session.query(Gender.id, Gender.name).all()
 
 for age_division in age_divisions:
     dicts[age_division[1]] = {}
@@ -242,11 +246,3 @@ for age_division in age_divisions:
     dicts[age_division[1]] = belt_dicts
     belt_dicts = {}
 
-for age_division in dicts:
-    print(age_division)
-    for belt in dicts[age_division]:
-        for gender in dicts[age_division][belt]:
-            for weight in dicts[age_division][belt][gender]:
-                print(belt, gender, weight)
-                for atleta in dicts[age_division][belt][gender][weight]:
-                    print(atleta[0], atleta[1])
