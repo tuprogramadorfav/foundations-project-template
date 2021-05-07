@@ -80,6 +80,9 @@ pesos = [{'Pluma':14.99, 'Pena':17.99, 'Leve':20.99, 'Medio':23.99, 'Medio-Pesad
         {'Gallo':54.99, 'Pluma':60.99, 'Pena':66.99, 'Leve':72.99, 'Medio':78.99, 'Medio-Pesado':84.99, 'Pesado':90.99, 'Super Pesado':96.99, 'Pessadissimo':97, 'Absoluto':1000},
         {'Gallo':45.99, 'Pluma':50.99, 'Pena':55.99, 'Leve':60.99, 'Medio':65.99, 'Medio-Pesado':70.99, 'Pesado':75.99, 'Super Pesado':80.99, 'Pessadissimo':81, 'Absoluto':1000},
         ]
+
+genders = db.session.query(Gender).all()
+age_divisions = db.session.query(Age_division.id, Age_division.name).all()
 x=0
 for peso in pesos:
     if age_division[x].name != 'Adulto' and age_division[x].name != 'Master':
@@ -124,7 +127,7 @@ for peso in pesos:
 # femenino = {'Gallo':45.99, 'Pluma':50.99, 'Pena':55.99, 'Leve':60.99, 'Medio':65.99, 'Medio-Pesado':70.99, 'Pesado':75.99, 'Super Pesado':80.99, 'Pessadissimo':81, 'Absoluto':1000}
 
 
-
+belts = db.session.query(Belt).all()
 categories = [['Infanto 1', 4, 5], ['Infanto 2', 6, 7], ['Infanto 3', 8, 9], ['Infanto 4', 10, 11], ['Infanto Juvenil 1', 12, 13], ['Infanto Juvenil 2', 14, 15], ['Juvenil', 16, 17], ['Adulto', 18, 80], ['Master', 30, 80]]
 for category in categories:
     category_1 = Age_division(name = category[0], initial_age = category[1], top_age = category[2])
