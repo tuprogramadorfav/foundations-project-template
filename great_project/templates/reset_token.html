@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="box">
+    <div class="registrarse">
+        <h2>Restablecer Contraseña</h2>
+        <form method="POST" action="">
+            {{form.hidden_tag()}}
+            <div class="inputBx">
+                <span>{{form.password.label}} </span>
+                <div class="input-error">
+                    {% if form.password.errors %}
+                    {{ form.password(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                    {% for error in form.password.errors%}
+                        <span class="error">{{ error }}</span>
+                    {% endfor %}
+                    </div>
+                    {% else %}
+                    {{form.password(class="form-control form-control-lg")}}
+                    {% endif %}
+                </div>
+            </div>
+            <div class="inputBx">
+                <span>{{form.confirm_password.label}} </span>
+                <div class="input-error">
+                    {% if form.confirm_password.errors %}
+                    {{ form.confirm_password(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                    {% for error in form.confirm_password.errors%}
+                        <span class="error">{{ error }}</span>
+                    {% endfor %}
+                    </div>
+                    {% else %}
+                    {{form.confirm_password(class="form-control form-control-lg")}}
+                    {% endif %}
+                </div>
+            </div>
+            <div class="inputBx">
+                {{form.submit}}
+            </div>
+            
+        </form>
+    </div>
+</div>
+
+{% endblock content %}

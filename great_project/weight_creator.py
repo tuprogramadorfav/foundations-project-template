@@ -82,7 +82,7 @@ pesos = [{'Pluma':14.99, 'Pena':17.99, 'Leve':20.99, 'Medio':23.99, 'Medio-Pesad
         ]
 
 genders = db.session.query(Gender).all()
-age_divisions = db.session.query(Age_division.id, Age_division.name).all()
+age_division = db.session.query(Age_division).all()
 x=0
 for peso in pesos:
     if age_division[x].name != 'Adulto' and age_division[x].name != 'Master':

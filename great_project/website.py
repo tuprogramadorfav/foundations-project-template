@@ -1,6 +1,7 @@
 from flask import render_template, request, url_for, redirect, flash, request, jsonify, json
-from great_project import app, db, bcrypt, login_manager
-from great_project.forms import  RegistrationForm, LoginForm, EventRegistration, AcademyRegistration, UpdateAccount
+from great_project import app, db, bcrypt, login_manager, mail
+from flask_mail import Message
+from great_project.forms import  RegistrationForm, LoginForm, EventRegistration, AcademyRegistration, UpdateAccount, RequestResetFrom, ResetPasswordForm
 from great_project.models import Atleta, Academy, Belt, Gender, Event, Registration, Weight, Age_division, Weight_age_division_gender, Age_division_belt
 from flask_login import login_user, current_user, logout_user, login_required
 import datetime
@@ -178,7 +179,7 @@ def registrarse():
         db.session.add(atleta)
         db.session.commit()
         flash('Tu cuenta ha sido creada', 'success')
-        return redirect(url_for('index'))
+        return redirect(url_for('login'))
     return render_template('registrarse.html', page_title="Calendario", form=form)
 
 @app.route('/logout')
@@ -200,3 +201,48 @@ def academy_reg():
         flash(f'La academia {form.name.data} ha sido registrada con exito', 'success')
         return redirect(url_for('index'))
     return render_template('academy_reg.html', page_title="Calendario", form=form)
+
+
+def send_reset_email(atleta):
+    token = user.get_reset_token()
+    msg = Message('Solicitud de Restablecimiento de Contraseña', sender='jarcmb2118@gmail.com', recipients=[atleta.email])
+    msg.body = f'''Para restablecer su contraseña, ingrese al siguiente link:
+{url_for('reset_token', token=token, _external=True)}
+
+El link solo sera valido durante 30 minutos, si han pasado mas de 30 minutos desde que recibio este correo electronico porfavor vuelva a llenar lo solicitud de reestablecimiento de contraseña en el siguiente link:
+ {url_for('reset_request', _external=True)}
+Si usted no ha hecho esta solicitud simplemente ignore este correo electronico y no se hara ningun cambio.
+'''
+    mail.send(msg)
+
+@app.route('/reset_password', methods=['GET', 'POST'])
+def reset_request():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    form = RequestResetFrom()
+    if form.validate_on_submit():
+        atleta = Atleta.query.filter_by(email=form.email.data).first()
+        send_reset_email(atleta)
+        flash('Se ha enviado un email con las instrucciones para reestablecer tu contraseña', 'info')
+        return redirect(url_for('login'))
+    return render_template('reset_request.html', page_title='Reset Password', form=form)
+
+@app.route('/reset_password/<token>', methods=['GET', 'POST'])
+def reset_token(token):
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    atleta = Atleta.verify_reset_token(token)
+    if atleta is None:
+        flash('Este token es invalido o ya ha expirado', 'warning')
+        return redirect(url_for('reset_request'))
+    form = RequestPasswordFrom()
+    if form.validate_on_submit():
+        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+        atleta.password = hashed_password
+        db.session.commit()
+        flash('Tu contraseña ha sido actualizada!', 'success')
+        return redirect(url_for('login'))
+    return render_template('reset_token.html', page_title='Reset Password', form=form))
+    
+
+

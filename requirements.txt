@@ -32,3 +32,4 @@ Pillow
 babel
 email-validator
 flask-table
+flask-mail

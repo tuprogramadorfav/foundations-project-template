@@ -91,3 +91,18 @@ class UpdateAccount(FlaskForm):
             user = Atleta.query.filter_by(email=email.data).first()
             if user:
                 raise ValidationError('Esta direccion de correo electronico ya esta registrada. Porfavor usa una direccion de correo electronico diferente')
+
+
+class RequestResetFrom(FlaskForm):
+    email = StringField('Correo Electronico', validators=[DataRequired(), Email()])
+    submit = SubmitField('Solicitar cambio de contraseña')
+    def validate_email(self, email):
+        user = Atleta.query.filter_by(email=email.data).first()
+        if user is None:
+            raise ValidationError('Esta cuenta de correo electronico no esta registrada.')
+
+class ResetPasswordForm(FlaskForm):
+    password = PasswordField('Contraseña', validators=[DataRequired()])
+    confirm_password = PasswordField('Confirmar Contraseña', validators=[DataRequired(), EqualTo('password')])
+    submit = SubmitField('Cambiar Contraseña')
+
