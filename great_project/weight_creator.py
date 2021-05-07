@@ -1,5 +1,5 @@
 from great_project import db
-from great_project.models import Atleta, Academy, Belt, Gender, Event, Registration, Weight, Age_division
+from great_project.models import Atleta, Academy, Belt, Gender, Event, Registration, Weight, Age_division, Weight_age_division_gender, Age_division_belt
 from faker import Faker
 import random
 import datetime
