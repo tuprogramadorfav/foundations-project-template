@@ -1,4 +1,4 @@
-from flask import render_template, request, url_for, flash, redirect, flash, request, jsonify, json
+from flask import render_template, request, url_for, redirect, flash, request, jsonify, json
 from great_project import app, db, bcrypt, login_manager
 from great_project.forms import  RegistrationForm, LoginForm, EventRegistration, AcademyRegistration, UpdateAccount
 from great_project.models import Atleta, Academy, Belt, Gender, Event, Registration, Weight, Age_division, Weight_age_division_gender, Age_division_belt
@@ -75,7 +75,7 @@ def login():
             flash(f'Hola {current_user.name}, has iniciado sesion', 'success')
             return redirect(next_page) if next_page else redirect(url_for('index'))
         else:
-            flash('Inicio de sesion invalido. Porfavor revisa tu correo electronico y contraseña')
+            flash('Inicio de sesion invalido. Porfavor revisa tu correo electronico y contraseña', 'danger')
     return render_template('login.html', page_title="Calendario", form=form)
 
 @app.route('/evento1')
@@ -185,15 +185,16 @@ def registrarse():
 @login_required
 def logout():
     logout_user()
+    flash('Has cerrado sesion', 'warning')
     return redirect(url_for('index'))
 
 
-@app.route('/create_academy')
+@app.route('/academy_reg', methods=['GET', 'POST'])
 @login_required
-def create_academy():
+def academy_reg():
     form = AcademyRegistration()
     if form.validate_on_submit():
-        atleta = Academy(name = form.name.data, province = form.province.data.upper(), country = form.country.data, city = form.city.data.upper())
+        academy = Academy(name = form.name.data, province = form.province.data.upper(), country = form.country.data, city = form.city.data.upper())
         db.session.add(academy)
         db.session.commit()
         flash(f'La academia {form.name.data} ha sido registrada con exito', 'success')

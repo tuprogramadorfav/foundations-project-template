@@ -37,6 +37,9 @@
          {% if current_user.is_authenticated and current_user.is_admin %}
              <button class="dropbtn"><a href="{{url_for('admin')}}">Admin</a></button>
          {% endif %}
+         {% if current_user.is_authenticated and current_user.profesor_conf %}
+            <button class="dropbtn"><a href="{{url_for('academy_reg')}}">Registrar Academia</a></button>
+         {% endif %}
 
         </div>
         <div class="dropdown-content3">

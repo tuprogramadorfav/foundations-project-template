@@ -74,6 +74,7 @@ class AcademyRegistration(FlaskForm):
     country = CountrySelectField('Pais', validators=[DataRequired(), Length(min=2, max=50)])
     province = StringField('Provincia', validators=[DataRequired(), Length(min=2, max=50)])
     city = StringField('Ciudad', validators=[DataRequired(), Length(min=2, max=50)])
+    submit = SubmitField('Registrarse')
 
 class UpdateAccount(FlaskForm):
     email = StringField('Correo Electronico', validators=[DataRequired(), Email()])
