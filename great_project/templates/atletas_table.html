@@ -1,43 +1,33 @@
 {% extends "base.html" %}
 
 {% block content %}
-<table>
-    {% for table in tables %}
-        <tr>
-            {% for header in headers %}
-                <th>{{ header }}</th>       
-            {% endfor %}
-        </tr>
-        </tr>
-        {% for atleta in table %}
-            <tr>
-                <td>{{atleta[0]}}</td>
-                <td>{{atleta[1]}}</td>
-            </tr>
-        {% endfor %}
-    {% endfor %}
-
-    <!-- {% for belt in belts %}
-        <h3>{{ belt[0] }}</h3>
-        {% for age_division in age_divisions %}
-            {% for gender in genders %}
-                {% for weight in weights %}
-                    <h4>{{age_division[0]}}/{{gender[0]}}/{{weight[1]}}</h4>
-                    <tr>
-                        {% for header in headers %}
-                            <th>{{ header }}</th>       
-                        {% endfor %}
-                    </tr>
-                        {% for atleta in tables[x] %}
-                            <tr>
-                                <td>atleta[0]</td>
-                                <td>atleta[1]</td>
-                            </tr>
-                        {% endfor %}
-                        {% set x = x +1 %}
+    {% for age_division in dicts %}
+        <h3 class="atletas-header age-division">{{ age_division }}</h3>
+        {% for belt in dicts[age_division] %}
+            {% for gender in dicts[age_division][belt] %}
+                {% for weight in dicts[age_division][belt][gender] %}
+                    <h5 class="atletas-header division">{{belt}}/{{gender}}/{{weight}}</h2>
+                        <table class="ranking-table">
+                            <thead>
+                                <tr>
+                                    
+                                    <th class="name-left">{{ headers[0] }}</th>
+                                    <th>{{ headers[1] }}</th>       
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for atleta in dicts[age_division][belt][gender][weight] %}
+                                    <tr>
+                                        <td class="atleta-left">{{atleta[0]}}</td>
+                                        <td class="atleta-right">{{atleta[1]}}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
                 {% endfor %}
             {% endfor %}
         {% endfor %}
-    {% endfor %} -->
-</table>
+    {% endfor %}
+
 {% endblock %} 

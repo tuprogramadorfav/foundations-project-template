@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h2>{{event_name}}</h2>
+    <div class="box">
+        <div class="registrarse">
+            <form method="POST" action="">
+                {{form.hidden_tag()}}
+                <h3>Registrar Academia</h3>
+                <div class="fieldset">
+                    <div class="form-group">
+                      <span>{{form.name.label}}</span>
+                      <div class="input-error">
+                        {% if form.name.errors %}
+                      
+                        {{ form.name(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                          {% for error in form.name.errors%}
+                            <span class="error">{{ error }}</span>
+                          {% endfor %}
+                        </div>
+                      {% else %}
+                        {{form.name(class="form-control form-control-lg")}}
+                      {% endif %}
+                      </div>
+                    </div>
+                    <div class="form-group">
+                        <span>{{form.country.label}}</span>
+                        <div class="input-error">
+                          {% if form.country.errors %}
+                        
+                          {{ form.country(class="form-control form-control-lg is-invalid") }}
+                          <div class="invalid-feedback">
+                            {% for error in form.country.errors%}
+                              <span class="error">{{ error }}</span>
+                            {% endfor %}
+                          </div>
+                        {% else %}
+                          {{form.country(class="form-control form-control-lg")}}
+                        {% endif %}
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <span>{{form.province.label}}</span>
+                        <div class="input-error">
+                          {% if form.province.errors %}
+                        
+                          {{ form.province(class="form-control form-control-lg is-invalid") }}
+                          <div class="invalid-feedback">
+                            {% for error in form.province.errors%}
+                              <span class="error">{{ error }}</span>
+                            {% endfor %}
+                          </div>
+                        {% else %}
+                          {{form.province(class="form-control form-control-lg")}}
+                        {% endif %}
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <span>{{form.city.label}}</span>
+                        <div class="input-error">
+                          {% if form.city.errors %}
+                        
+                          {{ form.city(class="form-control form-control-lg is-invalid") }}
+                          <div class="invalid-feedback">
+                            {% for error in form.city.errors%}
+                              <span class="error">{{ error }}</span>
+                            {% endfor %}
+                          </div>
+                        {% else %}
+                          {{form.city(class="form-control form-control-lg")}}
+                        {% endif %}
+                        </div>
+                      </div>
+
+                </div>
+                <div class="submit-btn">
+                    {{form.submit(id="reg-form")}}
+                    <!-- <input type="submit" id="reg-form" value="Registrarse"> -->
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock content %}

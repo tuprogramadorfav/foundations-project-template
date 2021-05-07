@@ -3,13 +3,14 @@ from great_project.models import Atleta, Academy, Belt, Gender, Event, Registrat
 from faker import Faker
 import random
 import datetime
+from datetime import date
 
 fake = Faker()
 
 def add_atletas():
     current_year = date.today().year
     for _ in range(800):
-        start_date = datetime.date(1970, 1, 1)
+        start_date = datetime.date(2004, 1, 1)
         end_date = datetime.date(2017, 2, 1)
         time_between_dates = end_date - start_date
         days_between_dates = time_between_dates.days
@@ -57,9 +58,9 @@ def add_atletas():
 def add_registration():
     atletas = Atleta.query.all()
     weights = Weight.query.all()
-    x = 0
+    x = 1600
     current_year = date.today().year
-    for _ in range(800):
+    for _ in range(799):
         age = current_year - atletas[x].birth_date.year
         age_division_choice = random.choice(Age_division.query.filter(Age_division.initial_age <= age, Age_division.top_age >= age).all())
         weight_choice = random.choice( db.session.query(Weight).join(Weight_age_division_gender).join(Age_division).join(Gender).filter(Age_division.id == age_division_choice.id, Gender.id == atletas[x].gender_id).all())
@@ -203,16 +204,49 @@ for age_division in age_divisions:
                 if atletas == []:
                     print(f"[{age_division}, {belt}, {weight}, {gender}]: {atletas}") 
 
-    weights = db.session.query(Weight).join(Weight_age_division_gender).join(Age_division).join(Gender).filter(Age_division.id == age_division, Gender.id == current_user.gender_id).all()
-                    atletas = db.session.query(Atleta.name, Academy.name).join(Registration.atleta).join(Atleta.academy).filter(Atleta.gender_id == 2, Atleta.belt_id == 9, Registration.age_division_id == 9, Atleta.gender_id == 2, Registration.weight_id == 80, Atleta.id == Registration.atleta_id).all()                if all != 0:
-                    print(f"[{age_division}, {belt}, {weight}, {gender}]: {all}") 
 
 
-for belt in belts:
-    for age_division in age_divisions:
-        for gender in genders:
-            for weight in weights:
-                all = db.session.query(Atleta.name, Academy.name).join(Registration.atleta).join(Registration.age_division).join(Atleta.belt).join(Registration.weight).join(Registration.event).join(Atleta.gender).filter(Age_division.name == age_division[0], Belt.name == belt[0], Weight.id == weight[0], Gender.name == gender[0], (Registration.event_id == 1)).all()
-                print(f"[{age_division}, {belt}, {weight}, {gender}]: {all}") 
 
 atletas = db.session.query(Atleta.name, Academy.name).join(Registration.atleta).join(Atleta.academy).filter(Atleta.gender_id == 2, Atleta.belt_id == 9, Registration.age_division_id == 9, Atleta.gender_id == 2, Registration.weight_id == 80, Atleta.id == Registration.atleta_id).all()
+
+dicts = {'Infanto 1':{'Blanco':{'Masculino':{peso:atletas, peso:atletas}, 'Femenino':{peso:atletas, peso:atletas}}}}
+
+dicts = {}
+for age_division in age_divisions:
+    dicts[age_division[1]] = {}
+    for belt in db.session.query(Belt.id, Belt.name).join(Age_division_belt).filter(Age_division_belt.age_division_id == age_division[0]).all():
+        for gender in genders:
+            for weight in db.session.query(Weight.id, Weight.name).join(Weight_age_division_gender).filter(Weight_age_division_gender.age_division_id == age_division[0], Weight_age_division_gender.gender_id == gender[0]).all():
+                atletas = db.session.query(Atleta.name, Academy.name).join(Registration.atleta).join(Atleta.academy).filter(Atleta.gender_id == gender[0], Atleta.belt_id == belt[0], Registration.age_division_id == age_division[0], Atleta.gender_id == gender[0], Registration.weight_id == weight[0], Atleta.id == Registration.atleta_id).all()
+                if atletas == []:
+                    print(f"[{age_division}, {belt}, {weight}, {gender}]: {atletas}") 
+
+dicts = {}
+belt_dicts = {}
+gender_dicts = {}
+weight_dicts = {}
+
+for age_division in age_divisions:
+    dicts[age_division[1]] = {}
+    for belt in db.session.query(Belt.id, Belt.name).join(Age_division_belt).filter(Age_division_belt.age_division_id == age_division[0]).all():
+        belt_dicts[belt[1]] = {}
+        for gender in genders:
+            gender_dicts[gender[1]] = {}
+            for weight in db.session.query(Weight.id, Weight.name).join(Weight_age_division_gender).filter(Weight_age_division_gender.age_division_id == age_division[0], Weight_age_division_gender.gender_id == gender[0]).all():
+                atletas = db.session.query(Atleta.name, Academy.name).join(Registration.atleta).join(Atleta.academy).filter(Atleta.gender_id == gender[0], Atleta.belt_id == belt[0], Registration.age_division_id == age_division[0], Atleta.gender_id == gender[0], Registration.weight_id == weight[0], Atleta.id == Registration.atleta_id).all()
+                weight_dicts[weight[1]] = atletas
+            gender_dicts[gender[1]] = weight_dicts
+            weight_dicts = {}
+        belt_dicts[belt[1]] = gender_dicts
+        gender_dicts = {}
+    dicts[age_division[1]] = belt_dicts
+    belt_dicts = {}
+
+for age_division in dicts:
+    print(age_division)
+    for belt in dicts[age_division]:
+        for gender in dicts[age_division][belt]:
+            for weight in dicts[age_division][belt][gender]:
+                print(belt, gender, weight)
+                for atleta in dicts[age_division][belt][gender][weight]:
+                    print(atleta[0], atleta[1])

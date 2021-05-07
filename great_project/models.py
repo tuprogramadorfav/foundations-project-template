@@ -139,11 +139,6 @@ class Atleta(db.Model, UserMixin):
         return f"Atleta('{self.name}' '{self.last_name}', '{self.email}', '{self.birth_date.year}', '{self.gender}', '{self.belt}', '{self.academy}', '{self.points}')"
 
 
-
-
-
-
-
 class Weight(db.Model):
     __tablename__ = 'weight'
     # __table_args__ = {'extend_existing': True}

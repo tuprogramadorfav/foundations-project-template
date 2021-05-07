@@ -283,10 +283,19 @@ h3{
 /* index page */
 #slider{
   overflow: hidden;
-  margin-top: 127px;
-  margin-bottom: 78px;
+  margin-top: 40px;
+  margin-bottom: 40px;
   }
-  
+
+.alert{
+  align-self: flex-start;
+  width: 100%;
+  margin-bottom: 0 !important;
+  width: 100%;
+  margin-top: 40px;
+  text-align: center;
+}
+
 #slider figure{
   position: relative;
   width: 500%;
@@ -430,7 +439,6 @@ float: left;
       justify-content: space-between;
       align-content: space-around;
       width: 100%;
-      padding: 0 10%;
       flex-direction: column;
     }
     .info{
@@ -550,8 +558,8 @@ float: left;
   }
 /* Each event */
   .evento{
-      width:125%;
-      height:91%;
+    margin-top: 25px;
+      width:100%;
   }
 
   .date-h2{
@@ -562,7 +570,6 @@ float: left;
   }
   .evento img{
       width:100%;
-      height: 100%;
   }
 
   .protocolo{
@@ -1289,3 +1296,72 @@ float: left;
       margin-top: 4px;
       margin-bottom: 0px !important;
     }
+
+/* atletas_table */
+.ranking-table{
+  border-collapse:collapse;
+  margin: 5px 0;
+  font-size:0.9em;
+  width: 100%;
+  min-width: 300px;
+  border-radius: 5px 5px 0 0;
+  overflow: hidden;
+}
+
+.ranking-table thead tr{
+  
+  background-color: black;
+  color: white;
+  text-align: left;
+  font-weight: bold;  
+}
+
+.ranking-table thead .name-left{
+  border-right: 1px solid white;
+}
+
+.ranking-table th,
+.ranking-table td{
+  padding: 12px 15px;
+  width: 50%;
+}
+
+.ranking-table tbody tr{
+  border-bottom:1px solid #ddd
+}
+
+.ranking-table tbody .atleta-left{
+  border-right: 1px solid white;
+}
+
+.ranking-table tbody .atleta-right{
+  background-color: #f3f3f3;
+}
+
+
+.content-table tbody tr:last-of-type{
+  border-bottom: 2px solid black;
+}
+
+.atletas-header{
+  width: 100%;
+  text-align: left;
+  background-color: white;
+}
+
+.division{
+  margin-top: 15px;
+  margin-bottom: 1px;
+  color: #686868;
+  position: sticky;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  top: 30;
+}
+
+.age-division{
+  margin-top: 20px;
+  position: sticky;
+  top: 0;
+}
+
