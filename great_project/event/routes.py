@@ -21,7 +21,7 @@ def evento1():
 def event_reg1():
     print(current_user)
     event = Event.query.filter_by(id=1).first()
-    print(event)
+    print(event) 
     beltId = current_user.belt_id
     belt = Belt.query.filter_by(id=beltId).first()
     academyId = current_user.academy_id
@@ -86,8 +86,8 @@ def atletas_table():
 def atletas_team():
     dicts = {}
     academies = db.session.query(Academy.id, Academy.name).all()
-    for academy in academies
-        atletas = db.session.(Atleta.name, Atleta.belt, Registration.age_division, Atleta.gender, Registration.weight).join(Academy).join(Registration).filter(Atleta.academy_id == academy[0], Registration.atleta_id == Atleta.id, Registration.event.id == 1).all()
+    for academy in academies:
+        atletas = db.session.query(Atleta.name, Atleta.belt, Registration.age_division, Atleta.gender, Registration.weight).join(Academy).join(Registration).filter(Atleta.academy_id == academy[0],  Registration.event_id == 1).all()
         dicts[academy[1]] = atletas
     
     return render_template('atletas_team.html', page_title="Calendario", headers=headers, dicts=dicts)
