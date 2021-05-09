@@ -1,45 +1,16 @@
 import datetime
 from great_project import db
+from flask import current_app
 from flask_login import UserMixin
 from flask_admin import Admin, AdminIndexView, expose, BaseView
 from flask_admin.contrib.sqla import ModelView
 from sqlalchemy_utils import force_auto_coercion
 from babel import Locale
 from sqlalchemy_utils import Country, CountryType, EmailType, DateRangeType
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 
 force_auto_coercion()
 
-
-
-
-# class Gender_agedivision(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     gender_id = db.Column(db.Integer, db.ForeignKey('gender.id'))
-#     age_division_id = db.Column(db.Integer, db.ForeignKey('age_division.id'))
-
-# class Gender_agedivision_belt(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     belt_id = db.Column(db.Integer, db.ForeignKey('belt.id'))
-#     gender_agedivision_id = db.Column(db.Integer, db.ForeignKey('gender_agedivision.id'))
-
-# class Gender_agedivision_belt_weight(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     weight_id = db.Column(db.Integer, db.ForeignKey('weight.id'))
-#     gender_agedivison_belt_id = db.Column(db.Integer, db.ForeignKey('gender_agedivison_belt.id'))
-
-# gender_agedivision = db.Table('gender_agedivision',
-#     db.Column('id', db.Integer, primary_key=True),
-#     db.Column('gender_id', db.Integer, db.ForeignKey('gender.id')),
-#     db.Column('age_division_id', db.Integer, db.ForeignKey('age_division.id')),
-#     db.relationship('Belt', secondary=gender_agedivision_belt, backref=db.backref('gender_agedivision', lazy = 'dynamic'))
-#     )
-
-# gender_agedivision_belt = db.Table('gender_agedivision_belt',
-#     db.Column('id', db.Integer, primary_key=True),
-#     db.Column('belt_id', db.Integer, db.ForeignKey('belt.id')),
-#     db.Column('gender_agedivision_id', db.Integer, db.ForeignKey('gender_agedivision.id')),
-#     db.relationship('Weight', secondary=gender_agedivision_belt_weight, backref=db.backref('gender_agedivision_belt', lazy = 'dynamic'))
-#     )
 
 
 class Age_division_belt(db.Model):
@@ -134,6 +105,19 @@ class Atleta(db.Model, UserMixin):
     is_admin = db.Column(db.Boolean, nullable=False, default=False)
     registrations = db.relationship('Registration', backref = 'atleta', lazy=True)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
+    
+    def get_reset_token(self, expires_sec=1800):
+        s = Serializer(current_app.config['SECRET_KEY'], expires_sec)
+        return s.dumps({'atleta_id': self.id}).decode('utf-8')
+
+    @staticmethod
+    def verify_reset_token(token):
+        s = Serializer(current_app.config['SECRET_KEY'])
+        try:
+            atleta_id = s.loads(token)['atleta_id']
+        except:
+            return None
+        return Atleta.query.get(atleta_id)
 
     def __repr__(self):
         return f"Atleta('{self.name}' '{self.last_name}', '{self.email}', '{self.birth_date.year}', '{self.gender}', '{self.belt}', '{self.academy}', '{self.points}')"

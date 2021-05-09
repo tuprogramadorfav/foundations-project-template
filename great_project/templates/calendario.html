@@ -3,23 +3,35 @@
 {% block content %}
 <div class="event-container">
     <h3 class="year">2021</h3>
-    <div class="event">
-      <div class="event-left">
-        <div class="event-date">
-          <div class="date">25</div>
-          <div class="month">Ene</div>
+    {% for event in events %}
+      <a href="{{ url_for('event.evento1') }}">
+        <div class="event">
+          <div class="event-left">
+            <div class="event-date">
+              <div class="date">{{ event.date.day }}</div>
+              {% if event.date.month == 6 %}
+              <div class="month">Junio</div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="event-right">
+            <h3 class="event-title">{{ event.name }}</h3>
+            <div class="event-description">
+              Ciudad: {{ event.city }}
+              <br>
+              Lugar: {{ event.place }}
+              <br>
+              Costo de Inscripcion: ${{ event.price }}
+              <br>
+              Fecha Limite de Inscripcion: {{ event.reg_limit.year }}/{{ event.reg_limit.month }}/{{ event.reg_limit.day }}
+            </div>
+            <div class="event-timing">
+              <i class="fas fa-clock"></i> 08:00 am
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="event-right">
-        <h3 class="event-title">Event Title</h3>
-        <div class="event-description">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Excepturi atque ea autem non praesentium totam officia dolorum. 
-        </div>
-        <div class="event-timing">
-          <i class="fas fa-clock"></i> 08:00 am
-        </div>
-      </div>
-    </div>
+      </a>
+    {% endfor %}
 
     <div class="event">
       <div class="event-left">
