@@ -36,10 +36,16 @@ jobs:
     - name: Preparing database for deployment 
       run: | 
         echo "  DB_PASSWORD: \"${{ secrets.DB_PASSWORD }}\" " >> app.yaml
-        echo "  DB_PASSWORD: \"${{ secrets.DB_USER }}\" " >> app.yaml
-        echo "  DB_PASSWORD: \"${{ secrets.DB_HOST }}\" " >> app.yaml
-        echo "  DB_PASSWORD: \"${{ secrets.SECRET_KEY }}\" " >> app.yaml
-        echo "  DB_PASSWORD: \"${{ secrets.DB_URL }}\" " >> app.yaml
+        echo "  DB_USER: \"${{ secrets.DB_USER }}\" " >> app.yaml
+        echo "  DB_HOST: \"${{ secrets.DB_HOST }}\" " >> app.yaml
+        echo "  SECRET_KEY: \"${{ secrets.SECRET_KEY }}\" " >> app.yaml
+        echo "  DB_URL: \"${{ secrets.DB_URL }}\" " >> app.yaml
+        more app.yaml
+    - name: Preparing Mail Server 
+      run: | 
+        echo "  MAIL_PASSWORD: \"${{ secrets.MAIL_PASSWORD }}\" " >> app.yaml
+        echo "  MAIL_SERVER: \"${{ secrets.MAIL_SERVER }}\" " >> app.yaml
+        echo "  MAIL_USER: \"${{ secrets.MAIL_USER }}\" " >> app.yaml
         more app.yaml
     - name: Deploy to Google App Engine
       uses: google-github-actions/deploy-appengine@main

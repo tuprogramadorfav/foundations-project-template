@@ -8,8 +8,8 @@ import os
 # should go in here. This is all available in GitHub, so be careful.
 class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY')
-    # SQLALCHEMY_DATABASE_URI = os.environ.get('DB_URL')
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///site.db'
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DB_URI')
+    # SQLALCHEMY_DATABASE_URI = 'sqlite:///site.db'
     MAIL_SERVER = 'smtp.gmail.com'
     MAIL_PORT = 587
     MAIL_USE_TLS = True

@@ -705,9 +705,11 @@ float: left;
       text-decoration: none;
     }
 
-    .event-container h2.year{
+    .event-container h2{
       margin-top: 35px;
       margin-bottom: 15px;
+    }
+    .event-container h2.year{
       font-size: 40px;
       text-align: center;
       border-bottom: 1 px solid #b1b1b1;

@@ -1,9 +1,13 @@
-from great_project import db
-from great_project.models import Atleta, Academy, Belt, Gender, Event, Registration, Weight, Age_division, Weight_age_division_gender, Age_division_belt
+from great_project import create_app
+from great_project.__init__ import db
+from great_project.models import current_app, Atleta, Academy, Belt, Gender, Event, Registration, Weight, Age_division, Weight_age_division_gender, Age_division_belt
 from faker import Faker
 import random
 import datetime
 from datetime import date
+
+app = create_app()
+app.app_context().push()
 
 fake = Faker()
 
@@ -95,9 +99,10 @@ db.session.add(academia4)
 db.session.add(academia5)
 db.session.commit()
 
-belts = db.session.query(Belt.id).order_by(Belt.id).all()
+belts = db.session.query(Belt).order_by(Belt.id).all()
 categories = [['Infanto 1', 4, 5], ['Infanto 2', 6, 7], ['Infanto 3', 8, 9], ['Infanto 4', 10, 11], ['Infanto Juvenil 1', 12, 13], ['Infanto Juvenil 2', 14, 15], ['Juvenil', 16, 17], ['Adulto', 18, 80], ['Master', 30, 80]]
 for category in categories:
+    print(category)
     category_1 = Age_division(name = category[0], initial_age = category[1], top_age = category[2])
     db.session.add(category_1)
     age_division_belt = Age_division_belt(belt=belts[0], age_division=category_1)

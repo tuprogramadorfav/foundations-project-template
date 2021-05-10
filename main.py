@@ -3,4 +3,4 @@ from great_project import create_app  # noqa: F401
 app = create_app()
 
 if __name__ == "__main__":
-    app.run(host="localhost", port=8080, debug=True)
+    app.run(debug=True)
