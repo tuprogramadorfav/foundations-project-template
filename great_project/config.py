@@ -7,15 +7,15 @@ import os
 # Things that may be different on different computers, like a path to a file,
 # should go in here. This is all available in GitHub, so be careful.
 class Config:
-    SECRET_KEY = 'secretkey'
-    # SECRET_KEY = os.environ.get('SECRET_KEY')
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DB_URI')
+    # SECRET_KEY = 'secretkey'
+    SECRET_KEY = os.environ.get('SECRET_KEY')
+    SQLALCHEMY_DATABASE_URI = os.getenv('DB_URI')
     # SQLALCHEMY_DATABASE_URI = 'sqlite:///site.db'
     MAIL_SERVER = 'smtp.gmail.com'
     MAIL_PORT = 587
     MAIL_USE_TLS = True
-    MAIL_USERNAME = os.environ.get('MAIL_USER')
-    MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
+    MAIL_USERNAME = os.getenv('MAIL_USER')
+    MAIL_PASSWORD = os.getenv('MAIL_PASSWORD')
 # For example, you can add the port you wish to run on as a variable.
 # This can then be used when running the code.
 MY_PORT = "5000"
