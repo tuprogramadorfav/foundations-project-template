@@ -33,4 +33,5 @@ babel
 email-validator
 flask-table
 flask-mail
-pg8000==1.19.4 
+pg8000==1.19.4
+python-dotenv
