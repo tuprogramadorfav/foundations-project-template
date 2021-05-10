@@ -8,9 +8,9 @@ import os
 # should go in here. This is all available in GitHub, so be careful.
 
 # SECRET_KEY = 'secretkey'
-SECRET_KEY = os.getenv('SECRET_KEY')
-SQLALCHEMY_DATABASE_URI = os.getenv('DB_URI')
-# SQLALCHEMY_DATABASE_URI = 'sqlite:///site.db'
+SECRET_KEY = 'secretkey'
+# SQLALCHEMY_DATABASE_URI = os.getenv('DB_URI')
+SQLALCHEMY_DATABASE_URI = 'sqlite:///site.db'
 MAIL_SERVER = 'smtp.gmail.com'
 MAIL_PORT = 587
 MAIL_USE_TLS = True

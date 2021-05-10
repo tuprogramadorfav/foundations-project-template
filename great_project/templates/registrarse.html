@@ -396,6 +396,8 @@
     var first = new Array(31);
     var second = new Array(30);
     var third = new Array(29);
+
+    // arrays containing the belts depending on user age
     var sixyo = ["Blanco", "Gris"];
     var nineyo = ["Blanco", "Gris", "Amarillo"];
     var twelveyo = ["Blanco", "Gris", "Amarillo", "Naranja"];
@@ -404,16 +406,22 @@
     var eighteenyo = ["Blanco", "Azul", "Violeta", "Marron"];
     var all = ["Blanco", "Azul", "Violeta", "Marron", "Negro"];
 
+    // create arrays containg the days of the month with 31 days
     for (i = 1; i < 32; i++) {
       first[i - 1] = i;
     }
+
+    // create arrays containg the days of the month with 30 days
     for (i = 1; i < 31; i++) {
       second[i - 1] = i;
     }
+
+    // create arrays containg the days of the month with 29 days
     for (i = 1; i < 30; i++) {
       third[i - 1] = i;
     }
 
+    // assing each month a value
     var month = {
       0: first,
       1: third,
@@ -429,6 +437,7 @@
       11: first
     };
 
+    // access the DOM by id
     var monthSelect = document.getElementById("month");
     var daySelect = document.getElementById("day");
     var yearSelect = document.getElementById("year");
@@ -458,6 +467,7 @@
     yearSelect.options[0].setAttribute("disabled", true);
     yearSelect.options[0].setAttribute("selected", true);
   
+    // trigger to display day options depending on the month the user has choosen
     monthSelect.addEventListener("change", function() {
       var selectedOption = month[this.value];
 
@@ -466,7 +476,7 @@
 
       removeAll(daySelect);
 
-
+      // add day options depending on month choice
       Array.from(selectedOption).forEach(function(el) {
         let option = new Option(el, el);
 
@@ -474,6 +484,7 @@
       });
     });
 
+    // trigger to add options depending on the birth year the user has choosen
     yearSelect.addEventListener("change", function() {
       var selectedOption2 = yearSelect.options[yearSelect.selectedIndex].value;
       var optionValue = parseInt(selectedOption2)
@@ -482,6 +493,7 @@
 
       removeAll(beltSelect);
       
+      // conditions to add the options depending on user birth year
       if ((year - selectedOption2) <= 6) {
         sixyo.forEach(function(el) {
           let option = new Option(el, el);

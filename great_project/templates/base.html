@@ -34,9 +34,11 @@
                 <a href="{{url_for('event.ranking_atl')}}">Atletas</a>
                 <a href="{{url_for('main.rankingaca')}}">Academias</a>
              </div>
+             <!-- allow only logged in user that are admins -->
          {% if current_user.is_authenticated and current_user.is_admin %}
              <button class="dropbtn"><a href="{{url_for('users.admin')}}">Admin</a></button>
          {% endif %}
+         <!-- allow only logged in users that are teachers -->
          {% if current_user.is_authenticated and current_user.profesor_conf %}
             <button class="dropbtn"><a href="{{url_for('users.academy_reg')}}">Registrar Academia</a></button>
          {% endif %}

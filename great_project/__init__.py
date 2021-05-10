@@ -18,7 +18,7 @@ login_manager.login_message = 'Por favor inicie sesion para ver esta pagina!'
 login_manager.login_message_category = 'info'
 mail = Mail()
 
-
+# create app for flask
 def create_app():
     app = Flask(__name__)
     app.config.from_pyfile('config.py')

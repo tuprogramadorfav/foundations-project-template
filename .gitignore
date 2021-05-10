@@ -6,4 +6,3 @@ junit/
 *.pyc
 .DS_Store
 .env
-cloudbuild.yaml

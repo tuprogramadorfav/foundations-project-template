@@ -6,6 +6,7 @@ from great_project import mail, db
 from great_project.models import Age_division_belt, Age_division, Belt
 from flask_login import current_user
 
+# function to send reset password emails
 def send_reset_email(atleta):
     token = atleta.get_reset_token()
     print(token)
@@ -19,7 +20,7 @@ Si usted no ha hecho esta solicitud simplemente ignore este correo electronico y
 '''
     mail.send(msg)
 
-
+# function to determine the choices an athlete can choose depending on their birth date
 def belt_choices():
     current_year = date.today().year
     age = current_year - current_user.birth_date.year

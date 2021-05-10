@@ -24,9 +24,6 @@ You should have:
 - Python 3.8.x installed on your computer 
 - Git 2.28+ installed on your computer
 - Visual Studio Code (or another IDE of your choosing) installed on your computer 
-- A GitHub account 
-- PostgreSQL installed on your computer if not you could use SQLite
-
 
 ### Cloning this Repo
 
@@ -46,11 +43,17 @@ Clone this repository to your computer
 
     > pip install -r requirements.txt
 
-- Set local environment variables. Create a '.env' file on your root directory or in your bash_profile file. 
+- Set local environment variables. Create a '.env' file on your root directory or in bash.profile file
+    > MAIL_USERNAME = yourmail
+    > MAIL_PASSWORD = yourmailpassword
 
-> uwsgi --http-socket 127.0.0.1:5000 --wsgi-file great_project/website.py --callable app --processes 4 --threads 2 --stats 127.0.0.1:8181 -H venv/
+### Run the Flask App:
+- You are all set to run the app. Make sure the your virtual environment is active (instructions above) and you are anywhere inside the root folder.
+- Run flask using:
+    > flask run
+- All done! You can access the flask app in your browser either on http://127.0.0.1:8000/ or http://localhost:8000.
 
-You should be able to run the website locally and see it in your local browser! 
+
 
 
 

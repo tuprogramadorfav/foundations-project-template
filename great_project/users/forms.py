@@ -6,10 +6,12 @@ from great_project.models import Atleta
 import pycountry
 from wtforms.fields.html5 import TelField
 
+# class that returns all the countries
 class CountrySelectField(SelectField):
     def __init__(self, *args, **kwargs):
         super(CountrySelectField, self).__init__(*args, **kwargs)
         self.choices = [(country.alpha_2, country.name) for country in pycountry.countries]
+
 
 class RegistrationForm(FlaskForm):
     name = StringField('Nombres', validators=[DataRequired(), Length(min=2, max=50)])
@@ -36,11 +38,13 @@ class RegistrationForm(FlaskForm):
     terms = BooleanField('Terms', validators=[DataRequired()])
     submit = SubmitField('Registrarse')
     
+    # check if the provided email is already in the database
     def validate_email(self, email):
         user = Atleta.query.filter_by(email=email.data).first()
         if user:
             raise ValidationError('Esta direccion de correo electronico ya esta registrada. Porfavor usa una direccion de correo electronico diferente')
     
+    # check if the user has selected at least one of the two options athlete or teacher
     def validate_profesor_conf(self, profesor_conf):
         if profesor_conf.data == False and self.atleta_conf.data == False:
             raise ValidationError('Al menos una de las dos opciones debe ser seleccionada')
@@ -74,6 +78,7 @@ class UpdateAccount(FlaskForm):
     academy = SelectField('Academia', validators=[DataRequired()], choices=[('', 'Academia'), ('1', 'Alliance') ])
     submit = SubmitField('Actualizar')
 
+    # check if the provided email is already in the database
     def validate_email(self, email):
         if email.data != current_user.email:
             user = Atleta.query.filter_by(email=email.data).first()
@@ -84,6 +89,8 @@ class UpdateAccount(FlaskForm):
 class RequestResetFrom(FlaskForm):
     email = StringField('Correo Electronico', validators=[DataRequired(), Email()])
     submit = SubmitField('Solicitar cambio de contraseña')
+
+    # check if the provided email exists in the database
     def validate_email(self, email):
         user = Atleta.query.filter_by(email=email.data).first()
         if user is None:

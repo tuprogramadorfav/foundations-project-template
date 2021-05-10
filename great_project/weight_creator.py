@@ -1,3 +1,5 @@
+# File to populate the database, ignore this file 
+
 from great_project import create_app
 from great_project.__init__ import db
 from great_project.models import current_app, Atleta, Academy, Belt, Gender, Event, Registration, Weight, Age_division, Weight_age_division_gender, Age_division_belt
