@@ -39,7 +39,7 @@ jobs:
         echo "  DB_USER: \"${{ secrets.DB_USER }}\" " >> app.yaml
         echo "  DB_HOST: \"${{ secrets.DB_HOST }}\" " >> app.yaml
         echo "  SECRET_KEY: \"${{ secrets.SECRET_KEY }}\" " >> app.yaml
-        echo "  DB_URL: \"${{ secrets.DB_URL }}\" " >> app.yaml
+        echo "  DB_URI: \"${{ secrets.DB_URI }}\" " >> app.yaml
         more app.yaml
     - name: Preparing Mail Server 
       run: | 

@@ -7,7 +7,8 @@ import os
 # Things that may be different on different computers, like a path to a file,
 # should go in here. This is all available in GitHub, so be careful.
 class Config:
-    SECRET_KEY = os.environ.get('SECRET_KEY')
+    SECRET_KEY = 'secretkey'
+    # SECRET_KEY = os.environ.get('SECRET_KEY')
     SQLALCHEMY_DATABASE_URI = os.environ.get('DB_URI')
     # SQLALCHEMY_DATABASE_URI = 'sqlite:///site.db'
     MAIL_SERVER = 'smtp.gmail.com'
