@@ -292,6 +292,13 @@ h3{
   width: 100%;
   }
 
+#slider img:hover{
+  opacity: .85;
+  transition: .6s;
+  cursor: pointer;
+}
+
+
 .alert{
   align-self: flex-start;
   width: 100%;
@@ -366,8 +373,8 @@ float: left;
   }
   
   .single-img img:hover{
-    opacity: .5;
-    transition: .9s;
+    opacity: .7;
+    transition: .6s;
     cursor: pointer;
   }
 
@@ -462,6 +469,10 @@ float: left;
       min-width: 275px;
       max-width: 600px;
     }
+
+    .rank h3{
+      margin-top: 20px;
+    }
   }
   
 /* footer  */
@@ -470,7 +481,7 @@ float: left;
     position: relative;
     margin-top: 50px;
     width:100%;
-    height: 270px;
+    height: 275px;
     background-color: black;
     padding: 10px 0px 0px;
     top: 0;
@@ -550,6 +561,7 @@ float: left;
     font-size: 14px;
     font-weight: 600;
     letter-spacing: 1px;
+    padding: 3px;
     
   }
   
@@ -593,8 +605,9 @@ float: left;
 
   .covid-rules{
     border: 1px solid black;
-    line-height: 30px;
+    line-height: 25px;
     padding: 20px;
+    font-size: 14px;
   }
 
   .info{
@@ -632,6 +645,9 @@ float: left;
 
   .reg-btn{
     margin-bottom: 50px;
+    background-color: black;
+    color: white;
+    border: 1px solid black;
   }
 
   #conf{
@@ -799,6 +815,7 @@ float: left;
     .position-aca{
       display: flex;
       flex-basis: 7%;
+      min-width: 35px;
       text-align: center;
       height: 70px;
       align-items:center;
@@ -1404,4 +1421,30 @@ float: left;
   .main-div{
     min-height: 55.4vh;
   }
+}
+
+/* weights nogi */
+.weights-title1{
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+
+.weights-title2{
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+.list-title{
+  margin-top: 40px;
+}
+
+.pesaje h3{
+  margin-top: 20px;
+  margin-bottom: 10px;
+  color: #383838;
+}
+@media all and (max-width: 900px){
+.tabla-pesos{
+  width: 100%;
+}
 }

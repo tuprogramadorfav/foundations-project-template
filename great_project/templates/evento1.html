@@ -2,9 +2,9 @@
 
 {% block content %}
     <div class="evento">
-        <img src="https://cdn.glitch.com/7f77c198-4426-4d11-8865-87dbbd235060%2F158257092_3927140210639858_7793426015501806585_o.png?v=1616803193883">
+        <img src="https://cdn.glitch.com/7f77c198-4426-4d11-8865-87dbbd235060%2F164143041_3980415718645640_4812763748446798749_o.png?v=1616803196415">
     </div>
-    <div class="protocolo">
+    <div class="box">
         <h2 class="date-h2">20 - 21 de Marzo</h2>
         <hr>
         <div class="covid-rules">
@@ -66,12 +66,12 @@
         </div>
 
         <div class="column3">
-            <a href="#" role="button" target="_blank" class="info-btn">HORARIO</a>
+            <!-- <a href="#" role="button" target="_blank" class="info-btn">HORARIO</a> -->
             <a href="{{url_for('event.atletas_team')}}" role="button" target="_blank" class="info-btn">LISTA DE ATLETAS POR EQUIPO</a>
             <a href="{{url_for('event.atletas_table')}}" role="button" target="_blank" class="info-btn">LISTA DE ATLETAS POR DIVISION</a>
-            <a href="#" role="button" target="_blank" class="info-btn">TABLA DE PESOS</a>
-            <a href="#" role="button" target="_blank" class="info-btn">PESAJE</a>
-            <a href="#" role="button" target="_blank" class="info-btn">RESULTADOS</a>
+            <a href="{{url_for('event.weights_nogi')}}" role="button" target="_blank" class="info-btn">TABLA DE PESOS</a>
+            <a href="{{url_for('event.weight_in')}}" role="button" target="_blank" weight_in class="info-btn">PESAJE</a>
+            <!-- <a href="#" role="button" target="_blank" class="info-btn">RESULTADOS</a> -->
         </div>
     </div>
     <a href="{{url_for('event.event_reg1')}}" role="button" class="info-btn reg-btn">REGISTRARSE AHORA</a>

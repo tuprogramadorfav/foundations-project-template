@@ -80,14 +80,26 @@ def atletas_table():
         dicts[age_division[1]] = belt_dicts
         belt_dicts = {} 
 
-    return render_template('atletas_table.html', page_title="Calendario", headers=headers, dicts=dicts)
+    return render_template('atletas_table.html', page_title="Lista de atletas por Division", headers=headers, dicts=dicts)
 
 @event.route('/atletas_team')
 def atletas_team():
     dicts = {}
     academies = db.session.query(Academy.id, Academy.name).all()
     for academy in academies:
-        atletas = db.session.query(Atleta.name, Atleta.belt, Registration.age_division, Atleta.gender, Registration.weight).join(Academy).join(Registration).filter(Atleta.academy_id == academy[0],  Registration.event_id == 1).all()
+        atletas = db.session.query(Atleta.name, Belt.name, Age_division.name, Gender.name, Weight.name).join(Registration.atleta).join(Atleta.academy).join(Atleta.belt).join(Registration.age_division).join(Atleta.gender).join(Registration.weight).filter(Atleta.id == Registration.atleta_id, Atleta.academy_id == academy[0]).order_by(Belt.id, Age_division.id, Gender.id, Weight.id).all()
         dicts[academy[1]] = atletas
     
-    return render_template('atletas_team.html', page_title="Calendario", headers=headers, dicts=dicts)
+    return render_template('atletas_team.html', page_title="Lista de Atletas por Equipo",  dicts=dicts)
+
+@event.route('/weights_nogi')
+def weights_nogi():
+    return render_template('weights_nogi.html', page_title="Pesos")
+
+@event.route('/weight_in')
+def weight_in():
+    return render_template('weight_in.html', page_title="Pesos")
+
+@event.route('/atletas_ranking')
+def atletas_ranking():
+    return render_template('atletas_ranking.html', page_title="Pesos")

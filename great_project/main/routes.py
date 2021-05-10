@@ -17,3 +17,7 @@ def calendario():
 @main.route('/rankingaca')
 def rankingaca():
     return render_template('rankingaca.html', page_title="Ranking Academias")
+
+@main.route('/resultados')
+def resultados():
+    return render_template('resultados.html', page_title="Resultados")
