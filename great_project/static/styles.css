@@ -705,7 +705,9 @@ float: left;
       text-decoration: none;
     }
 
-    .event-container h3.year{
+    .event-container h2.year{
+      margin-top: 35px;
+      margin-bottom: 15px;
       font-size: 40px;
       text-align: center;
       border-bottom: 1 px solid #b1b1b1;
@@ -837,6 +839,15 @@ float: left;
       padding-left: 15px;
     }
 
+    .academy-aca{
+      display: flex;
+      flex-basis: 83%;
+      height: 70px;
+      align-items:center;
+      background-color: #E0E0E0;
+      padding-left: 15px;
+    }
+
     .points-aca{
       display: flex;
       flex-direction: column;
@@ -845,7 +856,7 @@ float: left;
       height: 70px;
       align-items:center;
       justify-content: center;
-      background-color: #dedede;
+      background-color: rgb(191, 191, 191);
       border-top-right-radius: 4px;
       border-bottom-right-radius: 4px;
     }
@@ -1448,3 +1459,20 @@ float: left;
   width: 100%;
 }
 }
+
+.results-img{
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+.results-img img:hover{
+  opacity: .85;
+  transition: .6s;
+  cursor: pointer;
+}
+
+@media all and (max-width: 1200px){
+  .results-img img{
+    width: 100%;
+  }
+  }

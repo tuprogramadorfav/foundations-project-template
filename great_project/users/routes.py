@@ -46,7 +46,7 @@ def account():
         form.phone.data = current_user.phone
         form.belt.data = atleta_belt
         form.academy.data = atleta_academy
-    return render_template('account.html', page_title="Calendario", form=form)
+    return render_template('account.html', page_title="Cuenta", form=form)
 
 @users.route('/login', methods=['GET', 'POST'])
 def login():
@@ -62,7 +62,7 @@ def login():
             return redirect(next_page) if next_page else redirect(url_for('main.index'))
         else:
             flash('Inicio de sesion invalido. Porfavor revisa tu correo electronico y contraseña', 'danger')
-    return render_template('login.html', page_title="Calendario", form=form)
+    return render_template('login.html', page_title="Iniciar Sesion", form=form)
 
 @users.route('/registrarse', methods=['GET', 'POST'])
 def registrarse():
@@ -85,7 +85,7 @@ def registrarse():
         db.session.commit()
         flash('Tu cuenta ha sido creada', 'success')
         return redirect(url_for('users.login'))
-    return render_template('registrarse.html', page_title="Calendario", form=form)
+    return render_template('registrarse.html', page_title="Registrarse", form=form)
 
 @users.route('/logout')
 @login_required
@@ -105,7 +105,7 @@ def reset_request():
         send_reset_email(atleta)
         flash('Se ha enviado un email con las instrucciones para reestablecer tu contraseña', 'info')
         return redirect(url_for('users.login'))
-    return render_template('reset_request.html', page_title='Reset Password', form=form)
+    return render_template('reset_request.html', page_title='Reestablecer contraseña', form=form)
 
 @users.route('/reset_password/<token>', methods=['GET', 'POST'])
 def reset_token(token):
@@ -123,7 +123,7 @@ def reset_token(token):
         db.session.commit()
         flash('Tu contraseña ha sido actualizada!', 'success')
         return redirect(url_for('users.login'))
-    return render_template('reset_token.html', page_title='Reset Password', form=form)
+    return render_template('reset_token.html', page_title='Reestablecer contraseña', form=form)
 
 @users.route('/academy_reg', methods=['GET', 'POST'])
 @login_required
@@ -135,12 +135,12 @@ def academy_reg():
         db.session.commit()
         flash(f'La academia {form.name.data} ha sido registrada con exito', 'success')
         return redirect(url_for('main.index'))
-    return render_template('academy_reg.html', page_title="Calendario", form=form)
+    return render_template('academy_reg.html', page_title="Registrar Academia", form=form)
 
 @users.route('/admin')
 @login_required
 def admin():
     if current_user.is_admin:
-        return render_template('users.admin.html', page_title="Calendario")
+        return render_template('users.admin.html', page_title="Admin")
     else:
-        return render_template('main.index.html', page_title="My great website")
+        return render_template('main.index.html', page_title="Inicio")

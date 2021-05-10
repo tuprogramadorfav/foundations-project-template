@@ -21,3 +21,7 @@ def rankingaca():
 @main.route('/resultados')
 def resultados():
     return render_template('resultados.html', page_title="Resultados")
+
+@main.route('/no_results')
+def no_results():
+    return render_template('no_results.html', page_title="Resultados")

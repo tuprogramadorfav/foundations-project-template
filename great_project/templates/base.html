@@ -28,10 +28,10 @@
        <div class="dropdown">
           <button class="dropbtn"><a href="{{url_for('main.index')}}">Inicio</a></button>
           <button class="dropbtn"><a href="{{url_for('main.calendario')}}">Calendario</a></button>
-          <button class="dropbtn"><a href="{{url_for('main.resultados')}}"></a>Resultados</button>
+          <button class="dropbtn"><a href="{{url_for('main.resultados')}}">Resultados</a></button>
           <button class="dropbtn" for="click3">Ranking <i class="fa fa-caret-down" id="down-arrow"></i></button>
              <div class="dropdown-content">
-                <a href="#">Atletas</a>
+                <a href="{{url_for('event.ranking_atl')}}">Atletas</a>
                 <a href="{{url_for('main.rankingaca')}}">Academias</a>
              </div>
          {% if current_user.is_authenticated and current_user.is_admin %}

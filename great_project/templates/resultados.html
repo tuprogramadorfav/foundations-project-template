@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h2>Resultados</h2>
-    <a href="{{ url_for('event.evento1') }}"><img src="h{{ url_for('static', filename='images/resultados_1.png') }}" ></a>
-    <a href="{{ url_for('event.evento1') }}"><img src="h{{ url_for('static', filename='images/resultados_2.png') }}" ></a> 
-    <a href="{{ url_for('event.evento1') }}"><img src="h{{ url_for('static', filename='images/resultados_3.png') }}" ></a>
+    <h2 class="list-title">Resultados Oficiales</h2>
+    <a class="results-img" href="{{ url_for('main.no_results') }}"><img srcset="{{ url_for('static', filename='images/resultados_1.webp') }}" type="image/webp"></a>
+    <a class="results-img" href="{{ url_for('main.no_results') }}"><img srcset="{{ url_for('static', filename='images/resultados_2.webp') }}" type="image/webp"></a> 
+    <a class="results-img" href="{{ url_for('main.no_results') }}"><img srcset="{{ url_for('static', filename='images/resultados_3.webp') }}" type="image/webp"></a>
 {% endblock %} 
