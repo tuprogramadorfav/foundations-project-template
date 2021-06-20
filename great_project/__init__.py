@@ -32,10 +32,12 @@ def create_app():
     from great_project.users.routes import users
     from great_project.event.routes import event
     from great_project.main.routes import main
+    from great_project.admin.routes import admin
 
     app.register_blueprint(users)
     app.register_blueprint(event)
     app.register_blueprint(main)
+    app.register_blueprint(admin)
     return app
 
 

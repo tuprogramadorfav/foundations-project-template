@@ -36,7 +36,7 @@
              </div>
              <!-- allow only logged in user that are admins -->
          {% if current_user.is_authenticated and current_user.is_admin %}
-             <button class="dropbtn"><a href="{{url_for('users.admin')}}">Admin</a></button>
+             <button class="dropbtn"><a href="{{url_for('admin.set_results')}}">Admin</a></button>
          {% endif %}
          <!-- allow only logged in users that are teachers -->
          {% if current_user.is_authenticated and current_user.profesor_conf %}

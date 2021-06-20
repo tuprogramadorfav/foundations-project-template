@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2 id="ranking-aca">Lista de Atletas por Division</h2>
+    <hr>
+    {% for age_division in dicts %}
+        <h3 class="atletas-header age-division">{{ age_division }}</h3>
+        {% for belt in dicts[age_division] %}
+            {% for gender in dicts[age_division][belt] %}
+                {% for weight in dicts[age_division][belt][gender] %}
+                    <h5 class="atletas-header division">{{belt}}/{{gender}}/{{weight}}</h2>
+                        <table class="ranking-table">
+                            <tbody>
+                                {% for atleta in dicts[age_division][belt][gender][weight] %}
+                                    <tr>
+                                        <td class="atleta-left">{{atleta[0]}}</td>
+                                        <td class="atleta-right">{{atleta[1]}}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                {% endfor %}
+            {% endfor %}
+        {% endfor %}
+    {% endfor %}
+
+{% endblock %} 

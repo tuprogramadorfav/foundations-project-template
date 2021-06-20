@@ -63,16 +63,12 @@ def weight(age_division):
 @event.route('/atletas_table')
 def atletas_table():
     headers = ['Nombre', 'Academia']
-    event_id = db.session.query(Event).filter_by(id=1).first()
-    belts = db.session.query(Belt.name).all()
-    weights = db.session.query(Weight.id, Weight.name).all()
     age_divisions = db.session.query(Age_division.id, Age_division.name).order_by(Age_division.id).all()
     genders = db.session.query(Gender.id, Gender.name).all()
     dicts = {}
     belt_dicts = {}
     gender_dicts = {}
     weight_dicts = {}
-    tables = []
     # main loop to separate inscribed athletes into each different combination of belt, age_division, gender and weight and store all that data in nested dictionaries
     for age_division in age_divisions:
         dicts[age_division[1]] = {}

@@ -7,6 +7,7 @@ from faker import Faker
 import random
 import datetime
 from datetime import date
+import math
 
 app = create_app()
 app.app_context().push()
@@ -262,3 +263,48 @@ for peso in pesos:
 #     dicts[age_division[1]] = belt_dicts
 #     belt_dicts = {}
 
+atletas = [('juan', 'alliance'), ('adrian', 'alfa'), ('isaac', 'mantra'), ('ian', 'cascagrossa'), ('ricardo', 'alliance'), ('ian', 'alfa'), ('bruno', 'mantra'), ('joaquin', 'cascagrossa')]
+# atletas = {'alliance':'juan', 'alfa':'adrian', 'mantra':'isaac', 'alliance':'ricardo', 'alfa':'sapo', 'mantra':'bruno', 'chuleta':'ian', 'chuleta':'joaquin'}
+atletas = {'juan':'alliance', 'adrian':'alfa', 'isaac':'mantra', 'ricardo':'alliance', 'sapo':'alfa', 'bruno':'mantra', 'ian':'chuleta', 'joaquin':'chuleta'}
+#to have a perfect bracket number of athletes in a division must be 2^x
+
+
+#to use the database in the python shell 
+from great_project import create_app
+from great_project.__init__ import db
+from great_project.models import current_app, Atleta, Academy, Belt, Gender, Event, Age_division, Registration, Weight, Weight_age_division_gender, Age_division_belt
+app = create_app()
+app.app_context().push()
+
+
+age_divisions = db.session.query(Age_division.id, Age_division.name).order_by(Age_division.id).all()
+genders = db.session.query(Gender.id, Gender.name).all()
+dicts = {}
+belt_dicts = {}
+gender_dicts = {}
+weight_dicts = {}
+for age_division in age_divisions:
+    # age_name = age_division[1]
+    dicts[age_division[1]] = {}
+    for belt in db.session.query(Belt.id, Belt.name).join(Age_division_belt).filter(Age_division_belt.age_division_id == age_division[0]).all():
+        # belt_name = belt[1]
+        belt_dicts[belt[1]] = {}
+        for gender in genders:
+            # gender_name = gender[1]
+            gender_dicts[gender[1]] = {}
+            for weight in db.session.query(Weight.id, Weight.name).join(Weight_age_division_gender).filter(Weight_age_division_gender.age_division_id == age_division[0], Weight_age_division_gender.gender_id == gender[0]).all():
+                atletas = db.session.query(Atleta.name, Academy.name, Atleta.id).join(Registration.atleta).join(Atleta.academy).filter(Atleta.gender_id == gender[0], Atleta.belt_id == belt[0], Registration.age_division_id == age_division[0], Atleta.gender_id == gender[0], Registration.weight_id == weight[0], Atleta.id == Registration.atleta_id, Registration.event_id == 1).all()
+                # weight_name = weight.name
+                if atletas != []:
+                    form = ResultsForm()
+                    form.first_place.choices = [(atleta[2], (atleta[0], atleta[1])) for atleta in atletas]
+                    form.second_place.choices = [(atleta[2], (atleta[0], atleta[1])) for atleta in atletas]
+                    form.third_place.choices = [(atleta[2], (atleta[0], atleta[1])) for atleta in atletas]
+                    form.third_place1.choices = [(atleta[2], (atleta[0], atleta[1])) for atleta in atletas]  
+                    weight_dicts[weight[1]] = form
+            gender_dicts[gender[1]] = weight_dicts
+            weight_dicts = {}
+        belt_dicts[belt[1]] = gender_dicts
+        gender_dicts = {}
+    dicts[age_division[1]] = belt_dicts
+    belt_dicts = {}
