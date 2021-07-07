@@ -13,7 +13,7 @@ def load_user(atleta_id):
 # create blueprint for event routes
 admin = Blueprint('admin', __name__)
 
-@admin.route('/set_results')
+@admin.route('/set_results', methods=['GET', 'POST'])
 @login_required
 def set_results():
     age_divisions = db.session.query(Age_division.id, Age_division.name).order_by(Age_division.id).all()
@@ -36,7 +36,7 @@ def set_results():
                     atletas = db.session.query(Atleta.name, Academy.name, Atleta.id).join(Registration.atleta).join(Atleta.academy).filter(Atleta.gender_id == gender[0], Atleta.belt_id == belt[0], Registration.age_division_id == age_division[0], Atleta.gender_id == gender[0], Registration.weight_id == weight[0], Atleta.id == Registration.atleta_id, Registration.event_id == 1).all()
                     # weight_name = weight.name
                     if atletas != []:
-                        form = ResultsForm()
+                        form = ResultsForm(prefix=f"{age_division[0]}|{belt[0]}|{gender[0]}|{weight[0]}")
                         form.first_place.choices = [(atleta[2], (atleta[0], atleta[1])) for atleta in atletas]
                         form.second_place.choices = [(atleta[2], (atleta[0], atleta[1])) for atleta in atletas]
                         form.third_place.choices = [(atleta[2], (atleta[0], atleta[1])) for atleta in atletas]
@@ -49,19 +49,23 @@ def set_results():
             gender_dicts = {}
         dicts[age_division[1]] = belt_dicts
         belt_dicts = {}
-        for form in forms:
-            if form.submit.data and form.validate_on_submit():
-                first = Atleta.query.filter_by(id=form.first_place.data).first()
-                first.points += 9
-                second = Atleta.query.filter_by(id=form.second_place.data).first()
-                second.points += 3
-                if form.third_place.data:
-                    third = Atleta.query.filter_by(id=form.third_place.data).first()
-                    third.points += 1
-                if form.third_place1.data: 
-                    third1 = Atleta.query.filter_by(id=form.third_place1.data).first()
-                    third1.points += 1 
-                db.session.commit()
-    print(dicts)           
+    for form in forms:
+        if form.submit.data and form.validate_on_submit():
+            print(form)
+            first = Atleta.query.filter_by(id=form.first_place.data).first()
+            first.points += 9
+            print("+9")
+            second = Atleta.query.filter_by(id=form.second_place.data).first()
+            second.points += 3
+            print("+3")
+            if form.third_place.data:
+                third = Atleta.query.filter_by(id=form.third_place.data).first()
+                third.points += 1
+                print("+1")
+            if form.third_place1.data: 
+                third1 = Atleta.query.filter_by(id=form.third_place1.data).first()
+                third1.points += 1
+                print("+1") 
+            db.session.commit()         
     if current_user.is_admin:
-        return render_template('set_results.html', page_title="Definir Resultados", dicts=dicts)
+        return render_template('set_results.html', page_title="Definir Resultados", dicts=dicts, forms=forms)

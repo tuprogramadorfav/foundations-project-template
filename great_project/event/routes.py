@@ -85,7 +85,7 @@ def atletas_table():
             gender_dicts = {}
         dicts[age_division[1]] = belt_dicts
         belt_dicts = {} 
-
+    print(dicts)
     return render_template('atletas_table.html', page_title="Lista de atletas por Division", headers=headers, dicts=dicts)
 
 # route to see al the athletes inscribed in an event per academy
