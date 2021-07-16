@@ -1,0 +1,48 @@
+[[source]]
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+attrs = "==20.3.0"
+click = "==7.1.2"
+flake8 = "==3.9.0"
+Flask = "==1.1.2"
+iniconfig = "==1.1.1"
+itsdangerous = "==1.1.0"
+Jinja2 = "==2.11.3"
+MarkupSafe = "==1.1.1"
+mccabe = "==0.6.1"
+pluggy = "==0.13.1"
+py = "==1.10.0"
+pycodestyle = "==2.7.0"
+pyflakes = "==2.3.1"
+pyparsing = "==2.4.7"
+pytest = "==6.2.3"
+toml = "==0.10.2"
+Werkzeug = "==1.0.1"
+Flask-SQLAlchemy = "*"
+Flask-WTF = "*"
+WTForms = "*"
+psycopg2 = "*"
+psycopg2-binary = "*"
+flask-bcrypt = "*"
+Flask-Login = "*"
+Flask-Script = "*"
+Flask-Admin = "*"
+pycountry = "*"
+intervals = "*"
+sqlalchemy-utils = "*"
+Faker = "*"
+Pillow = "*"
+Babel = "*"
+email-validator = "*"
+Flask-Table = "*"
+Flask-Mail = "*"
+pg8000 = "==1.19.4"
+python-dotenv = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.8"

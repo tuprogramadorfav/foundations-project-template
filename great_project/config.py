@@ -11,14 +11,19 @@ import os
 SECRET_KEY = 'secretkey'
 # SQLALCHEMY_DATABASE_URI = os.getenv('DB_URI')
 SQLALCHEMY_DATABASE_URI = 'sqlite:///site.db'
-MAIL_SERVER = 'smtp.gmail.com'
-MAIL_PORT = 587
-MAIL_USE_TLS = True
-MAIL_USERNAME = os.getenv('MAIL_USER')
-MAIL_PASSWORD = os.getenv('MAIL_PASSWORD')
+SECURITY_PASSWORD_SALT = 'my_precious_two'
+EVENT_CONFIRMATION_SALT = 'my_precious_three'
+MAIL_DEFAULT_SENDER = 'jarcmb2118@gmail.com'
+MAIL_SERVER = 'smtp.googlemail.com'
+MAIL_PORT = 465
+MAIL_USE_TLS = False
+MAIL_USE_SSL = True
+MAIL_USERNAME = 'jarcmb2118@gmail.com'
+MAIL_PASSWORD = 'Isaaceinstein21'
 # For example, you can add the port you wish to run on as a variable.
 # This can then be used when running the code.
 MY_PORT = "5000"
+SECURITY_PASSWORD_SALT = 'my_precious_two'
 
 # !!! Important !!!
 # Anything written in this file is effectively public knowledge.

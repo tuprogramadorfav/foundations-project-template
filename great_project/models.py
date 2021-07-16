@@ -150,6 +150,8 @@ class Registration(db.Model):
         'atleta_id', 'event_id', name='unique_constraint_atleta_event'), )
     created_at = db.Column(db.DateTime, nullable=False,
                            default=datetime.datetime.utcnow)
+    confirmed = db.Column(db.Boolean, nullable=False, default=False)
+    confirmed_on = db.Column(db.DateTime, nullable=True)
 
     def __repr__(self):
         return f"{self.weight}, {self.atleta}, {self.event}"

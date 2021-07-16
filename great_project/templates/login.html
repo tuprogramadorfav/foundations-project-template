@@ -26,12 +26,15 @@
                     {% endfor %}
                 {% endif %}
             {% endwith %}
+            <div class="login-wrapper">
                 <h2>Iniciar Sesion</h2>
+            </div>
+                
                 <form method="POST" action="">
                     {{form.hidden_tag()}}
                     <div class="inputBx">
                         <span>{{form.email.label}} </span>
-                        <div class="input-error">
+                        <div class="input-error login-wrapper" >
                             {% if form.email.errors %}
                             {{ form.email(class="form-control form-control-lg is-invalid") }}
                             <div class="invalid-feedback">
@@ -46,7 +49,7 @@
                     </div>
                     <div class="inputBx">
                         <span>{{form.password.label}}</span>
-                        <div class="input-error">
+                        <div class="input-error login-wrapper" >
                             {% if form.password.errors %}
                                 {{ form.password(class="form-control form-control-lg is-invalid")  }}
                                 <div class="invalid-feedback">

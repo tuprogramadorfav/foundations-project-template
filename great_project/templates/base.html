@@ -5,6 +5,9 @@
     <title> CEBJJ</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Titillium+Web&display=swap" rel="stylesheet"> 
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script type="text/javascript" src="{{ url_for('static', filename='script.js') }}"></script>
@@ -19,7 +22,7 @@
        </label>
        
        <div class="logo">
-          <a href="{{url_for('main.index')}}"><img src="https://www.circuitoecuatorianobjj.com/wp-content/uploads/2020/09/CEBJJ-LOGO.png" alt="CEBJJ" id="logo" data-height-percentage="65" data-actual-width="976" data-actual-height="312.047"></a>
+          <a href="{{url_for('main.index')}}"><img src="{{ url_for('static', filename='images/CEBJJ-LOGO.png') }}" alt="CEBJJ" id="logo" data-height-percentage="65" data-actual-width="976" data-actual-height="312.047"></a>
        </div>
        <input type="checkbox" id="click1" onclick="myFunction1()" >
        <label for="click1" class="menu-btn" id="burguer">
@@ -80,6 +83,7 @@
          {% endif %}
       {% endwith %}
       {% block content%} {% endblock %}
+      <div class='push'></div>
      </div>
     
     <script>
@@ -102,7 +106,7 @@
 </body>
 <footer>
     <div class="footer-logo">
-      <img src="https://cdn.glitch.com/9c567fb4-d585-45c3-a06c-32a0528cf2e3%2F16729262_1379420325411872_8602478582999078293_n.jpg?v=1616912388380">
+      <img src="{{ url_for('static', filename='images/CEBJJ-LOGO.png') }}">
     </div>
     <hr>
     <div class="footer-social-icons">
@@ -121,7 +125,7 @@
     </div>
     <div class="footer-bottom">
       <p>
-        Design by: <a href="#">Juan Antonio Romero</a>
+        Desarollado por: <a href="#">Juan Antonio Romero</a>
       </p>
     </div>
   </footer>

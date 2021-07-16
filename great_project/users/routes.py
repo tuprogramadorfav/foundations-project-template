@@ -3,24 +3,30 @@ from great_project import db, bcrypt, login_manager
 import datetime
 from datetime import date
 from flask_login import current_user, login_user, logout_user, login_required
-from great_project.users.forms import  RegistrationForm, LoginForm, AcademyRegistration, UpdateAccount, RequestResetFrom, ResetPasswordForm
+from great_project.users.forms import RegistrationForm, LoginForm, AcademyRegistration, UpdateAccount, RequestResetFrom, ResetPasswordForm
 from great_project.models import Atleta, Academy, Belt, Gender, Event, Registration, Weight, Age_division
-from great_project.users.utils import send_reset_email, belt_choices
+from great_project.users.utils import send_reset_email, belt_choices, generate_confirmation_token, confirm_token, send_email
 
-# login manager to know the current user 
+# login manager to know the current user
+
+
 @login_manager.user_loader
 def load_user(atleta_id):
     return Atleta.query.get(int(atleta_id))
 
-# set blueprints for user routes 
+
+# set blueprints for user routes
 users = Blueprint('users', __name__)
 
-# route for the users to update their info 
+# route for the users to update their info
+
+
 @users.route('/account', methods=['GET', 'POST'])
 @login_required
 def account():
     form = UpdateAccount()
-    form.academy.choices = [(academy.id, academy.name) for academy in Academy.query.all()]
+    form.academy.choices = [(academy.id, academy.name)
+                            for academy in Academy.query.all()]
     form.academy.choices.insert(0, ('Academia', 'Academia'))
     form.belt.choices = [(belt.id, belt.name) for belt in belt_choices().all()]
     form.belt.choices.insert(0, ('Cinturon', 'Cinturon'))
@@ -39,12 +45,11 @@ def account():
         db.session.commit()
         flash('Tu cuenta ha sido actualizada!', 'success')
         return redirect(url_for('users.account'))
-    # display current info 
+    # display current info
     elif request.method == 'GET':
         atleta_belt = Belt.query.filter_by(id=current_user.belt_id).first()
-        print(atleta_belt)
-        atleta_academy = Academy.query.filter_by(id=current_user.academy_id).first()
-        print(atleta_academy)
+        atleta_academy = Academy.query.filter_by(
+            id=current_user.academy_id).first()
         form.email.data = current_user.email
         form.address.data = current_user.address
         form.province.data = current_user.province
@@ -55,6 +60,8 @@ def account():
     return render_template('account.html', page_title="Cuenta", form=form)
 
 # route to login
+
+
 @users.route('/login', methods=['GET', 'POST'])
 def login():
     # don't allow users to access this route if they are already logged in
@@ -70,10 +77,13 @@ def login():
             flash(f'Hola {current_user.name}, has iniciado sesion', 'success')
             return redirect(next_page) if next_page else redirect(url_for('main.index'))
         else:
-            flash('Inicio de sesion invalido. Porfavor revisa tu correo electronico y contraseña', 'danger')
+            flash(
+                'Inicio de sesion invalido. Porfavor revisa tu correo electronico y contraseña', 'danger')
     return render_template('login.html', page_title="Iniciar Sesion", form=form)
 
-# route for the users to create a new account 
+# route for the users to create a new account
+
+
 @users.route('/registrarse', methods=['GET', 'POST'])
 def registrarse():
     if current_user.is_authenticated:
@@ -81,28 +91,60 @@ def registrarse():
     form = RegistrationForm()
 
     # create academy options from the database
-    form.academy.choices = [(academy.name, academy.name) for academy in Academy.query.all()]
+    form.academy.choices = [(academy.name, academy.name)
+                            for academy in Academy.query.all()]
 
     # validate the form on submit
     if form.validate_on_submit():
         # hash the password
-        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+        hashed_password = bcrypt.generate_password_hash(
+            form.password.data).decode('utf-8')
         gender_choice = Gender.query.filter_by(name=form.gender.data).first()
         belt_choice = Belt.query.filter_by(name=form.belt.data).first()
-        academy_choice = Academy.query.filter_by(name=form.academy.data).first()
-        date = datetime.date(int(form.year.data), (int(form.month.data)+1), int(form.day.data))
+        academy_choice = Academy.query.filter_by(
+            name=form.academy.data).first()
+        date = datetime.date(int(form.year.data), (int(
+            form.month.data)+1), int(form.day.data))
 
         # add new user to the database
-        atleta = Atleta(name = form.name.data, last_name = form.last_name.data, birth_date=date, gender = gender_choice, 
-                    email = form.email.data.lower(), nacionality = form.nacionality.data.upper(), 
-                    address = form.address.data.upper(), province = form.province.data.upper(), country = form.country.data, 
-                    phone = form.phone.data, city = form.city.data.upper(), cedula = form.cedula.data, atleta_conf = form.atleta_conf.data,
-                    belt = belt_choice, profesor_conf = form.profesor_conf.data, academy = academy_choice, password = hashed_password)
+        atleta = Atleta(name=form.name.data, last_name=form.last_name.data, birth_date=date, gender=gender_choice,
+                        email=form.email.data.lower(), nacionality=form.nacionality.data.upper(),
+                        address=form.address.data.upper(), province=form.province.data.upper(), country=form.country.data,
+                        phone=form.phone.data, city=form.city.data.upper(), cedula=form.cedula.data, atleta_conf=form.atleta_conf.data,
+                        belt=belt_choice, profesor_conf=form.profesor_conf.data, academy=academy_choice, password=hashed_password, confirmed=False)
         db.session.add(atleta)
         db.session.commit()
-        flash('Tu cuenta ha sido creada', 'success')
+        print(atleta.email)
+        token = generate_confirmation_token(atleta.email)
+        print(token)
+        confirm_url = url_for('users.confirm_email',
+                              token=token, _external=True)
+        html = render_template('activate.html', confirm_url=confirm_url)
+        subject = "Please confirm your email"
+        send_email(atleta.email, subject, html)
+        flash('Se ha enviado un correo de confirmacion via email', 'success')
         return redirect(url_for('users.login'))
     return render_template('registrarse.html', page_title="Registrarse", form=form)
+
+
+@users.route('/confirm/<token>')
+def confirm_email(token):
+    try:
+        email = confirm_token(token)
+        print(email)
+    except:
+        flash('The confirmation link is invalid or has expired.', 'danger')
+    user = Atleta.query.filter_by(email=email).first_or_404()
+    if user.confirmed:
+        flash('Account already confirmed. Please login.', 'success')
+    else:
+        user.confirmed = True
+        user.confirmed_on = datetime.datetime.now()
+        db.session.add(user)
+        db.session.commit()
+        flash('Tu cuenta ha sido confirmada, ahora puedes iniciar sesion!', 'success')
+    return redirect(url_for('users.login'))
+
 
 # route to logout
 @users.route('/logout')
@@ -113,6 +155,8 @@ def logout():
     return redirect(url_for('main.index'))
 
 # route to request for a reset password link in case they have forgotten the password
+
+
 @users.route('/reset_password', methods=['GET', 'POST'])
 def reset_request():
     # allow only users that are not logged in
@@ -131,13 +175,15 @@ def reset_request():
     return render_template('reset_request.html', page_title='Reestablecer contraseña', form=form)
 
 # route to reset the password, opened from mail
+
+
 @users.route('/reset_password/<token>', methods=['GET', 'POST'])
 def reset_token(token):
     # allow only users that are not logged in
     if current_user.is_authenticated:
         return redirect(url_for('main.index'))
 
-    # verify that the token is valid or hasn't expired 
+    # verify that the token is valid or hasn't expired
     atleta = Atleta.verify_reset_token(token)
 
     # If token is invalid or expired redirect them to request for a new one
@@ -149,7 +195,8 @@ def reset_token(token):
     # validate the form on submit
     if form.validate_on_submit():
         # create new hashed password
-        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+        hashed_password = bcrypt.generate_password_hash(
+            form.password.data).decode('utf-8')
         atleta.password = hashed_password
         db.session.commit()
         flash('Tu contraseña ha sido actualizada!', 'success')
@@ -157,19 +204,24 @@ def reset_token(token):
     return render_template('reset_token.html', page_title='Reestablecer contraseña', form=form)
 
 # route for teachers/academy owners to register their academy
+
+
 @users.route('/academy_reg', methods=['GET', 'POST'])
 @login_required
 def academy_reg():
     form = AcademyRegistration()
-    
+
     # validate the form on submit
     if form.validate_on_submit():
-        academy = Academy(name = form.name.data, province = form.province.data.upper(), country = form.country.data, city = form.city.data.upper())
+        academy = Academy(name=form.name.data, province=form.province.data.upper(
+        ), country=form.country.data, city=form.city.data.upper())
         db.session.add(academy)
         db.session.commit()
-        flash(f'La academia {form.name.data} ha sido registrada con exito', 'success')
+        flash(
+            f'La academia {form.name.data} ha sido registrada con exito', 'success')
         return redirect(url_for('main.index'))
     return render_template('academy_reg.html', page_title="Registrar Academia", form=form)
+
 
 @users.route('/admin')
 @login_required
