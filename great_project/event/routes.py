@@ -111,6 +111,7 @@ def atletas_table():
     belt_dicts = {}
     gender_dicts = {}
     weight_dicts = {}
+    children_divisions_id = [1, 2, 3, 4, 5, 6, 7]
     # main loop to separate inscribed athletes into each different combination of belt, age_division, gender and weight and store all that data in nested dictionaries
     for age_division in age_divisions:
         dicts[age_division[1]] = {}
