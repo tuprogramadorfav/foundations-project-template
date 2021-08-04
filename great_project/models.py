@@ -40,6 +40,7 @@ class Atleta(db.Model, UserMixin):
     profesor_conf = db.Column(db.Boolean)
     points = db.Column(db.Integer, nullable=False, default=0)
     is_admin = db.Column(db.Boolean, nullable=False, default=False)
+    academy_registered = db.Column(db.Boolean, nullable=False, default=False)
     registrations = db.relationship(
         'Registration', backref='atleta', lazy=True)
     created_at = db.Column(db.DateTime, nullable=False,
@@ -95,6 +96,18 @@ class Belt(db.Model):
     def __repr__(self):
         return self.name
 
+
+class Asociation(db.Model):
+    __tablename__ = 'asociation'
+    # __table_args__ = {'extend_existing': True}
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(60), nullable=False, unique=True)
+    points = db.Column(db.Integer, nullable=False, default=0)
+    academies = db.relationship('Academy', backref='academy', lazy=True)
+
+    def __repr__(self):
+        return self.id
+
 # Academies table
 
 
@@ -108,6 +121,8 @@ class Academy(db.Model):
     city = db.Column(db.String(60), nullable=False)
     points = db.Column(db.Integer, nullable=False, default=0)
     atletas = db.relationship('Atleta', backref='academy', lazy=True)
+    asociation_id = db.Column(db.Integer, db.ForeignKey(
+        'asociation.id'), nullable=False)
 
     def __repr__(self):
         return self.name

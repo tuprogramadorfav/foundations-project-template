@@ -8,7 +8,23 @@
             <form method="POST" action="">
                 {{form.hidden_tag()}}
                 <h3>Registrar Academia</h3>
-                <div class="fieldset">
+                  <div class="fieldset">
+                    <div class="form-group">
+                      <span>{{form.asociation.label}}</span>
+                      <div class="input-error">
+                        {% if form.asociation.errors %}
+                      
+                        {{ form.asociation(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                          {% for error in form.asociation.errors%}
+                            <span class="error">{{ error }}</span>
+                          {% endfor %}
+                        </div>
+                      {% else %}
+                        {{form.asociation(class="form-control form-control-lg")}}
+                      {% endif %}
+                      </div>
+                    </div>
                     <div class="form-group">
                       <span>{{form.name.label}}</span>
                       <div class="input-error">

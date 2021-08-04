@@ -3,12 +3,33 @@
 {% block content %}
     <h2 id="ranking-aca">Ranking Atletas</h2>
     <hr>
+    {% for age_division in kids_dicts %}
+        <h3 class="atletas-header age-division">{{ age_division }}</h3>
+        {% for gender in kids_dicts[age_division] %}
+            <h2 class="atletas-header division">{{gender}}</h2>
+                <div class="academies-list">
+                    <ul class="ranking-aca">
+                        {% for atleta in kids_dicts[age_division][gender]%}
+                            <li class="puesto">
+                                <div class="position-aca">{{loop.index}}</div>
+                                <div class="name-aca">{{atleta[0]}}</div>
+                                <div class="academy-aca">{{atleta[1]}}</div>
+                                <div class="points-aca">
+                                    <span class="title">POINTS</span>
+                                    <span class="subtitle">{{atleta[2]}}</span>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+        {% endfor %}
+    {% endfor %}
     {% for age_division in dicts %}
         <h3 class="atletas-header age-division">{{ age_division }}</h3>
         {% for belt in dicts[age_division] %}
             {% for gender in dicts[age_division][belt] %}
                 {% for weight in dicts[age_division][belt][gender] %}
-                    <h5 class="atletas-header division">{{belt}}/{{gender}}/{{weight}}</h2>
+                    <h2 class="atletas-header division">{{belt}}/{{gender}}/{{weight}}</h2>
                         <div class="academies-list">
                             <ul class="ranking-aca">
                                 {% for atleta in dicts[age_division][belt][gender][weight] %}
@@ -23,6 +44,7 @@
                                     </li>
                                 {% endfor %}
                             </ul>
+                        </div>
                 {% endfor %}
             {% endfor %}
         {% endfor %}

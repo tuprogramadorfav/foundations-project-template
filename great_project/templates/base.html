@@ -42,7 +42,7 @@
              <button class="dropbtn"><a href="{{url_for('admin.set_results')}}">Admin</a></button>
          {% endif %}
          <!-- allow only logged in users that are teachers -->
-         {% if current_user.is_authenticated and current_user.profesor_conf %}
+         {% if current_user.is_authenticated and current_user.profesor_conf and not current_user.academy_registered %}
             <button class="dropbtn"><a href="{{url_for('users.academy_reg')}}">Registrar Academia</a></button>
          {% endif %}
 

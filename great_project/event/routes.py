@@ -108,28 +108,46 @@ def atletas_table():
         Age_division.id, Age_division.name).order_by(Age_division.id).all()
     genders = db.session.query(Gender.id, Gender.name).all()
     dicts = {}
+    kids_dicts = {}
     belt_dicts = {}
     gender_dicts = {}
     weight_dicts = {}
-    children_divisions_id = [1, 2, 3, 4, 5, 6, 7]
+    children_divisions_id = [1, 2, 3, 4, 5, 6]
     # main loop to separate inscribed athletes into each different combination of belt, age_division, gender and weight and store all that data in nested dictionaries
     for age_division in age_divisions:
-        dicts[age_division[1]] = {}
-        for belt in db.session.query(Belt.id, Belt.name).join(Age_division_belt).filter(Age_division_belt.age_division_id == age_division[0]).all():
-            belt_dicts[belt[1]] = {}
+        if age_division[0] in children_divisions_id:
+            kids_dicts[age_division[1]] = {}
             for gender in genders:
                 gender_dicts[gender[1]] = {}
                 for weight in db.session.query(Weight.id, Weight.name).join(Weight_age_division_gender).filter(Weight_age_division_gender.age_division_id == age_division[0], Weight_age_division_gender.gender_id == gender[0]).all():
                     atletas = db.session.query(Atleta.name, Academy.name).join(Registration.atleta).join(Atleta.academy).filter(
-                        Atleta.gender_id == gender[0], Atleta.belt_id == belt[0], Registration.age_division_id == age_division[0], Atleta.gender_id == gender[0], Registration.weight_id == weight[0], Atleta.id == Registration.atleta_id, Registration.event_id == 1).all()
+                        Atleta.gender_id == gender[0], Registration.age_division_id == age_division[0], Atleta.gender_id == gender[0], Registration.weight_id == weight[0], Atleta.id == Registration.atleta_id, Registration.event_id == 1).all()
                     weight_dicts[weight[1]] = atletas
                 gender_dicts[gender[1]] = weight_dicts
                 weight_dicts = {}
-            belt_dicts[belt[1]] = gender_dicts
+            kids_dicts[age_division[1]] = gender_dicts
             gender_dicts = {}
-        dicts[age_division[1]] = belt_dicts
-        belt_dicts = {}
-    return render_template('atletas_table.html', page_title="Lista de atletas por Division", headers=headers, dicts=dicts)
+        else:
+            dicts[age_division[1]] = {}
+            for belt in db.session.query(Belt.id, Belt.name).join(Age_division_belt).filter(Age_division_belt.age_division_id == age_division[0]).all():
+                belt_dicts[belt[1]] = {}
+                for gender in genders:
+                    gender_dicts[gender[1]] = {}
+                    for weight in db.session.query(Weight.id, Weight.name).join(Weight_age_division_gender).filter(Weight_age_division_gender.age_division_id == age_division[0], Weight_age_division_gender.gender_id == gender[0]).all():
+                        atletas = db.session.query(Atleta.name, Academy.name).join(Registration.atleta).join(Atleta.academy).filter(
+                            Atleta.gender_id == gender[0], Atleta.belt_id == belt[0], Registration.age_division_id == age_division[0], Atleta.gender_id == gender[0], Registration.weight_id == weight[0], Atleta.id == Registration.atleta_id, Registration.event_id == 1).all()
+                        weight_dicts[weight[1]] = atletas
+                    gender_dicts[gender[1]] = weight_dicts
+                    weight_dicts = {}
+                belt_dicts[belt[1]] = gender_dicts
+                gender_dicts = {}
+            dicts[age_division[1]] = belt_dicts
+            belt_dicts = {}
+    for title in kids_dicts:
+        print(title)
+    for title in dicts:
+        print(title)
+    return render_template('atletas_table.html', page_title="Lista de atletas por Division", headers=headers, dicts=dicts, kids_dicts=kids_dicts)
 
 # route to see al the athletes inscribed in an event per academy
 
@@ -175,23 +193,36 @@ def ranking_atl():
     belt_dicts = {}
     gender_dicts = {}
     weight_dicts = {}
+    kids_dicts = {}
+    children_divisions_id = [1, 2, 3, 4, 5, 6]
 
 # main loop to separate inscribed athletes into each different combination of belt, age_division, gender and weight and store all that data in nested dictionaries and order them by points
     for age_division in age_divisions:
-        dicts[age_division[1]] = {}
-        for belt in db.session.query(Belt.id, Belt.name).join(Age_division_belt).filter(Age_division_belt.age_division_id == age_division[0]).all():
-            belt_dicts[belt[1]] = {}
+        if age_division[0] in children_divisions_id:
+            kids_dicts[age_division[1]] = {}
             for gender in genders:
                 gender_dicts[gender[1]] = {}
-                for weight in db.session.query(Weight.id, Weight.name).join(Weight_age_division_gender).filter(Weight_age_division_gender.age_division_id == age_division[0], Weight_age_division_gender.gender_id == gender[0]).all():
-                    atletas = db.session.query(Atleta.name, Academy.name, Atleta.points).join(Registration.atleta).join(Atleta.academy).filter(
-                        Atleta.gender_id == gender[0], Atleta.belt_id == belt[0], Registration.age_division_id == age_division[0], Atleta.gender_id == gender[0], Registration.weight_id == weight[0], Atleta.id == Registration.atleta_id).order_by(Atleta.points.desc()).all()
-                    weight_dicts[weight[1]] = atletas
-                gender_dicts[gender[1]] = weight_dicts
-                weight_dicts = {}
-            belt_dicts[belt[1]] = gender_dicts
+                atletas = db.session.query(Atleta.name, Academy.name, Atleta.points).join(Registration.atleta).join(Atleta.academy).filter(
+                    Atleta.gender_id == gender[0], Registration.age_division_id == age_division[0], Atleta.gender_id == gender[0], Atleta.id == Registration.atleta_id).order_by(Atleta.points.desc()).all()
+                gender_dicts[gender[1]] = atletas
+            kids_dicts[age_division[1]] = gender_dicts
             gender_dicts = {}
-        dicts[age_division[1]] = belt_dicts
-        belt_dicts = {}
-
-    return render_template('ranking_atl.html', page_title="Ranking Atletas", headers=headers, dicts=dicts)
+        else:
+            dicts[age_division[1]] = {}
+            for belt in db.session.query(Belt.id, Belt.name).join(Age_division_belt).filter(Age_division_belt.age_division_id == age_division[0]).all():
+                belt_dicts[belt[1]] = {}
+                for gender in genders:
+                    gender_dicts[gender[1]] = {}
+                    for weight in db.session.query(Weight.id, Weight.name).join(Weight_age_division_gender).filter(Weight_age_division_gender.age_division_id == age_division[0], Weight_age_division_gender.gender_id == gender[0]).all():
+                        atletas = db.session.query(Atleta.name, Academy.name, Atleta.points).join(Registration.atleta).join(Atleta.academy).filter(
+                            Atleta.gender_id == gender[0], Atleta.belt_id == belt[0], Registration.age_division_id == age_division[0], Atleta.gender_id == gender[0], Registration.weight_id == weight[0], Atleta.id == Registration.atleta_id).order_by(Atleta.points.desc()).all()
+                        weight_dicts[weight[1]] = atletas
+                    gender_dicts[gender[1]] = weight_dicts
+                    weight_dicts = {}
+                belt_dicts[belt[1]] = gender_dicts
+                gender_dicts = {}
+            dicts[age_division[1]] = belt_dicts
+            belt_dicts = {}
+    print(len(kids_dicts['Infanto 1']["Femenino"]))
+    print(len(kids_dicts['Infanto 1']["Masculino"]))
+    return render_template('ranking_atl.html', page_title="Ranking Atletas", headers=headers, dicts=dicts, kids_dicts=kids_dicts)

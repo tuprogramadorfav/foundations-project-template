@@ -4,7 +4,7 @@ import datetime
 from datetime import date
 from flask_login import current_user, login_user, logout_user, login_required
 from great_project.users.forms import RegistrationForm, LoginForm, AcademyRegistration, UpdateAccount, RequestResetFrom, ResetPasswordForm
-from great_project.models import Atleta, Academy, Belt, Gender, Event, Registration, Weight, Age_division
+from great_project.models import Asociation, Atleta, Academy, Belt, Gender, Asociation
 from great_project.users.utils import send_reset_email, belt_choices, generate_confirmation_token, confirm_token, send_email
 
 # login manager to know the current user
@@ -210,12 +210,18 @@ def reset_token(token):
 @login_required
 def academy_reg():
     form = AcademyRegistration()
-
+    form.asociation.choices = [(asociation.name, asociation.name)
+                               for asociation in Asociation.query.all()]
+    user = Atleta.query.filter_by(id=current_user.id).first()
     # validate the form on submit
     if form.validate_on_submit():
-        academy = Academy(name=form.name.data, province=form.province.data.upper(
+        user.academy_registered = True
+        asociation_choice = Asociation.query.filter_by(
+            name=form.asociation.data).first()
+        academy = Academy(asociation_id=asociation_choice.id, name=form.name.data, province=form.province.data.upper(
         ), country=form.country.data, city=form.city.data.upper())
         db.session.add(academy)
+        db.session.add(user)
         db.session.commit()
         flash(
             f'La academia {form.name.data} ha sido registrada con exito', 'success')
