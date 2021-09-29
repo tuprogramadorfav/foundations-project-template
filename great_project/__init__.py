@@ -5,9 +5,10 @@ from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_mail import Mail
 # from great_project.config import Config
-import sys, os
+import sys
+import os
 
-    
+
 # configure Flask using environment variables
 db = SQLAlchemy()
 bcrypt = Bcrypt()
@@ -19,6 +20,8 @@ login_manager.login_message_category = 'info'
 mail = Mail()
 
 # create app for flask
+
+
 def create_app():
     app = Flask(__name__)
     app.config.from_pyfile('config.py')
@@ -39,8 +42,3 @@ def create_app():
     app.register_blueprint(main)
     app.register_blueprint(admin)
     return app
-
-
-
-
-

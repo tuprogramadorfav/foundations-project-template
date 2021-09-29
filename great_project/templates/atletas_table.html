@@ -3,8 +3,26 @@
 {% block content %}
     <h2 id="ranking-aca">Lista de Atletas por Division</h2>
     <hr>
+    <div class="filter-wrapper">
+        <select id="select_category" class="select-filter">
+            <option value=9 selected>Categoria de Edad</option>
+            <option value=0>Infanto 1</option>
+            <option value=1>Infanto 2</option>
+            <option value=2>Infanto 3</option>
+            <option value=3>Infanto 4</option>
+            <option value=4>Infanto Juvenil 1</option>
+            <option value=5>Infanto Juvenil 2</option>
+            <option value=6>Juvenil</option>
+            <option value=7>Adulto</option>
+            <option value=8>Master</option>
+        </select>
+        <select id="select_belt" class="select-filter">
+            <option value=9 selected>Cinturon</option>
+        </select>
+    </div>
     {% for age_division in kids_dicts %}
-        <h3 class="atletas-header age-division">{{ age_division }}</h3>
+    <div id="{{age_division}}" class="age_division_table">
+        <h3 class="atletas-header age-division" >{{ age_division }}</h3>
         {% for gender in kids_dicts[age_division] %}
             {% for weight in kids_dicts[age_division][gender] %}
                 <h5 class="atletas-header division">{{gender}}/{{weight}}</h2>
@@ -28,10 +46,13 @@
                     </table>
             {% endfor %}
         {% endfor %}
+    </div>
     {% endfor %}   
     {% for age_division in dicts %}
-        <h3 class="atletas-header age-division">{{ age_division }}</h3>
+    <div id="{{age_division}}" class="age_division_table">
+        <h3 class="atletas-header age-division" >{{ age_division }}</h3>
         {% for belt in dicts[age_division] %}
+            <div class="{{belt}}">
             {% for gender in dicts[age_division][belt] %}
                 {% for weight in dicts[age_division][belt][gender] %}
                     <h5 class="atletas-header division">{{belt}}/{{gender}}/{{weight}}</h2>
@@ -55,6 +76,165 @@
                         </table>
                 {% endfor %}
             {% endfor %}
+            </div>
         {% endfor %}
+    </div>
     {% endfor %}
+    <script>
+        const infanto_1 = document.getElementById("Infanto\ 1");
+        const infanto_2 = document.getElementById("Infanto\ 2");
+        const infanto_3 = document.getElementById("Infanto\ 3");
+        const infanto_4 = document.getElementById("Infanto\ 4");
+        const infanto_juvenil_1 = document.getElementById("Infanto\ Juvenil\ 1");
+        const infanto_juvenil_2 = document.getElementById("Infanto\ Juvenil\ 2");
+        const juvenil = document.getElementById("Juvenil");
+        const adulto = document.getElementById("Adulto");
+        const master = document.getElementById("Master");
+
+        const blanco = document.getElementsByClassName("Blanco");
+        const azul = document.getElementsByClassName("Azul");
+        const violeta = document.getElementsByClassName("Violeta");
+        const marron = document.getElementsByClassName("Marron");
+        const negro = document.getElementsByClassName("Negro");
+
+        const categorySelect = document.getElementById("select_category");
+        const beltSelect = document.getElementById("select_belt");
+
+
+
+        const juvenil_belts = [["Blanco", 0], ["Azul", 1]];
+        const all = [["Blanco", 0], ["Azul", 1], ["Violeta", 2], ["Marron", 3], ["Negro", 4]];
+        
+        function displayAllTables(age_categories){
+            age_categories.forEach(function(category){
+                 category.style.display = 'block'
+            });
+        }
+
+        function displayDivisonTable(selectedOption, age_categories){
+            let filteredCategories = age_categories.splice(selectedOption, 1)
+            age_categories.forEach(function(category){
+                category.style.display = 'none'
+            });
+            filteredCategories[0].style.display = 'block'
+        }
+
+        function displayBeltOptions(belts){
+            belts.forEach(function(belt) {
+                let option = new Option(belt[0], belt[1]);
+
+                beltSelect.appendChild(option);
+                })  
+        }
+        
+        function hideBeltOptions(){
+            beltSelect.style.display = 'none'
+        }
+
+        function displayAllBeltTables(belts){
+            belts.forEach(function(belt){
+                for (let singleBelt of belt){
+                    singleBelt.style.display = 'block'
+                }
+            });
+        }
+
+        function hideBeltTables(belts, x){
+            belts.forEach(function(belt){
+                    if (belt === blanco){
+                        belt[1+x].style.display = 'none'
+                    }
+                    else if (belt === azul){
+                        belt[1+x].style.display = 'none'
+                    }
+                    else if (belt === violeta){
+                        belt[0+x].style.display = 'none'
+                    }
+                    else if (belt === marron){
+                        belt[0+x].style.display = 'none'
+                    }
+                    else if (belt === negro){
+                        belt[0+x].style.display = 'none'
+                    }
+                })
+        }
+
+        function showBeltTable(filteredBelts, x){
+            if (filteredBelts === blanco){
+                filteredBelts[1+x].style.display = 'block'
+            }
+            else if (filteredBelts === azul){
+                filteredBelts[1+x].style.display = 'block'
+            }
+            else if (filteredBelts === violeta){
+                filteredBelts[0+x].style.display = 'block'
+            }
+            else if (filteredBelts === marron){
+                filteredBelts[0+x].style.display = 'block'
+            }
+            else if (filteredBelts === negro){
+                filteredBelts[0+x].style.display = 'block'
+            }
+        }
+
+        categorySelect.addEventListener("change", function() {
+            let belts = [blanco, azul, violeta, marron, negro]
+            displayAllBeltTables(belts)
+            while (beltSelect.options.length > 1) {
+                beltSelect.remove(1);
+            }
+            let age_categories = [infanto_1, infanto_2, infanto_3, infanto_4, infanto_juvenil_1, infanto_juvenil_2, juvenil, adulto, master]
+            selectedOption = categorySelect.options[categorySelect.selectedIndex].value;
+            if (selectedOption == 9){
+                hideBeltOptions()
+                displayAllTables(age_categories)
+            }
+            else if(selectedOption > 5){
+                beltSelect.style.display = 'block'
+                if (selectedOption == 6){
+                    displayBeltOptions(juvenil_belts)
+                }
+                else{
+                    displayBeltOptions(all)
+                }
+              
+                displayDivisonTable(selectedOption, age_categories)
+            }
+            else{
+                hideBeltOptions()
+                displayDivisonTable(selectedOption, age_categories)
+            }
+
+            });
+
+
+        beltSelect.addEventListener("change", function() {
+            let belts = [blanco, azul, violeta, marron, negro]
+            console.log(belts)
+            let selectedBeltOption = beltSelect.options[beltSelect.selectedIndex].value;
+
+            if (selectedBeltOption == 9){
+                displayAllBeltTables(belts)
+            }
+            else if (selectedOption == 6){
+                let filteredBelts = belts.splice(selectedBeltOption, 1)
+                belts[0][0].style.display = 'none'
+                belts[1][0].style.display = 'none'
+                filteredBelts[0][0].style.display = 'block'
+            }
+            else if(selectedOption == 7){
+                
+                let filteredBelts = belts.splice(selectedBeltOption, 1)
+                
+                hideBeltTables(belts, 0)
+                showBeltTable(filteredBelts[0], 0)
+            }
+            else if(selectedOption == 8){
+                let filteredBelts = belts.splice(selectedBeltOption, 1)
+                
+                hideBeltTables(belts, 1)
+                showBeltTable(filteredBelts[0], 1)
+            }
+        })
+    </script>
 {% endblock %} 

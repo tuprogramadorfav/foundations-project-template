@@ -18,8 +18,8 @@ MAIL_SERVER = 'smtp.googlemail.com'
 MAIL_PORT = 465
 MAIL_USE_TLS = False
 MAIL_USE_SSL = True
-MAIL_USERNAME = 'jarcmb2118@gmail.com'
-MAIL_PASSWORD = 'Isaaceinstein21'
+MAIL_USERNAME = os.environ.get('MAIL_USER')
+MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
 # For example, you can add the port you wish to run on as a variable.
 # This can then be used when running the code.
 MY_PORT = "5000"

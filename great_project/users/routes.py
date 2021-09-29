@@ -47,16 +47,18 @@ def account():
         return redirect(url_for('users.account'))
     # display current info
     elif request.method == 'GET':
-        atleta_belt = Belt.query.filter_by(id=current_user.belt_id).first()
+        atleta_belt = Belt.query.filter_by(
+            id=current_user.belt_id).with_entities(Belt.id).first()
+        print(atleta_belt)
         atleta_academy = Academy.query.filter_by(
-            id=current_user.academy_id).first()
+            id=current_user.academy_id).with_entities(Academy.id).first()
         form.email.data = current_user.email
         form.address.data = current_user.address
         form.province.data = current_user.province
         form.country.data = current_user.country
         form.phone.data = current_user.phone
-        form.belt.data = atleta_belt
-        form.academy.data = atleta_academy
+        form.belt.data = str(atleta_belt[0])
+        form.academy.data = str(atleta_academy[0])
     return render_template('account.html', page_title="Cuenta", form=form)
 
 # route to login

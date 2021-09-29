@@ -4,9 +4,9 @@
     <h2 id="ranking-aca">Ranking Atletas</h2>
     <hr>
     {% for age_division in kids_dicts %}
-        <h3 class="atletas-header age-division">{{ age_division }}</h3>
+        <h3 class="atletas-header age-division-ranking">{{ age_division }}</h3>
         {% for gender in kids_dicts[age_division] %}
-            <h2 class="atletas-header division">{{gender}}</h2>
+            <h5 class="atletas-header division-ranking">{{gender}}</h5>
                 <div class="academies-list">
                     <ul class="ranking-aca">
                         {% for atleta in kids_dicts[age_division][gender]%}
@@ -25,11 +25,11 @@
         {% endfor %}
     {% endfor %}
     {% for age_division in dicts %}
-        <h3 class="atletas-header age-division">{{ age_division }}</h3>
+        <h3 class="atletas-header age-division-ranking">{{ age_division }}</h3>
         {% for belt in dicts[age_division] %}
             {% for gender in dicts[age_division][belt] %}
                 {% for weight in dicts[age_division][belt][gender] %}
-                    <h2 class="atletas-header division">{{belt}}/{{gender}}/{{weight}}</h2>
+                    <h5 class="atletas-header division-ranking">{{belt}}/{{gender}}/{{weight}}</h5>
                         <div class="academies-list">
                             <ul class="ranking-aca">
                                 {% for atleta in dicts[age_division][belt][gender][weight] %}

@@ -1398,7 +1398,7 @@ footer hr {
   text-align: left;
   background-color: white;
   width: 125%;
-  padding: 5px 0 5px 13%;
+  padding: 5px 0 5px 0%;
 }
 
 .division {
@@ -1411,10 +1411,35 @@ footer hr {
   top: 30;
 }
 
+.division-ranking {
+  margin-top: 15px;
+  margin-bottom: 1px;
+  color: #686868;
+  position: sticky;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 13%;
+  top: 30;
+}
+
 .age-division {
   margin-top: 20px;
   position: sticky;
   top: 0;
+}
+
+.age-division-ranking {
+  margin-top: 20px;
+  position: sticky;
+  top: 0;
+  padding: 5px 0 5px 13%;
+}
+
+.academy {
+  margin-top: 20px;
+  position: sticky;
+  top: 0;
+  padding-left: 13%;
 }
 
 #reset-form {
@@ -1537,4 +1562,38 @@ footer hr {
   .login-wrapper h2 {
     font-size: 1.25em !important;
   }
+}
+
+.age_division_table {
+  width: 100%;
+}
+
+#select_belt {
+  display: none;
+  width: 180px;
+  text-align: center;
+  height: 35px;
+  background: white;
+  border: 0.5px solid black;
+  border-radius: 3.5px;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  font-size: 1.1rem;
+}
+
+.filter-wrapper {
+  display: flex;
+  width: 425px;
+  justify-content: space-around;
+  margin-top: 15px;
+}
+
+#select_category {
+  width: 180px;
+  text-align: center;
+  height: 35px;
+  background: white;
+  border: 0.5px solid black;
+  border-radius: 3.5px;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  font-size: 1.1rem;
 }
